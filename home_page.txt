@@ -1,7 +1,6 @@
-<p><img style="width: 100%; max-height: 500px; object-fit: cover;" src="images/home%20page/whiteleafresort.jpg" alt="Hotel"></p>
-<!-- Form Section -->
-<div style="display: flex; justify-content: center; margin-top: -80px;">
-<div style="width: 100%; max-width: 1000px; background: rgba(255, 255, 255, 0.02); color: white; padding: 20px; box-sizing: border-box; text-align: center; backdrop-filter: blur(10px); border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+<p><img style="width: 100%; max-height: 900px; object-fit: cover; opacity: 0; transition: opacity 10s ease-out;" src="images/home%20page/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" alt="Hotel" onload="this.style.opacity='1';"></p>
+<div style="display: flex; justify-content: center; margin-top: -90px;">
+<div style="width: 250%; max-width: 1500px; background: rgba(255, 255, 255, 0.01); color: white; padding: 20px; box-sizing: border-box; text-align: center; backdrop-filter: blur(5px); border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
 <h3 style="margin: 0; color: #ffffff;">Book Your Stay</h3>
 <form style="display: flex; flex-wrap: nowrap; gap: 10px; justify-content: center; align-items: center;"><!-- Check-in --> <label style="flex: 0 0 80px; min-width: 80px; text-align: right; margin-right: 5px; color: #004933;" for="checkin">Check In:</label> <input id="checkin" style="flex: 1 1 100px; min-width: 100px; padding: 5px;" name="checkin" required="" type="date"> <!-- Check-out --> <label style="flex: 0 0 80px; min-width: 80px; text-align: right; margin-right: 5px; color: #004933;" for="checkout">Check Out:</label> <input id="checkout" style="flex: 1 1 100px; min-width: 100px; padding: 5px;" name="checkout" required="" type="date"> <!-- Adults --> <label style="flex: 0 0 60px; min-width: 60px; text-align: right; margin-right: 5px; color: #004933;" for="adults">Adults:</label>
 <div style="display: flex; align-items: center;"><button style="background-color: #004933; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 15px; margin-right: 5px;" type="button">-</button> <input id="adults" style="width: 50px; text-align: center;" min="1" name="adults" type="number" value="1"> <button style="background-color: #004933; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 15px; margin-left: 5px;" type="button">+</button></div>
@@ -9,6 +8,7 @@
 <div style="display: flex; align-items: center;"><button style="background-color: #004933; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 15px; margin-right: 5px;" type="button">-</button> <input style="width: 50px; text-align: center;" min="0" type="number" value="0"> <button style="background-color: #004933; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 15px; margin-left: 5px;" type="button">+</button></div>
 <br><!-- Submit Button --> <button style="flex: 0 1 auto; max-width: 150px; background-color: #004933; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 20px;" type="submit">Check Availability</button></form></div>
 </div>
+<p style="color: rgba(128, 128, 128, 0.7); margin-top: 15px; font-size: 20px; text-align: center;"><strong>Note: juvenile under 14 are considered to be children.</strong></p>
 <div style="text-align: center; padding: 20px;">
 <h2 style="color: #2e8b57; font-family: 'Noto Serif', serif; text-align: left; margin-left: 100px;">Our Hotels</h2>
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;"><!-- Dines Box -->
@@ -35,17 +35,30 @@
 <div style="position: relative; width: 100%; max-width: 550px; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); font-family: 'Noto Serif', serif; font-size: 18px; color: #333; text-align: center;"><a style="display: block; position: relative; width: 100%; border-radius: 4px; overflow: hidden;" href="your-link-to-events-page.html"> <img style="width: 100%; transition: transform 0.3s ease;" src="images/home%20page/dine2.png" alt="Events Image"> </a> <a style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(76, 175, 80, 0.8); color: white; padding: 15px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; text-decoration: none; transition: background-color 0.3s;" href="your-link-to-events-page.html"> Events </a> <a style="position: absolute; bottom: 15px; right: 10px; font-size: 14px; color: #fff; text-decoration: none; transition: color 0.3s;" href="your-link-to-events-page.html">Read More</a></div>
 </div>
 </div>
-<p> </p>
 <h1 style="margin: 0; color: #2e8b57; text-align: center; font-family: 'Noto Serif', serif;">Our Services</h1>
-<!-- Container for the grid layout -->
-<div style="display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 20px;">
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 230px; gap: 20px; width: 100%; max-width: 1200px; justify-items: center;"><!-- Image containers with individual inline styles for each item -->
-<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"><img style="width: 50%; height: 50%; object-fit: contain;" src="images/Services/Pasted%20image.png" alt="Image 1" loading="lazy"></div>
-<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"><img style="width: 50%; height: 50%; object-fit: contain;" src="images/Services/Pasted%20image%202.png" alt="Image 2" loading="lazy"></div>
-<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"><img style="width: 50%; height: 50%; object-fit: contain;" src="images/Services/Pasted%20image%203.png" alt="Image 3" loading="lazy"></div>
-<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"><img style="width: 50%; height: 50%; object-fit: contain;" src="images/Services/Pasted%20image%204.png" alt="Image 4" loading="lazy"></div>
-<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"><img style="width: 50%; height: 50%; object-fit: contain;" src="images/Services/Pasted%20image%205.png" alt="Image 5" loading="lazy"></div>
-<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"><img style="width: 50%; height: 50%; object-fit: contain;" src="images/Services/Pasted%20image%206.png" alt="Image 6" loading="lazy"></div>
-<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"><img style="width: 50%; height: 50%; object-fit: contain;" src="images/Services/Pasted%20image%207.png" alt="Image 7" loading="lazy"></div>
+<!-- Container for the Our Services section -->
+<div style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 350px; gap: 40px; width: 85%; max-width: 100%; justify-items: center; padding: 0 20px;"><!-- Image containers with individual inline styles for each item -->
+<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;"><img style="width: 80%; height: 80%; object-fit: contain;" src="images/Services/Pasted%20image.png" alt="Image 1" loading="lazy">
+<p style="text-align: center; margin-top: 10px; color: #2e8b57; font-size: 24px; font-weight: bold;">Bar</p>
+</div>
+<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;"><img style="width: 80%; height: 80%; object-fit: contain;" src="images/Services/Pasted%20image%202.png" alt="Image 2" loading="lazy">
+<p style="text-align: center; margin-top: 10px; color: #2e8b57; font-size: 24px; font-weight: bold;">WiFi</p>
+</div>
+<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;"><img style="width: 80%; height: 80%; object-fit: contain;" src="images/Services/Pasted%20image%203.png" alt="Image 3" loading="lazy">
+<p style="text-align: center; margin-top: 10px; color: #2e8b57; font-size: 24px; font-weight: bold;">Swimming Pool</p>
+</div>
+<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;"><img style="width: 80%; height: 80%; object-fit: contain;" src="images/Services/Pasted%20image%204.png" alt="Image 4" loading="lazy">
+<p style="text-align: center; margin-top: 10px; color: #2e8b57; font-size: 24px; font-weight: bold;">Parking Space</p>
+</div>
+<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;"><img style="width: 80%; height: 80%; object-fit: contain;" src="images/Services/Pasted%20image%205.png" alt="Image 5" loading="lazy">
+<p style="text-align: center; margin-top: 10px; color: #2e8b57; font-size: 24px; font-weight: bold;">Breakfast</p>
+</div>
+<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;"><img style="width: 80%; height: 80%; object-fit: contain;" src="images/Services/Pasted%20image%206.png" alt="Image 6" loading="lazy">
+<p style="text-align: center; margin-top: 10px; color: #2e8b57; font-size: 24px; font-weight: bold;">24/7 light</p>
+</div>
+<div style="background-color: #fafafa; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;"><img style="width: 80%; height: 80%; object-fit: contain;" src="images/Services/Pasted%20image%207.png" alt="Image 6" loading="lazy">
+<p style="text-align: center; margin-top: 10px; color: #2e8b57; font-size: 24px; font-weight: bold;">Event Space</p>
+</div>
 </div>
 </div>

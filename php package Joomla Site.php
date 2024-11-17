@@ -3,7 +3,7 @@
  * @package Joomla.Site
  * @subpackage Templates.WhiteLeafResort
  *
- * @copyright (C) YEAR Your Name
+ * @copyright (C) 2024 Sameer man shrestha
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  * This is a heavily stripped down/modified version of the default Cassiopeia template, designed to build new templates off of.
  */
@@ -17,10 +17,20 @@ use Joomla\CMS\Uri\Uri;
 /** @var Joomla\CMS\Document\HtmlDocument $this */
 $app = Factory::getApplication();
 $wa = $this->getWebAssetManager();
-
+// custom JS script here:
+$wa->addInlineScript('
+    function adjustValue(fieldId, change) {
+        const input = document.getElementById(fieldId);
+        const currentValue = parseInt(input.value) || 0;
+        const minValue = parseInt(input.min) || 0;
+        const newValue = currentValue + change;
+        
+        if (newValue >= minValue) {
+            input.value = newValue;
+        }
+    }
+');
 // Add Favicon from images folder
-$this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'icon', 'rel', ['type' => 'image/x-icon']);
-
 // Detecting Active Variables
 $option = $app->input->getCmd('option', '');
 $view = $app->input->getCmd('view', '');
@@ -78,48 +88,117 @@ $wa->addInlineStyle('
     <?php // Loads the site's CSS and JS files from web asset manager ?>
 	<jdoc:include type="styles" />
 	<jdoc:include type="scripts" />
+    <link rel="icon" href="<?php echo $this->baseurl; ?>/templates/joomstarter/favicon.ico" type="image/x-icon">
+        <!-- Custom CSS for the form -->
+    <style>
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        form > label {
+            flex: 0 0 80px;
+            min-width: 80px;
+            text-align: right;
+            margin-right: 5px;
+            color: #004933;
+        }
+        form > input, form > div, form > button {
+            flex: 1 1 100px;
+            min-width: 100px;
+            padding: 5px;
+        }
+        button {
+            background-color: #004933;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        /* Mobile responsive styling */
+        @media (max-width: 600px) {
+            form {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            form > label {
+                text-align: left;
+                flex: 1 1 auto;
+                min-width: unset;
+            }
+            form > div, form > input, form > button {
+                flex: 1 1 auto;
+                width: 100%;
+                max-width: none;
+            }
+            button {
+                margin-top: 15px;
+            }
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.05) !important;
+            transition: background 0.3s ease;
+        }
 
-    <?php /** You can put links to CSS/JS just like any regular HTML page here too, and remove the jdoc:include script/style lines above if you want.
-     * Do not delete the metas line though
-     * 
-     * For example, if you want to manually link to a custom stylesheet or script, you can do it like this:
-     * <link rel="stylesheet" href="https://mysite.com/templates/mytemplate/mycss.css" type="text/css" />
-     * <script src="https://mysite.com/templates/mytemplate/myscript.js"></script>
-     * */ 
-    ?>
-    
+        .navbar-nav .nav-link {
+            color: #2E8B57 !important;
+            font-family: 'Noto Serif', serif;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #555555 !important;
+        }
+
+        .container-fluid {
+            padding: 0 15px;
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar {
+                background: rgba(255, 255, 255, 0.05) !important;
+            }
+    </style>  
+      
 </head>
 
 <?php // you can change data-bs-theme to dark for dark mode  // ?>
 <body class="site <?php echo $pageclass; ?>" data-bs-theme="light">
-	<header >
-        <div class="container">
-            <a href="" class="navbar-brand" style="z-index: 10; position: relative;">
-                <img src="images/logo/WhatsApp_Image_2024-11-06_at_3.30.01_PM-removebg-preview.png" alt="Site Logo" style="height: 160px; width: auto; margin-top: 25px;">
-            </a>
-        </div>
-    </header>
-            <div class="container">
-                <nav class="navbar navbar-expand-lg" style="position: relative; margin-top: -40px;"> <!-- Set position relative here -->
-                    <div class="container">
+<header>
+ <div class="container">
+ <div class="row align-items-center" style="margin-bottom: -40px">
+ <div class="col-lg-3 col-md-4 col-sm-6">
+ <a href="" class="navbar-brand" style="z-index: 10; position: relative;">
+ <img src="images/logo/Untitled_design-removebg-preview.png" alt="Site Logo" style="height: 200px; width: auto; margin-top: 5px;">
+ </a>
+ </div>
+ <div class="col-lg-9 col-md-8 col-sm-6">
+ <nav class="navbar navbar-expand-lg navbar-light" style="position: relative;margin-bottom:20px; background: rgba(255, 255, 255, 0.05);">
+ <div class="container-fluid">
+ <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Toggle navigation" style="margin-top:-55px">
+ <span class="navbar-toggler-icon"></span>
+ </button>
 
-                        <!-- Right-aligned hamburger menu button -->
-                        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Toggle navigation" style="margin-top: -50px;">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <?php if ($this->countModules('menu')): ?>
-                            <!-- Dropdown menu with absolute positioning -->
-                            <div class="collapse navbar-collapse" id="mainmenu" style="position: absolute; right: 0; left: auto; top: 100%; margin-top: -25px;"> <!-- Added top: 100% -->
-                                <div class="navbar-nav" style="font-size: 25px; text-align: right;">
-                                    <jdoc:include type="modules" name="menu" style="none"/>
-                                </div>
-                            </div> 
-                        <?php endif; ?>
-                    </div>
-                </nav>
-            </div>
-    <br>
+<?php if ($this->countModules('menu')): ?>
+ <div class="collapse navbar-collapse" id="mainmenu">
+ <div class="navbar-nav ms-auto" style="font-size: 24px;">
+ <!-- Override module chrome to prevent nested hamburger -->
+ <jdoc:include type="modules" name="menu" style="raw"/>
+ </div>
+ </div>
+<?php endif; ?>
+ </div>
+ </nav>
+ </div>
+ </div>
+ </div>
+</header>
     <?php if ($this->countModules('breadcrumbs')): ?>
         <div class="bg-primary text-white link-white">
             <div class="container">
@@ -127,14 +206,74 @@ $wa->addInlineStyle('
             </div>
         </div>
     <?php endif; ?>
-    <div class="container">
         <div class="row">
-            <div class="col-12">
                 <jdoc:inlcude type="message"/>
                 <jdoc:include type="component"/>
+        </div>
+
+        <?php
+// Get the application object
+$app = JFactory::getApplication();
+
+// Check if the current page is the homepage
+if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
+    // HTML content for the homepage only
+?>
+    <div style="display: flex; border-radius: 8px; overflow: hidden; margin-left: 185px; margin-right: 185px; ">
+    <!-- Left box with "Our Location" -->
+    <div style="background-color: #ECE2B1; padding: 20px; width: 40%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 50px; border-radius: 8px;">
+        <h1 style="color: #2e8b57; font-family: 'Noto Serif', serif; margin: 0 0 10px; text-align: left;">Our Location</h1>
+        <p style="margin: 0; font-family: Arial, sans-serif; line-height: 1.5;">
+            White Leaf Resort Sukute<br>
+            Araniko Highway, Kadambas 45314<br>
+            PQ99+5R Kadambas<br><br>
+            +977 9851342321<br>
+            <a href="mailto:reservation@whiteleafresort.com" style="color: #2e8b57; text-decoration: none;">reservation@whiteleafresort.com</a>
+        </p>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=White+Leaf+Resort+Sukute,+Araniko+Highway,+Kadambas+45314"
+            target="_blank"
+            style="margin-top: 20px; padding: 10px 15px; border: 2px solid #000; color: #000; text-decoration: none; border-radius: 5px; display: inline-block; text-align: center; font-family: 'Noto Serif', serif;">
+            <h2 style="margin: 0; font-size: 18px; color: #000;">See Directions</h2>
+        </a>
+    </div>
+    <!-- Right box with Google Map -->
+    <div style="width: 60%; position: relative;">
+            <div style="width: 100%; height: 0; padding-bottom: 75%; position: relative; border-radius: 8px; overflow: hidden; margin-bottom: 50px;">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.980251196604!2d85.767031911828!3d27.717896024925228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ebb15f15a00c05%3A0x768bca07f7b5b646!2sWhite%20Leaf%20Resort!5e0!3m2!1sen!2snp!4v1731065837861!5m2!1sen!2snp"
+                    width="100%"
+                    height="100%"
+                    style="border: 0; position: absolute; top: 0; left: 0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
     </div>
+
+
+    <!-- Add media queries for responsiveness -->
+    <style>
+        @media only screen and (max-width: 768px) {
+            .container {
+                flex-direction: column !important;
+            }
+            .container > div {
+                width: 100% !important;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+<?php
+}
+?>
+
+
+    
+        
+        
+
     
     <div class="bg-black text-white">
         <div class="container">

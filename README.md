@@ -1,5 +1,7 @@
 # White Leaf Resort
 
+![image](https://github.com/user-attachments/assets/e5fd7402-980d-4680-8478-9f40b3ca8afd)
+
 Welcome to the White Leaf Resort project! This repository contains the source code and assets for the White Leaf Resort website, showcasing our luxurious accommodations, dining options, event hosting, and more.
 
 ## Table of Contents
@@ -11,6 +13,7 @@ Welcome to the White Leaf Resort project! This repository contains the source co
 - [Programming Languages Used](#programming-languages-used)
 - [Contact Us](#contact-us)
 - [License](#license)
+
 
 ## About Us
 
@@ -69,3 +72,7 @@ You can also find directions to our resort here.
 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+Thank you for your interest in the White Leaf Resort project! We hope you enjoy exploring our website and learning about our services.
+
+
+You can copy and paste this Markdown text into your `README.md` file in your GitHub repository. Adjust any specific details as necessary!

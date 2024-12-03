@@ -84,6 +84,9 @@ $wa->addInlineStyle('
     <?php // Loads important metadata like the page title and viewport scaling ?>
 	<jdoc:include type="metas" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
     <?php // Loads the site's CSS and JS files from web asset manager ?>
 	<jdoc:include type="styles" />
@@ -91,61 +94,27 @@ $wa->addInlineStyle('
     <link rel="icon" href="<?php echo $this->baseurl; ?>/templates/joomstarter/favicon.ico" type="image/x-icon">
         <!-- Custom CSS for the form -->
     <style>
-        form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-        form > label {
-            flex: 0 0 80px;
-            min-width: 80px;
-            text-align: right;
-            margin-right: 5px;
-            color: #004933;
-        }
-        form > input, form > div, form > button {
-            flex: 1 1 100px;
-            min-width: 100px;
-            padding: 5px;
-        }
-        button {
-            background-color: #004933;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 20px;
-        }
         /* Mobile responsive styling */
-        @media (max-width: 600px) {
-            form {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            form > label {
-                text-align: left;
-                flex: 1 1 auto;
-                min-width: unset;
-            }
-            form > div, form > input, form > button {
-                flex: 1 1 auto;
-                width: 100%;
-                max-width: none;
-            }
-            button {
-                margin-top: 15px;
-            }
-        }
         .navbar {
-            background: rgba(255, 255, 255, 0.05) !important;
+            background: rgba(255, 255, 255, 0.05) !important; /* Keep the existing background */
             transition: background 0.3s ease;
+            width: 100%; /* Ensure the navbar takes the full width */
+            margin: 0; /* Remove any margin */
+            padding: 15px 20px; /* Add padding to increase the background area */
+        }
+
+        .navbar-nav {
+            display: flex; /* Use flexbox to arrange items in a single row */
+            flex-wrap: nowrap; /* Prevent wrapping to the next line */
+            justify-content: flex-end; /* Align items to the right (optional) */
+            margin-left: -50px;
         }
 
         .navbar-nav .nav-link {
-            color: #2E8B57 !important;
-            font-family: 'Noto Serif', serif;
+            white-space: nowrap; /* Prevent text wrapping within each link */
+            margin-left: 0; /* Adjust left margin if necessary */
+            margin-right: 5px; /* Increase this value to create a larger gap */
+            padding: 1px 1px; /* Keep padding as needed */
         }
 
         .navbar-toggler-icon {
@@ -157,10 +126,10 @@ $wa->addInlineStyle('
         }
 
         .container-fluid {
-            padding: 0 15px;
+            padding: 0 10px;
         }
 
-        @media (max-width: 991.98px) {
+        @media (max-width: 6000px) {
             .navbar {
                 background: rgba(255, 255, 255, 0.05) !important;
             }
@@ -170,46 +139,108 @@ $wa->addInlineStyle('
 
 <?php // you can change data-bs-theme to dark for dark mode  // ?>
 <body class="site <?php echo $pageclass; ?>" data-bs-theme="light">
-<header>
- <div class="container">
- <div class="row align-items-center" style="margin-bottom: -40px">
- <div class="col-lg-3 col-md-4 col-sm-6">
- <a href="" class="navbar-brand" style="z-index: 10; position: relative;">
- <img src="images/logo/Untitled_design-removebg-preview.png" alt="Site Logo" style="height: 200px; width: auto; margin-top: 5px;">
- </a>
- </div>
- <div class="col-lg-9 col-md-8 col-sm-6">
- <nav class="navbar navbar-expand-lg navbar-light" style="position: relative;margin-bottom:20px; background: rgba(255, 255, 255, 0.05);">
- <div class="container-fluid">
- <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Toggle navigation" style="margin-top:-55px">
- <span class="navbar-toggler-icon"></span>
- </button>
+<?php
+$menu = JFactory::getApplication()->getMenu();
+$isHomePage = $menu->getActive() == $menu->getDefault();
+?>
 
-<?php if ($this->countModules('menu')): ?>
- <div class="collapse navbar-collapse" id="mainmenu">
- <div class="navbar-nav ms-auto" style="font-size: 24px;">
- <!-- Override module chrome to prevent nested hamburger -->
- <jdoc:include type="modules" name="menu" style="raw"/>
+<style>
+    /* Default header height for large screens */
+    header {
+        position: relative;
+        <?= $isHomePage ? 'height: 1000px; margin-top: -40px;' : 'margin: 0;' ?> 
+        overflow: hidden;
+    }
+
+    /* Adjust background intensity and header size for small screens */
+    @media (max-width: 768px) {
+        header {
+            height: 0% !important;  /* Reduce height by 60% for small screens */
+        }
+
+        header img {
+            height: auto;
+            max-height: 400px; /* Adjust image height for smaller screens */
+        }
+
+        header .container {
+            margin-left: 0 !important; /* Remove extra left margin */
+            padding: 0px; /* Reduce padding */
+            background: rgba(255, 255, 255, 0.001) !important; /* Reduce background opacity for small screens */
+        }
+
+        .navbar-brand img {
+            height: 100px; /* Scale down logo size */
+        }
+
+        /* Reduce gap between header and other components */
+        .row.align-items-center {
+            margin-bottom: 10px !important; /* Reduce bottom margin */
+        }
+    }
+</style>
+
+<?php
+$app = JFactory::getApplication();
+$menu = $app->getMenu();
+$isHomePage = $menu->getActive() == $menu->getDefault();
+?>
+<header style="position: relative; <?= $isHomePage ? 'height: 1000px; margin-top: -40px;' : 'margin: 0;' ?> overflow: hidden;">
+    <?php if ($isHomePage): ?>
+        <img style="width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.1); transition: opacity 10s ease-out, transform 10s ease-out; position: absolute; top: 0; left: 0; z-index: -1;" 
+             src="images/home%20page/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
+             alt="Background Image" 
+             onload="this.style.opacity='1'; this.style.transform='scale(1)';">
+    <?php endif; ?>
+    <div  style="width: 100%; max-width: 1200px; background: rgba(255, 255, 255, 0.7); color: white; padding: 10px; box-sizing: border-box; text-align: center; backdrop-filter: blur(5px); border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); <?= $isHomePage ? 'margin-left: 325px;' : 'margin-left: auto; margin-right: auto;' ?>">
+        <div class="row align-items-center" style="margin-bottom: -40px;">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="" class="navbar-brand" style="z-index: 10; position: relative;">
+                    <img src="images/logo/Untitled_design-removebg-preview.png" alt="Site Logo" style="height: 200px; width: auto; margin-top: 5px;">
+                </a>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-6">
+            <nav class="navbar navbar-expand-lg navbar-light" style="position: relative; margin-bottom: 20px; background: rgba(255, 255, 255, 0.5);">
+            <div class="container-fluid">
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Toggle navigation" style="margin-top: -55px;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <?php if ($this->countModules('menu')): ?>
+                    <div class="collapse navbar-collapse" id="mainmenu">
+                        <div class="navbar-nav ms-auto" style="font-size: 20px;">
+                            <!-- Override module chrome to prevent nested hamburger -->
+                            <jdoc:include type="modules" name="menu" style="raw"/>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<?php if ($this->countModules('breadcrumbs')): ?>
+ <div class="bg-primary text-white link-white">
+ <div class="container">
+ <jdoc:include type="modules" name="breadcrumbs" style="none"/>
  </div>
  </div>
 <?php endif; ?>
+
+<?php if ($this->countModules('hotel_module')): ?>
+ <div class="container">
+ <jdoc:include type="modules" name="hotel_module" style="none"/>
  </div>
- </nav>
+<?php endif; ?>
+
+ <div class="container" style="margin-bottom: 200px">
+ <jdoc:include type="message"/>
+ <jdoc:include type="component"/>
  </div>
- </div>
- </div>
-</header>
-    <?php if ($this->countModules('breadcrumbs')): ?>
-        <div class="bg-primary text-white link-white">
-            <div class="container">
-                <jdoc:include type="modules" name="breadcrumbs" style="none"/>
-            </div>
-        </div>
-    <?php endif; ?>
-        <div class="row">
-                <jdoc:inlcude type="message"/>
-                <jdoc:include type="component"/>
-        </div>
 
         <?php
 // Get the application object
@@ -219,9 +250,9 @@ $app = JFactory::getApplication();
 if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
     // HTML content for the homepage only
 ?>
-    <div style="display: flex; border-radius: 8px; overflow: hidden; margin-left: 185px; margin-right: 185px; ">
+<div style="display: flex; width: 100%; border-radius: 8px; overflow: hidden;" class="container">
     <!-- Left box with "Our Location" -->
-    <div style="background-color: #ECE2B1; padding: 20px; width: 40%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 50px; border-radius: 8px;">
+    <div style="background-color: #ECE2B1; padding: 20px; flex: 1 1 40%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 50px; border-radius: 8px;">
         <h1 style="color: #2e8b57; font-family: 'Noto Serif', serif; margin: 0 0 10px; text-align: left;">Our Location</h1>
         <p style="margin: 0; font-family: Arial, sans-serif; line-height: 1.5;">
             White Leaf Resort Sukute<br>
@@ -237,43 +268,54 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
         </a>
     </div>
     <!-- Right box with Google Map -->
-    <div style="width: 60%; position: relative;">
-            <div style="width: 100%; height: 0; padding-bottom: 75%; position: relative; border-radius: 8px; overflow: hidden; margin-bottom: 50px;">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.980251196604!2d85.767031911828!3d27.717896024925228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ebb15f15a00c05%3A0x768bca07f7b5b646!2sWhite%20Leaf%20Resort!5e0!3m2!1sen!2snp!4v1731065837861!5m2!1sen!2snp"
-                    width="100%"
-                    height="100%"
-                    style="border: 0; position: absolute; top: 0; left: 0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
+    <div style="flex: 1 1 60%; position: relative; margin-bottom: 50px; overflow: hidden;">
+        <div style="width: 100%; height: 0; padding-bottom: 75%; position: relative; border-radius: 8px; overflow: hidden;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.980251196604!2d85.767031911828!3d27.717896024925228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ebb15f15a00c05%3A0x768bca07f7b5b646!2sWhite%20Leaf%20Resort!5e0!3m2!1sen!2snp!4v1731065837861!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style="border: 0; position: absolute; top: 0; left: 0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
     </div>
+</div>
 
+<!-- Add media queries for responsiveness -->
+<style>
+    /* Flexbox setup for layout */
+    div[style*="display: flex;"] {
+        display: flex;
+        width: 100%; /* Ensure the container takes full width */
+    }
 
-    <!-- Add media queries for responsiveness -->
-    <style>
-        @media only screen and (max-width: 768px) {
-            .container {
-                flex-direction: column !important;
-            }
-            .container > div {
-                width: 100% !important;
-                margin-bottom: 30px;
-            }
+    div[style*="flex: 1 1 40%;"] {
+        flex: 1 1 40%; /* Left box takes 40% */
+    }
+
+    div[style*="flex: 1 1 60%;"] {
+        flex: 1 1 60%; /* Right box takes 60% */
+    }
+
+    /* Ensure both boxes behave well on smaller screens */
+    @media only screen and (max-width: 768px) {
+        div[style*="display: flex;"] {
+            flex-direction: column !important;
+            width: 100% !important; /* Full width on smaller screens */
+            margin: 0 !important; /* Remove margins on smaller screens */
         }
-    </style>
+        div[style*="flex: 1 1 40%;"], div[style*="flex: 1 1 60%;"] {
+            width: 100% !important;
+        }
+    }
+</style>
+
+
 <?php
 }
 ?>
-
-
-    
-        
-        
-
     
     <div class="bg-black text-white">
         <div class="container">
@@ -307,4 +349,3 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
 	<jdoc:include type="modules" name="debug" style="none" />
 </body>
 </html>
-

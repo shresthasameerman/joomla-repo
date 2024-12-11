@@ -208,7 +208,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 
                 <?php if ($this->countModules('menu')): ?>
                     <div class="collapse navbar-collapse" id="mainmenu">
-                        <div class="navbar-nav ms-auto" style="font-size: 20px;">
+                        <div class="navbar-nav ms-auto" style="font-size: 32px; color: green; font-weight: bold;">
                             <!-- Override module chrome to prevent nested hamburger -->
                             <jdoc:include type="modules" name="menu" style="raw"/>
                         </div>
@@ -222,12 +222,25 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 </header>
 
 
-
 <?php if ($this->countModules('breadcrumbs')): ?>
- <div class="bg-primary text-white link-white">
- <div class="container">
- <jdoc:include type="modules" name="breadcrumbs" style="none"/>
- </div>
+ <style>
+     .mod-breadcrumbs {
+         background-color: #198754; /* Green-500 background color */
+         color: white; /* Ensure text color is white *//* Optional padding for better spacing */
+         border-radius: 5px; /* Optional rounded corners */
+     }
+     .mod-breadcrumbs a, 
+     .mod-breadcrumbs span {
+         color: white; /* Ensure text color is white */
+     }
+     .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+         color: white; /* Ensure separator color is white */
+     }
+ </style>
+ <div class="mod-breadcrumbs">
+     <div class="container">
+         <jdoc:include type="modules" name="breadcrumbs" style="none"/>
+     </div>
  </div>
 <?php endif; ?>
 
@@ -349,3 +362,4 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
 	<jdoc:include type="modules" name="debug" style="none" />
 </body>
 </html>
+

@@ -134,7 +134,8 @@ $wa->addInlineStyle('
                 background: rgba(255, 255, 255, 0.05) !important;
             }
     </style>  
-      
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <?php // you can change data-bs-theme to dark for dark mode  // ?>
@@ -188,7 +189,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 <header style="position: relative; <?= $isHomePage ? 'height: 1000px; margin-top: -40px;' : 'margin: 0;' ?> overflow: hidden;">
     <?php if ($isHomePage): ?>
         <img style="width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.1); transition: opacity 10s ease-out, transform 10s ease-out; position: absolute; top: 0; left: 0; z-index: -1;" 
-             src="images/home%20page/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
+             src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
              alt="Background Image" 
              onload="this.style.opacity='1'; this.style.transform='scale(1)';">
     <?php endif; ?>
@@ -196,7 +197,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         <div class="row align-items-center" style="margin-bottom: -40px;">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a href="" class="navbar-brand" style="z-index: 10; position: relative;">
-                    <img src="images/logo/Untitled_design-removebg-preview.png" alt="Site Logo" style="height: 200px; width: auto; margin-top: 5px;">
+                    <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo" style="height: 200px; width: auto; margin-top: 5px;">
                 </a>
             </div>
             <div class="col-lg-9 col-md-8 col-sm-6">
@@ -221,7 +222,6 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
     </div>
 </header>
 
-
 <?php if ($this->countModules('breadcrumbs')): ?>
  <style>
      .mod-breadcrumbs {
@@ -245,12 +245,12 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 <?php endif; ?>
 
 <?php if ($this->countModules('hotel_module')): ?>
- <div class="container">
+ <div class="container" style="margin-top: -100px;">
  <jdoc:include type="modules" name="hotel_module" style="none"/>
  </div>
 <?php endif; ?>
 
- <div class="container" style="margin-bottom: 200px">
+ <div class="container" style="margin-bottom: 20px">
  <jdoc:include type="message"/>
  <jdoc:include type="component"/>
  </div>
@@ -320,7 +320,61 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
             margin: 0 !important; /* Remove margins on smaller screens */
         }
         div[style*="flex: 1 1 40%;"], div[style*="flex: 1 1 60%;"] {
-            width: 100% !important;
+            width: 100% !i<div style="display: flex; width: 100%; border-radius: 8px; overflow: hidden;" class="container">
+            
+            
+<!-- Container with left and right margin -->
+<div class="container" style="display: flex; justify-content: space-between;  margin: 0 500px;">
+    <!-- Left box with "Our Location" -->
+    <div style="background-color: #ECE2B1; padding: 20px; flex: 1 1 40%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 50px; border-radius: 8px;">
+        <h1 style="color: #2e8b57; font-family: 'Noto Serif', serif; margin: 0 0 10px; text-align: left;">Our Location</h1>
+        <p style="margin: 0; font-family: Arial, sans-serif; line-height: 1.5;">
+            White Leaf Resort Sukute<br>
+            Araniko Highway, Kadambas 45314<br>
+            PQ99+5R Kadambas<br><br>
+            +977 9851342321<br>
+            <a href="mailto:reservation@whiteleafresort.com" style="color: #2e8b57; text-decoration: none;">reservation@whiteleafresort.com</a>
+        </p>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=White+Leaf+Resort+Sukute,+Araniko+Highway,+Kadambas+45314"
+            target="_blank"
+            style="margin-top: 20px; padding: 10px 15px; border: 2px solid #000; color: #000; text-decoration: none; border-radius: 5px; display: inline-block; text-align: center; font-family: 'Noto Serif', serif;">
+            <h2 style="margin: 0; font-size: 18px; color: #000;">See Directions</h2>
+        </a>
+    </div>
+    <!-- Right box with Google Map -->
+    <div style="flex: 1 1 60%; position: relative; margin-bottom: 50px; overflow: hidden;">
+        <div style="width: 100%; height: 0; padding-bottom: 75%; position: relative; border-radius: 8px; overflow: hidden;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.980251196604!2d85.767031911828!3d27.717896024925228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ebb15f15a00c05%3A0x768bca07f7b5b646!2sWhite%20Leaf%20Resort!5e0!3m2!1sen!2snp!4v1731065837861!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style="border: 0; position: absolute; top: 0; left: 0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<!-- Add styles for margins -->
+<style>
+    /* Add left and right margin to the container */
+    .container {
+        margin: 0 500px; /* Left and right margins */
+    }
+
+    /* Flexbox setup for layout */
+    .container > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ensure both boxes behave well on smaller screens */
+    @media only screen and (max-width: 768px) {
+        .container {
+            flex-direction: column; /* Stack boxes vertically */
+            margin: 0 10px; /* Smaller margins on mobile */
         }
     }
 </style>
@@ -329,37 +383,33 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
 <?php
 }
 ?>
-    
-    <div class="bg-black text-white">
-        <div class="container">
-            <footer class="row">
-                <!-- Footer1 Section -->
-                <div class="col-12 col-lg-4">
-                    <jdoc:include type="modules" name="footer1" style="none" />
-                </div>
-
-                <!-- Footer2 Section -->
-                <div class="col-12 col-lg-4">
-                    <jdoc:include type="modules" name="footer2" style="none" />
-                </div>
-
-                <!-- Footer3 Section -->
-                <div class="col-12 col-lg-3">
-                    <jdoc:include type="modules" name="footer3" style="none" />
-                </div>
-
-                <!-- Copyright -->
-                <div class="col-12 col-lg-3 text-center">
-                    <span>&copy; <?php echo date("Y"); ?> Green Leaf Resort</span>
-                </div>
-
-            </footer>
+<footer style="background-color: black !important;">
+    <div class="container">
+        <div class="row">
+            <!-- Footer1 Section -->
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <jdoc:include type="modules" name="footer1" style="raw" />
+            </div>
+            
+            <!-- Footer2 Section -->
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <jdoc:include type="modules" name="footer2" style="raw" />
+            </div>
+            
+            <!-- Footer3 Section -->
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <jdoc:include type="modules" name="footer3" style="raw" />
+            </div>
+            
+            <!-- Copyright -->
+            <div class="col-12 text-center mt-4">
+                <p class="m-0" style="color: white;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
+            </div>
         </div>
     </div>
+</footer>
 
-
-    <?php // Include any debugging info ?>
-	<jdoc:include type="modules" name="debug" style="none" />
+<?php // Include any debugging info ?>
+<jdoc:include type="modules" name="debug" style="none" />
 </body>
 </html>
-

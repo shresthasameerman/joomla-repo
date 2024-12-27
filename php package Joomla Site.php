@@ -136,6 +136,8 @@ $wa->addInlineStyle('
     </style>  
       <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+
+
 </head>
 
 <?php // you can change data-bs-theme to dark for dark mode  // ?>
@@ -613,27 +615,34 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
 <?php
 }
 ?>
-<footer style="background-color: black !important;">
+<footer class="py-5" style="background-color: black !important;">
     <div class="container">
-        <div class="row">
+        <div class="row gy-4"> <!-- Added gy-4 for vertical spacing between rows when they stack -->
             <!-- Footer1 Section -->
-            <div class="col-12 col-md-4 mb-4 mb-md-0">
-                <jdoc:include type="modules" name="footer1" style="raw" />
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="px-3">
+                    <jdoc:include type="modules" name="footer1" style="raw" />
+                </div>
             </div>
             
             <!-- Footer2 Section -->
-            <div class="col-12 col-md-4 mb-4 mb-md-0">
-                <jdoc:include type="modules" name="footer2" style="raw" />
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="px-3">
+                    <jdoc:include type="modules" name="footer2" style="raw" />
+                </div>
             </div>
             
             <!-- Footer3 Section -->
-            <div class="col-12 col-md-4 mb-4 mb-md-0">
-                <jdoc:include type="modules" name="footer3" style="raw" />
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="px-3">
+                    <jdoc:include type="modules" name="footer3" style="raw" />
+                </div>
             </div>
             
             <!-- Copyright -->
-            <div class="col-12 text-center mt-4">
-                <p class="m-0" style="color: white;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
+            <div class="col-12">
+                <hr class="mt-4 mb-4" style="border-color: rgba(255, 255, 255, 0.1);">
+                <p class="text-center m-0" style="color: white;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
             </div>
         </div>
     </div>

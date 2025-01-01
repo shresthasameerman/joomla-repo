@@ -272,7 +272,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 
 .header-content {
     width: 100%;
-    max-width: 1105px;
+    max-width: 1400px;
     background: rgba(255, 255, 255, 0.7);
     color: white;
     box-sizing: border-box;
@@ -280,10 +280,14 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
+    display: flex;
+    justify-content: center; /* Center the content */
+    height: 200px; /* Set a specific height */
 }
 
 .home-header .header-content {
-    margin-left: 375px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .navbar {
@@ -387,6 +391,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 @media (max-width: 768px) {
     .header-content {
         padding: 10px;
+        height: auto; /* Adjust height for mobile */
     }
     
     .navbar-brand img {
@@ -443,7 +448,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
 <?php if ($this->countModules('breadcrumbs')): ?>
  <style>
      .mod-breadcrumbs {
@@ -467,17 +471,32 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php endif; ?>
 
 <?php if ($this->countModules('hotel_module')): ?>
- <div class="container" style="margin-top: -100px;">
- <jdoc:include type="modules" name="hotel_module" style="none"/>
+ <div style="
+    width: 100%;
+    max-width: 1400px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    margin-top: -100px;">
+     <jdoc:include type="modules" name="hotel_module" style="none"/>
  </div>
 <?php endif; ?>
 
- <div class="container" style="margin-bottom: 20px">
- <jdoc:include type="message"/>
- <jdoc:include type="component"/>
- </div>
 
-        <?php
+<div class="container" style="
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1470px;
+    margin: 0 auto;">
+    <jdoc:include type="message"/>
+    <jdoc:include type="component"/>
+</div>
+
+<?php
 // Get the application object
 $app = JFactory::getApplication();
 
@@ -485,102 +504,30 @@ $app = JFactory::getApplication();
 if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
     // HTML content for the homepage only
 ?>
-<div style="display: flex; width: 90%; border-radius: 8px; overflow: hidden;" class="container">
-    <!-- Left box with "Our Location" - reduced padding and adjusted margins -->
-   <div style="background-color: #ECE2B1; padding: 15px 15px 15px 8px; flex: 1 1 40%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 50px; border-radius: 8px;"
-        class="left-box">
-        <h1 style="color: #2e8b57; font-family: 'Noto Serif', serif; margin: 0 0 8px; text-align: left;">Our Location</h1>
-        <p style="margin: 0; font-family: Arial, sans-serif; line-height: 1.5;">
-            White Leaf Resort Sukute<br>
-            Araniko Highway, Kadambas 45314<br>
-            PQ99+5R Kadambas<br><br>
-            +977 9851342321<br>
-            <a href="mailto:reservation@whiteleafresort.com" style="color: #2e8b57; text-decoration: none;">reservation@whiteleafresort.com</a>
-        </p>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=White+Leaf+Resort+Sukute,+Araniko+Highway,+Kadambas+45314"
-            target="_blank"
-            style="margin-top: 15px; padding: 8px 12px; border: 2px solid #000; color: #000; text-decoration: none; border-radius: 5px; display: inline-block; text-align: center; font-family: 'Noto Serif', serif;">
-            <h2 style="margin: 0; font-size: 16px; color: #000;">See Directions</h2>
-        </a>
-    </div>
-    <!-- Right box with Google Map - adjusted width -->
-    <div style="flex: 1 1 55%; position: relative; margin-bottom: 50px; overflow: hidden;">
-        <div style="width: 100%; height: 0; padding-bottom: 75%; position: relative; border-radius: 8px; overflow: hidden;">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.980251196604!2d85.767031911828!3d27.717896024925228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ebb15f15a00c05%3A0x768bca07f7b5b646!2sWhite%20Leaf%20Resort!5e0!3m2!1sen!2snp!4v1731065837861!5m2!1sen!2snp"
-                width="100%"
-                height="100%"
-                style="border: 0; position: absolute; top: 0; left: 0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-    </div>
-</div>
-
-<style>
-/* Adjust the left box position on larger devices */
-@media screen and (min-width: 992px) {
-    .left-box {
-        margin-left: 20px; /* Move the box to the right */
-    }
-}
-</style>
-
-<!-- Add media queries for responsiveness -->
-<style>
-    /* Flexbox setup for layout */
-    div[style*="display: flex;"] {
-        display: flex;
-        width: 100%; /* Ensure the container takes full width */
-    }
-
-    div[style*="flex: 1 1 40%;"] {
-        flex: 1 1 40%; /* Left box takes 40% */
-    }
-
-    div[style*="flex: 1 1 60%;"] {
-        flex: 1 1 60%; /* Right box takes 60% */
-    }
-
-    /* Ensure both boxes behave well on smaller screens */
-    @media only screen and (max-width: 768px) {
-        div[style*="display: flex;"] {
-            flex-direction: column !important;
-            width: 100% !important; /* Full width on smaller screens */
-            margin: 0 !important; /* Remove margins on smaller screens */
-        }
-        div[style*="flex: 1 1 40%;"], div[style*="flex: 1 1 60%;"] {
-            width: 100% !i<div style="display: flex; width: 100%; border-radius: 8px; overflow: hidden;" class="container">
-            
-            
-<!-- Container with left and right margin -->
-<div class="container" style="display: flex; justify-content: space-between;  margin: 0 500px;">
+<div class="map-class-container">
     <!-- Left box with "Our Location" -->
-    <div style="background-color: #ECE2B1; padding: 20px; flex: 1 1 40%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 50px; border-radius: 8px;">
-        <h1 style="color: #2e8b57; font-family: 'Noto Serif', serif; margin: 0 0 10px; text-align: left;">Our Location</h1>
-        <p style="margin: 0; font-family: Arial, sans-serif; line-height: 1.5;">
+    <div class="left-box">
+        <h1>Our Location</h1>
+        <p>
             White Leaf Resort Sukute<br>
             Araniko Highway, Kadambas 45314<br>
             PQ99+5R Kadambas<br><br>
             +977 9851342321<br>
-            <a href="mailto:reservation@whiteleafresort.com" style="color: #2e8b57; text-decoration: none;">reservation@whiteleafresort.com</a>
+            <a href="mailto:reservation@whiteleafresort.com">reservation@whiteleafresort.com</a>
         </p>
         <a href="https://www.google.com/maps/dir/?api=1&destination=White+Leaf+Resort+Sukute,+Araniko+Highway,+Kadambas+45314"
-            target="_blank"
-            style="margin-top: 20px; padding: 10px 15px; border: 2px solid #000; color: #000; text-decoration: none; border-radius: 5px; display: inline-block; text-align: center; font-family: 'Noto Serif', serif;">
-            <h2 style="margin: 0; font-size: 18px; color: #000;">See Directions</h2>
+            target="_blank" class="directions-button">
+            <h2>See Directions</h2>
         </a>
     </div>
     <!-- Right box with Google Map -->
-    <div style="flex: 1 1 60%; position: relative; margin-bottom: 50px; overflow: hidden;">
-        <div style="width: 100%; height: 0; padding-bottom: 75%; position: relative; border-radius: 8px; overflow: hidden;">
+    <div class="right-box">
+        <div class="map-wrapper">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.980251196604!2d85.767031911828!3d27.717896024925228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ebb15f15a00c05%3A0x768bca07f7b5b646!2sWhite%20Leaf%20Resort!5e0!3m2!1sen!2snp!4v1731065837861!5m2!1sen!2snp"
                 width="100%"
                 height="100%"
-                style="border: 0; position: absolute; top: 0; left: 0;"
+                style="border: 0;"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
@@ -589,34 +536,108 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
     </div>
 </div>
 
-<!-- Add styles for margins -->
+<!-- CSS for layout adjustments -->
 <style>
-    /* Add left and right margin to the container */
-    .container {
-        margin: 0 500px; /* Left and right margins */
+/* Container adjustments */
+.map-class-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    width: 100%;
+    max-width: 1370px; /* Maximum width */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Left box styling */
+.left-box {
+    background-color: #ECE2B1;
+    padding: 15px;
+    flex: 0 0 40%; /* Set the left box to 40% */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.left-box h1 {
+    color: #2e8b57;
+    font-family: 'Noto Serif', serif;
+    margin: 0 0 8px;
+}
+
+.left-box p {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+.left-box a {
+    color: #2e8b57;
+    text-decoration: none;
+}
+
+.directions-button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    border: 2px solid #000;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Noto Serif', serif;
+}
+
+.directions-button h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+}
+
+/* Right box styling */
+.right-box {
+    flex: 0 0 60%; /* Set the right box to 60% */
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.map-wrapper {
+    width: 100%;
+    padding-bottom: 75%; /* Aspect ratio */
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Responsive layout */
+@media only screen and (max-width: 768px) {
+    .map-class-container {
+        flex-direction: column; /* Stack vertically */
+        padding: 0 10px; /* Smaller padding */
     }
 
-    /* Flexbox setup for layout */
-    .container > div {
-        display: flex;
-        flex-direction: column;
+    .left-box, .right-box {
+        width: 100%; /* Full width on mobile */
+        margin-bottom: 20px; /* Space between boxes */
     }
-
-    /* Ensure both boxes behave well on smaller screens */
-    @media only screen and (max-width: 768px) {
-        .container {
-            flex-direction: column; /* Stack boxes vertically */
-            margin: 0 10px; /* Smaller margins on mobile */
-        }
-    }
+}
 </style>
-
-
 <?php
 }
 ?>
+
 <footer class="py-5" style="background-color: black !important;">
-    <div class="container">
+    <div class="container" style="max-width: 1400px; margin: 0 auto;">
         <div class="row gy-4"> <!-- Added gy-4 for vertical spacing between rows when they stack -->
             <!-- Footer1 Section -->
             <div class="col-12 col-sm-6 col-md-4">
@@ -647,7 +668,6 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
         </div>
     </div>
 </footer>
-
 <?php // Include any debugging info ?>
 <jdoc:include type="modules" name="debug" style="none" />
 </body>

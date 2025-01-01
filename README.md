@@ -1,7 +1,5 @@
 # White Leaf Resort
 
-![image](https://github.com/user-attachments/assets/7339e53a-5909-42cd-8782-7fe36ed9a1e5)
-
 Welcome to the White Leaf Resort project! This repository contains the source code and assets for the White Leaf Resort website, showcasing our luxurious accommodations, dining options, event hosting, and more.
 
 ## Table of Contents

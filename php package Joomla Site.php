@@ -448,6 +448,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+
 <?php if ($this->countModules('breadcrumbs')): ?>
  <style>
      .mod-breadcrumbs {
@@ -481,7 +483,7 @@ document.addEventListener('DOMContentLoaded', function() {
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
-    margin-top: -100px;">
+    margin-top: -75px;">
      <jdoc:include type="modules" name="hotel_module" style="none"/>
  </div>
 <?php endif; ?>

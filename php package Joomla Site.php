@@ -157,6 +157,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         position: relative;
         margin: 0;
         overflow: hidden;
+        margin-top: -40px;
     }
 
     .home-header {
@@ -207,8 +208,16 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
     }
 
     .logo-container {
-        flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: -120px; /* Adjusted to shift logo to the left */
+}
+
+/* Media query to remove the left margin on smaller screens */
+@media (max-width: 768px) {
+    .logo-container {
+        margin-left: 0; /* Remove left margin on small screens */
     }
+}
 
     .navbar-brand img {
         height: 200px;
@@ -315,7 +324,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         }
 
         .header-content {
-            padding: 10px;
+            padding: 10px ;
             height: auto;
         }
 

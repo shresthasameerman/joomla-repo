@@ -147,67 +147,233 @@ $menu = JFactory::getApplication()->getMenu();
 $isHomePage = $menu->getActive() == $menu->getDefault();
 ?>
 <style>
-    /* Default header height for large screens */
     header {
         position: relative;
         <?= $isHomePage ? 'height: 1000px; margin-top: -40px;' : 'margin: 0;' ?> 
         overflow: hidden;
     }
 
-    /* Adjust background intensity and header size for small screens */
+    .site-header {
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .home-header {
+        height: 1000px;
+        margin-top: -40px;
+    }
+
+    .background-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 10s ease-out, transform 10s ease-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .header-content {
+        width: 100%;
+        max-width: 1400px;
+        background: rgba(255, 255, 255, 0.7);
+        color: white;
+        box-sizing: border-box;
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        height: 200px;
+    }
+
+    .home-header .header-content {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .logo-container {
+        flex: 0 0 auto;
+    }
+
+    .navbar-brand img {
+        height: 200px;
+        width: auto;
+        margin-top: 5px;
+    }
+
+    .navbar-collapse {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .navbar-collapse ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse ul li {
+        margin: 0 8px;
+    }
+
+    .navbar-collapse ul li a {
+        color: #333;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.25rem;
+        display: none;
+    }
+
+    @media (max-width: 1200px) {
+        .home-header .header-content {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .navbar-collapse ul li a {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .navbar-brand img {
+            height: 150px;
+        }
+
+        .navbar-toggler {
+            display: block;
+        }
+
+        .navbar-collapse {
+            display: none;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .navbar-collapse.show {
+            display: block;
+        }
+
+        .navbar {
+            flex-wrap: wrap;
+        }
+
+        .navbar-collapse ul li {
+            margin: 10px 0;
+        }
+
+        .navbar-collapse ul li a {
+            font-size: 0.95rem;
+        }
+    }
+
     @media (max-width: 768px) {
         header {
-            height: auto !important;  /* Allow height to adjust automatically */
-            margin-top: 0; /* Reset margin for mobile */
+            height: auto !important;
+            margin-top: 0;
         }
 
         header img {
             height: auto;
-            max-height: 400px; /* Adjust image height for smaller screens */
+            max-height: 400px;
         }
 
         header .container {
-            margin-left: 0 !important; /* Remove extra left margin */
-            padding: 0px; /* Reduce padding */
-            background: rgba(255, 255, 255, 0.001) !important; /* Reduce background opacity for small screens */
+            margin-left: 0 !important;
+            padding: 0px;
+            background: rgba(255, 255, 255, 0.001) !important;
         }
 
         .navbar-brand img {
-            height: 100px; /* Scale down logo size */
+            height: 120px;
         }
 
-        /* Reduce gap between header and other components */
-        .row.align-items-center {
-            margin-bottom: 10px !important; /* Reduce bottom margin */
-        }
-
-        /* Align header content to the left */
         .header-content {
-            text-align: left; /* Align text to the left */
-            margin-left: 10px; /* Add some left margin */
+            padding: 10px;
+            height: auto;
+        }
+
+        .home-header {
+            height: auto;
+            min-height: 600px;
+        }
+
+        .navbar-collapse ul li a {
+            font-size: 0.9rem;
         }
     }
 
-    /* Navbar menu item styles */
+    @media (max-width: 576px) {
+        .navbar-brand img {
+            height: 100px;
+        }
+
+        .home-header {
+            min-height: 400px;
+        }
+
+        .navbar-collapse ul li a {
+            font-size: 0.85rem;
+        }
+
+        .navbar-collapse ul li {
+            margin: 8px 0;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .navbar-collapse ul li a {
+            font-size: 0.8rem;
+        }
+
+        .navbar-collapse ul li {
+            margin: 6px 0;
+        }
+    }
+
     .navbar-nav .nav-link {
-        color: green !important; /* Set text color to green */
-        font-size: 36px;
-         margin-right: 20px;
+        color: green !important;
+        font-size: 34px;
+        margin-right: 10px;
         font-weight: bold;
     }
 
     .navbar-nav .nav-link:hover {
-        color: darkgreen !important; /* Change color on hover for better visibility */
+        color: darkgreen !important;
     }
 
-    /* Add margin to the navbar */
-    .navbar {
-        margin-top: 20px; /* Adjust this value to increase/decrease the gap */
-    }
-
-    /* Add margin to the navbar items for horizontal spacing */
     .navbar-nav {
-        margin-left: 50px; /* Adjust this value to increase/decrease the gap */
+        margin-left: 50px;
+    }
+
+    .row.align-items-center {
+        margin-bottom: 10px !important;
     }
 </style>
 
@@ -245,199 +411,6 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
     </div>
 </header>
 
-<style>
-.site-header {
-    position: relative;
-    margin: 0;
-    overflow: hidden;
-}
-
-.home-header {
-    height: 1000px;
-    margin-top: -40px;
-}
-
-.background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transform: scale(1.1);
-    transition: opacity 10s ease-out, transform 10s ease-out;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.header-content {
-    width: 100%;
-    max-width: 1400px;
-    background: rgba(255, 255, 255, 0.7);
-    color: white;
-    box-sizing: border-box;
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
-    display: flex;
-    justify-content: center; /* Center the content */
-    height: 200px; /* Set a specific height */
-}
-
-.home-header .header-content {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-}
-
-.logo-container {
-    flex: 0 0 auto;
-}
-
-.navbar-brand img {
-    height: 200px;
-    width: auto;
-    margin-top: 5px;
-}
-
-.navbar-collapse {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
-/* Navbar menu items styling */
-.navbar-collapse ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.navbar-collapse ul li {
-    margin: 0 15px;
-}
-
-.navbar-collapse ul li a {
-    color: #333;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-/* Bootstrap 5 navbar toggler button styling */
-.navbar-toggler {
-    padding: 0.25rem 0.75rem;
-    font-size: 1.25rem;
-    line-height: 1;
-    background-color: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.25rem;
-    display: none;
-}
-
-/* Responsive Breakpoints */
-@media (max-width: 1200px) {
-    .home-header .header-content {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .navbar-collapse ul li a {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 991px) {
-    .navbar-brand img {
-        height: 150px;
-    }
-    
-    .navbar-toggler {
-        display: block;
-    }
-    
-    .navbar-collapse {
-        display: none;
-        width: 100%;
-        margin-top: 1rem;
-    }
-    
-    .navbar-collapse.show {
-        display: block;
-    }
-    
-    .navbar {
-        flex-wrap: wrap;
-    }
-    
-    .navbar-collapse ul li {
-        margin: 10px 0;
-    }
-    
-    .navbar-collapse ul li a {
-        font-size: 0.95rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .header-content {
-        padding: 10px;
-        height: auto; /* Adjust height for mobile */
-    }
-    
-    .navbar-brand img {
-        height: 120px;
-    }
-    
-    .home-header {
-        height: auto;
-        min-height: 600px;
-    }
-    
-    .navbar-collapse ul li a {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .navbar-brand img {
-        height: 100px;
-    }
-    
-    .home-header {
-        min-height: 400px;
-    }
-    
-    .navbar-collapse ul li a {
-        font-size: 0.85rem;
-    }
-    
-    .navbar-collapse ul li {
-        margin: 8px 0;
-    }
-}
-
-@media (max-width: 380px) {
-    .navbar-collapse ul li a {
-        font-size: 0.8rem;
-    }
-    
-    .navbar-collapse ul li {
-        margin: 6px 0;
-    }
-}
-</style>
-
-<!-- Add this script at the end of your body tag -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const navbarToggler = document.querySelector('.navbar-toggler');

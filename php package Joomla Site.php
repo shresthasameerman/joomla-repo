@@ -149,7 +149,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 <style>
     header {
         position: relative;
-        <?= $isHomePage ? 'height: 1000px; margin-top: -40px;' : 'margin: 0;' ?> 
+        <?= $isHomePage ? 'height: 900px; margin-top: -80px;' : 'margin: 0;' ?> 
         overflow: hidden;
     }
 
@@ -157,12 +157,12 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         position: relative;
         margin: 0;
         overflow: hidden;
-        margin-top: -40px;
+        margin-top: -50px;
     }
 
     .home-header {
-        height: 1000px;
-        margin-top: -40px;
+        height: 900px;
+        margin-top: -50px;
     }
 
     .background-image {
@@ -190,10 +190,11 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         margin: 0 auto;
         display: flex;
         justify-content: center;
-        height: 200px;
+        height: 180px;
     }
 
     .home-header .header-content {
+        height: 180px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -205,24 +206,48 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         background: rgba(255, 255, 255, 0.8);
         padding: 10px;
         margin-top: 20px;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    /* Sticky navbar styles */
+    .sticky-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        margin-top: 0;
+        padding: 5px 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sticky-navbar .navbar-brand img {
+        height: 80px;
+        transition: height 0.3s ease;
+    }
+
+    body.has-sticky-navbar {
+        padding-top: 100px;
     }
 
     .logo-container {
-    flex: 0 0 auto;
-    margin-left: -120px; /* Adjusted to shift logo to the left */
-}
-
-/* Media query to remove the left margin on smaller screens */
-@media (max-width: 768px) {
-    .logo-container {
-        margin-left: 0; /* Remove left margin on small screens */
+        flex: 0 0 auto;
+        margin-left: -120px;
     }
-}
+
+    @media (max-width: 768px) {
+        .logo-container {
+            margin-left: 0;
+        }
+    }
 
     .navbar-brand img {
         height: 200px;
         width: auto;
-        margin-top: 5px;
+        margin-top: -10px;
+        transition: height 0.3s ease;
     }
 
     .navbar-collapse {
@@ -275,6 +300,10 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
             height: 150px;
         }
 
+        .sticky-navbar .navbar-brand img {
+            height: 60px;
+        }
+
         .navbar-toggler {
             display: block;
         }
@@ -321,10 +350,15 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 
         .navbar-brand img {
             height: 120px;
+            margin-top: -10px;
+        }
+
+        .sticky-navbar .navbar-brand img {
+            height: 50px;
         }
 
         .header-content {
-            padding: 10px ;
+            padding: 10px;
             height: auto;
         }
 
@@ -341,6 +375,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
     @media (max-width: 576px) {
         .navbar-brand img {
             height: 100px;
+            margin-top: -10px;
         }
 
         .home-header {
@@ -368,7 +403,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 
     .navbar-nav .nav-link {
         color: green !important;
-        font-size: 34px;
+        font-size: 24px;
         margin-right: 10px;
         font-weight: bold;
     }
@@ -386,11 +421,6 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
     }
 </style>
 
-<?php
-$app = JFactory::getApplication();
-$menu = $app->getMenu();
-$isHomePage = $menu->getActive() == $menu->getDefault();
-?>
 <header class="site-header <?= $isHomePage ? 'home-header' : '' ?>">
     <?php if ($isHomePage): ?>
         <img class="background-image" 
@@ -422,54 +452,116 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.querySelector('.navbar');
+    const body = document.body;
+    let lastScroll = 0;
+    
+    // Handle mobile menu toggle
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('.navbar-collapse');
     
     navbarToggler.addEventListener('click', function() {
         navbarCollapse.classList.toggle('show');
     });
+    
+    // Handle sticky navbar
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            navbar.classList.add('sticky-navbar');
+            body.classList.add('has-sticky-navbar');
+        } else {
+            navbar.classList.remove('sticky-navbar');
+            body.classList.remove('has-sticky-navbar');
+        }
+        
+        lastScroll = currentScroll;
+    });
 });
 </script>
 
-
 <?php if ($this->countModules('breadcrumbs')): ?>
- <style>
-     .mod-breadcrumbs {
-         background-color: #198754; /* Green-500 background color */
-         color: white; /* Ensure text color is white *//* Optional padding for better spacing */
-         border-radius: 5px; /* Optional rounded corners */
-     }
-     .mod-breadcrumbs a, 
-     .mod-breadcrumbs span {
-         color: white; /* Ensure text color is white */
-     }
-     .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
-         color: white; /* Ensure separator color is white */
-     }
- </style>
- <div class="mod-breadcrumbs">
-     <div class="container">
-         <jdoc:include type="modules" name="breadcrumbs" style="none"/>
-     </div>
- </div>
+<style>
+    .mod-breadcrumbs {
+        background-color: white; /* White background */
+        color: #198754; /* Green text color */
+        border-radius: 5px;
+        margin-top: 20px; /* Adjust this value to control the downward spacing */
+    }
+    .mod-breadcrumbs .container {
+        padding-left: 0;
+        margin-left: 250px; /* Default margin for large screens */
+        width: 100%;
+        max-width: none;
+    }
+    .mod-breadcrumbs a, 
+    .mod-breadcrumbs span {
+        color: #198754; /* Green text color for links and spans */
+    }
+    .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+        color: #198754; /* Green text color for breadcrumb separators */
+    }
+    .mod-breadcrumbs .breadcrumb {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 5px;
+    }
+    
+    /* Media query for medium screens (tablets) */
+    @media (max-width: 992px) {
+        .mod-breadcrumbs {
+            margin-top: 15px; /* Adjust for smaller screens if needed */
+        }
+        .mod-breadcrumbs .container {
+            margin-left: 0;
+        }
+    }
+    
+    /* Media query for small screens (mobile) */
+    @media (max-width: 768px) {
+        .mod-breadcrumbs {
+            margin-top: 10px; /* Adjust for smaller screens if needed */
+        }
+        .mod-breadcrumbs .container {
+            margin-left: 0;
+        }
+    }
+</style>
+<div class="mod-breadcrumbs">
+    <div class="container">
+        <jdoc:include type="modules" name="breadcrumbs" style="none"/>
+    </div>
+</div>
 <?php endif; ?>
+
+
 
 <?php if ($this->countModules('hotel_module')): ?>
- <div style="
-    width: 100%;
-    max-width: 1400px;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    box-sizing: border-box;
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
-    margin-top: -75px;">
+ <div class="hotel-module">
      <jdoc:include type="modules" name="hotel_module" style="none"/>
  </div>
-<?php endif; ?>
+ <style>
+     .hotel-module {
+         width: 100%;
+         max-width: 1400px;
+         background: rgba(255, 255, 255, 0.2);
+         color: white;
+         box-sizing: border-box;
+         backdrop-filter: blur(5px);
+         border-radius: 20px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         margin: 0 auto;
+         margin-top: -75px; /* Default margin for larger screens */
+     }
 
+     @media (max-width: 768px) {
+         .hotel-module {
+             margin-top: -50px; /* Adjust margin-top for small screens */
+         }
+     }
+ </style>
+<?php endif; ?>
 
 <div class="container" style="
     margin-bottom: 20px;

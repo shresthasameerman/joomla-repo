@@ -27,8 +27,8 @@ $data = [
 
     .form-container {
         display: flex;
-        flex-wrap: nowrap; /* Changed from wrap to nowrap */
-        gap: 10px; /* Increased gap from 10px to 20px */
+        flex-wrap: nowrap;
+        gap: 10px;
         align-items: center;
         justify-content: space-between;
         width: 100%;
@@ -39,7 +39,7 @@ $data = [
         flex-direction: column;
         position: relative;
         flex: 1;
-        min-width: 150px; /* Adjusted min-width for better alignment */
+        min-width: 150px;
     }
 
     .form-group label {
@@ -171,13 +171,17 @@ $data = [
     .children-age-group {
         width: 100%;
         display: flex;
-        flex-direction: column; /* Changed to column for vertical stacking */
+        flex-direction: column;
         gap: 15px;
+        max-height: 200px;
+        overflow-y: auto;
+        border-radius: 5px;
+        padding: 10px;
     }
 
     .children-age-group .form-group {
         flex: 1 1 auto;
-        min-width: 150px; /* Adjusted min-width */
+        min-width: 150px;
     }
 
     /* Mobile optimization */
@@ -210,22 +214,7 @@ $data = [
             flex: 1 1 100%;
         }
     }
-    .children-age-group {
-        width: 100%;
-        display: flex;
-        flex-direction: column; /* Changed to column for vertical stacking */
-        gap: 15px;
-        max-height: 200px; /* Set a fixed height for the scrollable container */
-        overflow-y: auto; /* Enable vertical scrolling */
-        border-radius: 5px;
-        padding: 10px;
-    }
-
-    .children-age-group .form-group {
-        flex: 1 1 auto;
-        min-width: 150px; /* Adjusted min-width */
-    }
-</style>
+    </style>
     
     <!-- Heading -->
     <h1 style="color: #fff;"><strong>Book Now</strong></h1>
@@ -348,37 +337,63 @@ function updateChildrenFields() {
     }
 }
 
-function formatDate(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-}
-
-// Initialize Flatpickr date pickers with proper configuration
+// Initialize Flatpickr date pickers with mutual dependencies
 document.addEventListener('DOMContentLoaded', function() {
-    const checkinPicker = flatpickr("#checkin_date", {
+    // Helper function to add days to a date
+    const addDays = (date, days) => {
+        const result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    };
+
+    // Common configuration for both date pickers
+    const commonConfig = {
         enableTime: false,
         dateFormat: "Y-m-d",
-        minDate: "today",
-        mode: "range",
         disableMobile: false,
-        onChange: function(selectedDates, dateStr, instance) {
-            if (selectedDates.length === 2) {
-                const checkinDate = selectedDates[0];
-                const checkoutDate = selectedDates[1];
+        allowInput: true
+    };
 
-                document.getElementById('checkin_date').value = formatDate(checkinDate);
-                document.getElementById('checkout_date').value = formatDate(checkoutDate);
+    // Initialize check-in date picker
+    const checkinPicker = flatpickr("#checkin_date", {
+        ...commonConfig,
+        minDate: "today",
+        onChange: function(selectedDates, dateStr, instance) {
+            if (selectedDates.length > 0) {
+                // Set minimum date for checkout to be the day after check-in
+                const minCheckout = addDays(selectedDates[0], 1);
+                checkoutPicker.set('minDate', minCheckout);
+                
+                // If checkout date is before new check-in date, update it
+                if (checkoutPicker.selectedDates.length > 0 && 
+                    checkoutPicker.selectedDates[0] <= selectedDates[0]) {
+                    checkoutPicker.setDate(minCheckout);
+                }
             }
         }
     });
 
-    flatpickr("#checkout_date", {
-        enableTime: false,
-        dateFormat: "Y-m-d",
-        disableMobile: false,
-        clickOpens: false,
+    // Initialize check-out date picker
+    const checkoutPicker = flatpickr("#checkout_date", {
+        ...commonConfig,
+        minDate: addDays(new Date(), 1),
+        onChange: function(selectedDates, dateStr, instance) {
+            if (selectedDates.length > 0) {
+                // Set maximum date for check-in to be the day before checkout
+                const maxCheckin = addDays(selectedDates[0], -1);
+                checkinPicker.set('maxDate', maxCheckin);
+                
+                // If check-in date is after new checkout date, update it
+                if (checkinPicker.selectedDates.length > 0 && 
+                    checkinPicker.selectedDates[0] >= selectedDates[0]) {
+                    checkinPicker.setDate(maxCheckin);
+                }
+            }
+        }
     });
+
+    // Store references to pickers globally if needed
+    window.checkinPicker = checkinPicker;
+    window.checkoutPicker = checkoutPicker;
 });
 </script>

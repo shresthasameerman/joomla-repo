@@ -210,10 +210,25 @@ $data = [
             flex: 1 1 100%;
         }
     }
+    .children-age-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* Changed to column for vertical stacking */
+        gap: 15px;
+        max-height: 200px; /* Set a fixed height for the scrollable container */
+        overflow-y: auto; /* Enable vertical scrolling */
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .children-age-group .form-group {
+        flex: 1 1 auto;
+        min-width: 150px; /* Adjusted min-width */
+    }
 </style>
     
     <!-- Heading -->
-    <h1 style="color: #2e8b57;"><strong>Book Now</strong></h1>
+    <h1 style="color: #fff;"><strong>Book Now</strong></h1>
     <form class="form-container" action="<?php echo JRoute::_('index.php?option=com_jhotelreservation&task=search'); ?>" method="post">
         <?php foreach ($data as $field): ?>
             <div class="form-group">
@@ -317,13 +332,15 @@ function updateChildrenFields() {
         select.style.border = '1px solid #2d572c';
         select.style.borderRadius = '5px';
         select.style.fontSize = '16px';
+        select.style.width = '100%';
 
-        for (let age = 0; age <= 17; age++) {
+        const ages = ['Under 1 year', '1 year', '2 years', '3 years', '4 years', '5 years', '6 years', '7 years', '8 years', '9 years', '10 years', '11 years', '12 years', '13 years', '14 years', '15 years', '16 years', '17 years'];
+        ages.forEach((age, index) => {
             const option = document.createElement('option');
-            option.value = age;
-            option.innerText = age === 0 ? 'Under 1 year' : age + ' year' + (age === 1 ? '' : 's');
+            option.value = index;
+            option.innerText = age;
             select.appendChild(option);
-        }
+        });
 
         ageGroup.appendChild(label);
         ageGroup.appendChild(select);

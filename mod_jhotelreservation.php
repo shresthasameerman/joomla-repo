@@ -3,12 +3,11 @@
 defined('_JEXEC') or die;
 
 // Custom PHP logic (e.g., fetching data or processing form input)
-// Example: Fetching reservations or module-specific data
 $data = [
     ['label' => 'Check-in Date', 'type' => 'date', 'name' => 'checkin_date', 'icon' => 'fa-calendar-alt'],
     ['label' => 'Check-out Date', 'type' => 'date', 'name' => 'checkout_date', 'icon' => 'fa-calendar-alt'],
     ['label' => 'Guests', 'type' => 'number', 'name' => 'guests', 'min' => 1, 'max' => 10, 'icon' => 'fa-user', 'value' => 1],
-    ['label' => 'Rooms', 'type' => 'number', 'name' => 'rooms', 'min' => 1, 'max' => 5, 'icon' => 'fa-bed'],
+    ['label' => 'Rooms', 'type' => 'number', 'name' => 'rooms', 'min' => 1, 'max' => 5, 'icon' => 'fa-bed', 'value' => 1],
 ];
 ?>
 
@@ -18,18 +17,30 @@ $data = [
 
 <div class="module-horizontal">
     <style>
+    :root {
+        --primary-green: #2d572c;
+        --secondary-green: #4a8748;
+        --light-green: #e8f5e8;
+        --accent-green: #367c36;
+        --hover-green: #1e3e1d;
+        --white: #ffffff;
+        --border-color: #4a8748;
+        --shadow-color: rgba(45, 87, 44, 0.2);
+    }
+
     .module-horizontal {
-        background: rgba(255, 255, 255, 0.01);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: rgba(232, 245, 232, 0.2); /* Semi-transparent light green */
+        backdrop-filter: blur(12px); /* Adds the blur effect */
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px var(--shadow-color);
     }
 
     .form-container {
         display: flex;
         flex-wrap: nowrap;
-        gap: 10px;
-        align-items: center;
+        gap: 10px; /* Reduced gap between items */
+        align-items: flex-end;
         justify-content: space-between;
         width: 100%;
     }
@@ -39,133 +50,169 @@ $data = [
         flex-direction: column;
         position: relative;
         flex: 1;
-        min-width: 150px;
+        min-width: 140px;
     }
 
     .form-group label {
-        font-weight: bold;
-        margin-bottom: 5px;
+        font-weight: 600;
+        margin-bottom: 6px;
         display: flex;
         align-items: center;
-        gap: 5px;
-        color: #2d572c;
+        gap: 6px;
+        color: var(--primary-green);
+        font-size: 14px;
     }
 
-    .form-group input, .form-group select {
-        padding: 10px;
-        border: 1px solid #2d572c;
-        border-radius: 5px;
-        font-size: 16px;
+    .form-group input,
+    .form-group select {
+        padding: 12px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
         width: 100%;
         appearance: none;
         -moz-appearance: textfield;
-        background-color: #ffffff;
+        background-color: var(--white);
+        transition: all 0.3s ease;
     }
 
-    .form-group input::-webkit-outer-spin-button,
-    .form-group input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--primary-green);
+        box-shadow: 0 0 0 3px rgba(74, 135, 72, 0.2);
     }
 
     .number-input {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        position: relative;
+        width: 100%;
     }
 
     .number-input input {
-        width: 60px;
         text-align: center;
+        width: 60px; /* Set fixed width for adults and children inputs */
     }
 
-    .number-input button {
-        background-color: #28a745;
-        color: white;
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        margin-left: 8px;
+        gap: 4px;
+    }
+
+    .btn-container button {
+        width: 28px;
+        height: 28px;
+        background-color: var(--secondary-green);
+        color: var(--white);
         border: none;
-        padding: 10px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        font-size: 16px;
-        border-radius: 5px;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .number-input button:hover {
-        background-color: #218838;
+    .btn-container button:hover {
+        background-color: var(--accent-green);
+        transform: translateY(-1px);
+    }
+
+    .btn-submit-container {
+        flex: 0 0 auto;
+        margin-left: 15px;
     }
 
     .btn-submit {
-        padding: 10px 20px;
+        padding: 12px 35px;
         border: none;
-        border-radius: 5px;
-        background-color: #28a745;
-        color: white;
+        border-radius: 8px;
+        background: linear-gradient(145deg, var(--accent-green), var(--primary-green));
+        color: var(--white);
         font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        width: 100%;
-        margin-top: 10px;
+        transition: all 0.3s ease;
+        height: 48px;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px var(--shadow-color);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .btn-submit:hover {
-        background-color: #218838;
+        background: linear-gradient(145deg, var(--primary-green), var(--hover-green));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px var(--shadow-color);
     }
 
-    .fa-calendar-alt {
-        color: #2d572c;
+    .btn-submit:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px var(--shadow-color);
+    }
+
+    .btn-submit i {
+        margin-right: 8px;
+        font-size: 18px;
     }
 
     /* Flatpickr customization */
     .flatpickr-calendar {
-        background: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        width: 307.875px;
+        background: var(--white);
+        box-shadow: 0 4px 12px var(--shadow-color);
+        border-radius: 12px;
     }
 
-    .flatpickr-day.selected, 
+    .flatpickr-day.selected,
     .flatpickr-day.selected:hover {
-        background: #28a745 !important;
-        border-color: #28a745 !important;
-        color: white !important;
+        background: var(--primary-green) !important;
+        border-color: var(--primary-green) !important;
+        color: var (--white) !important;
     }
 
     .flatpickr-day.today {
-        border-color: #28a745;
+        border-color: var(--secondary-green) !important;
     }
 
     .flatpickr-day:hover {
-        background: #e8f5e9 !important;
+        background: var(--light-green) !important;
     }
 
     .flatpickr-input {
-        padding: 10px !important;
-        border: 1px solid #2d572c !important;
-        border-radius: 5px !important;
-        font-size: 16px !important;
-        width: 100% !important;
-        background-color: #ffffff !important;
+        background: var(--white) !important;
+        border: 2px solid var(--border-color) !important;
+        border-radius: 8px !important;
+        padding: 12px !important;
+        font-size: 14px !important;
         cursor: pointer !important;
     }
 
     .flatpickr-current-month {
-        color: #2d572c !important;
-        font-weight: bold !important;
+        color: var(--primary-green) !important;
+        font-weight: 600 !important;
     }
 
     .flatpickr-monthDropdown-months {
-        color: #2d572c !important;
+        color: var(--primary-green) !important;
     }
 
     .flatpickr-weekday {
-        color: #28a745 !important;
-        font-weight: bold !important;
+        color: var(--secondary-green) !important;
+        font-weight: 600 !important;
     }
 
-    .flatpickr-months .flatpickr-prev-month, 
+    .flatpickr-months .flatpickr-prev-month,
     .flatpickr-months .flatpickr-next-month {
-        color: #2d572c !important;
-        fill: #2d572c !important;
+        color: var(--primary-green) !important;
+        fill: var(--primary-green) !important;
     }
 
     .children-age-group {
@@ -191,11 +238,11 @@ $data = [
         }
 
         .form-group {
-            flex: 1 1 auto;
+            flex: 1 1 calc(50% - 10px);
             min-width: 160px;
         }
     }
-    
+
     @media (max-width: 768px) {
         .form-container {
             flex-direction: row;
@@ -234,9 +281,18 @@ $data = [
                         readonly="readonly"
                         required
                     />
-                <?php elseif ($field['name'] === 'guests' || $field['name'] === 'rooms'): ?>
+                <?php elseif ($field['name'] === 'guests'): ?>
+                    <input
+                        type="<?php echo $field['type']; ?>"
+                        id="<?php echo $field['name']; ?>"
+                        name="<?php echo $field['name']; ?>"
+                        value="<?php echo isset($field['value']) ? $field['value'] : 1; ?>"
+                        <?php echo isset($field['min']) ? 'min="' . $field['min'] . '"' : ''; ?>
+                        <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
+                        readonly
+                    />
+                <?php elseif ($field['name'] === 'rooms'): ?>
                     <div class="number-input">
-                        <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', -1)">-</button>
                         <input
                             type="<?php echo $field['type']; ?>"
                             id="<?php echo $field['name']; ?>"
@@ -246,7 +302,10 @@ $data = [
                             <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
                             required
                         />
-                        <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', 1)">+</button>
+                        <div class="btn-container">
+                            <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', 1)">+</button>
+                            <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', -1)">-</button>
+                        </div>
                     </div>
                 <?php endif; ?>
             </div>
@@ -256,9 +315,11 @@ $data = [
         <div class="form-group">
             <label for="adults"><i class="fas fa-user"></i> Adults:</label>
             <div class="number-input">
-                <button type="button" onclick="changeValue('adults', -1)">-</button>
                 <input type="number" id="adults" name="adults" min="1" max="10" value="1" required onchange="updateGuestCount()" />
-                <button type="button" onclick="changeValue('adults', 1)">+</button>
+                <div class="btn-container">
+                    <button type="button" onclick="changeValue('adults', 1)">+</button>
+                    <button type="button" onclick="changeValue('adults', -1)">-</button>
+                </div>
             </div>
         </div>
 
@@ -266,9 +327,11 @@ $data = [
         <div class="form-group">
             <label for="children"><i class="fas fa-child"></i> Children:</label>
             <div class="number-input">
-                <button type="button" onclick="changeValue('children', -1)">-</button>
                 <input type="number" id="children" name="children" min="0" max="10" value="0" required onchange="updateGuestCount()" />
-                <button type="button" onclick="changeValue('children', 1)">+</button>
+                <div class="btn-container">
+                    <button type="button" onclick="changeValue('children', 1)">+</button>
+                    <button type="button" onclick="changeValue('children', -1)">-</button>
+                </div>
             </div>
         </div>
 
@@ -314,7 +377,7 @@ function updateChildrenFields() {
         label.innerHTML = '<i class="fas fa-baby"></i> Child ' + (i + 1) + ' Age:';
 
         const select = document.createElement('select');
-        select.id = 'child_age_' + i;
+        select.id = ' child_age_' + i;
         select.name = 'child_age_' + i;
         select.required = true;
         select.style.padding = '10px';

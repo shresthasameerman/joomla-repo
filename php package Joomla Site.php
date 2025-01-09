@@ -145,8 +145,14 @@ $wa->addInlineStyle('
 <?php
 $menu = JFactory::getApplication()->getMenu();
 $isHomePage = $menu->getActive() == $menu->getDefault();
+$currentUrl = JUri::getInstance()->toString();
+$isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== false;
 ?>
 <style>
+    body {
+        font-family: 'Noto Serif', serif;
+    }
+
     header {
         position: relative;
         <?= $isHomePage ? 'height: 900px; margin-top: -80px;' : 'margin: 0;' ?> 
@@ -165,6 +171,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         margin-top: -50px;
     }
 
+    <?php if (!$isHotelWhiteLeafPage): ?>
     @keyframes zoomInOut {
         0% {
             transform: scale(1);
@@ -187,6 +194,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         z-index: -1;
         animation: zoomInOut 30s ease-in-out infinite;
     }
+    <?php endif; ?>
 
     .header-content {
         width: 100%;
@@ -220,7 +228,6 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         width: 100%;
     }
 
-    /* Sticky navbar styles */
     .sticky-navbar {
         position: fixed;
         top: 0;
@@ -288,7 +295,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         padding: 0.25rem 0.75rem;
         font-size: 1.25rem;
         line-height: 1;
-        background-color: rgba(255, 255, 255, 0.5); /* Add background color */
+        background-color: rgba(255, 255, 255, 0.5);
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 0.25rem;
         display: none;
@@ -322,14 +329,14 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
             display: none;
             width: 100%;
             margin-top: 1rem;
-            background-color: rgba(255, 255, 255, 0.5); /* Add background color */
-            backdrop-filter: blur(10px); /* Add blur effect */
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .navbar-collapse.show {
             display: block;
-            background-color: rgba(255, 255, 255, 0.5); /* Ensure background color is applied when visible */
-            backdrop-filter: blur(10px); /* Ensure blur effect is applied when visible */
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .navbar {
@@ -436,7 +443,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 </style>
 
 <header class="site-header <?= $isHomePage ? 'home-header' : '' ?>">
-    <?php if ($isHomePage): ?>
+    <?php if ($isHomePage && !$isHotelWhiteLeafPage): ?>
         <img class="background-image" 
              src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
              alt="Background Image">
@@ -469,7 +476,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const body = document.body;
     let lastScroll = 0;
     
-    // Handle mobile menu toggle
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('.navbar-collapse');
     
@@ -477,7 +483,6 @@ document.addEventListener('DOMContentLoaded', function() {
         navbarCollapse.classList.toggle('show');
     });
     
-    // Handle sticky navbar
     window.addEventListener('scroll', function() {
         const currentScroll = window.pageYOffset;
         
@@ -595,7 +600,7 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
 <div class="map-class-container">
     <!-- Left box with "Our Location" -->
     <div class="left-box">
-        <h1>Our Location</h1>
+        <h2>Our Location</h2>
         <p>
             White Leaf Resort Sukute<br>
             Araniko Highway, Kadambas 45314<br>
@@ -647,7 +652,7 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
     border-radius: 8px;
 }
 
-.left-box h1 {
+.left-box h2 {
     color: #2e8b57;
     font-family: 'Noto Serif', serif;
     margin: 0 0 8px;
@@ -719,6 +724,8 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
         margin-bottom: 20px; /* Space between boxes */
     }
 }
+
+
 </style>
 <?php
 }
@@ -750,9 +757,9 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
             
             <!-- Copyright -->
             <div class="col-12">
-                <hr class="mt-4 mb-4" style="border-color: rgba(255, 255, 255, 0.1);">
-                <p class="text-center m-0" style="color: white;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
-            </div>
+    <hr class="mt-4 mb-4" style="border-color: rgba(255, 255, 255, 0.1);">
+    <p class="text-center m-0" style="color: white; font-family: 'Noto Serif', serif;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
+</div>
         </div>
     </div>
 </footer>

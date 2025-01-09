@@ -165,17 +165,27 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         margin-top: -50px;
     }
 
+    @keyframes zoomInOut {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
     .background-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        opacity: 0;
-        transform: scale(1.1);
-        transition: opacity 10s ease-out, transform 10s ease-out;
         position: absolute;
         top: 0;
         left: 0;
         z-index: -1;
+        animation: zoomInOut 30s ease-in-out infinite;
     }
 
     .header-content {
@@ -278,7 +288,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
         padding: 0.25rem 0.75rem;
         font-size: 1.25rem;
         line-height: 1;
-        background-color: transparent;
+        background-color: rgba(255, 255, 255, 0.5); /* Add background color */
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 0.25rem;
         display: none;
@@ -312,10 +322,14 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
             display: none;
             width: 100%;
             margin-top: 1rem;
+            background-color: rgba(255, 255, 255, 0.5); /* Add background color */
+            backdrop-filter: blur(10px); /* Add blur effect */
         }
 
         .navbar-collapse.show {
             display: block;
+            background-color: rgba(255, 255, 255, 0.5); /* Ensure background color is applied when visible */
+            backdrop-filter: blur(10px); /* Ensure blur effect is applied when visible */
         }
 
         .navbar {
@@ -425,8 +439,7 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
     <?php if ($isHomePage): ?>
         <img class="background-image" 
              src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
-             alt="Background Image" 
-             onload="this.style.opacity='1'; this.style.transform='scale(1)';">
+             alt="Background Image">
     <?php endif; ?>
     
     <div class="header-content">
@@ -557,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
      @media (max-width: 768px) {
          .hotel-module {
-             margin-top: -50px; /* Adjust margin-top for small screens */
+             margin-top: -40px; /* Adjust margin-top for small screens */
          }
      }
  </style>
@@ -571,7 +584,6 @@ document.addEventListener('DOMContentLoaded', function() {
     <jdoc:include type="message"/>
     <jdoc:include type="component"/>
 </div>
-
 <?php
 // Get the application object
 $app = JFactory::getApplication();
@@ -619,7 +631,7 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
     display: flex;
     justify-content: center; /* Center horizontally */
     width: 100%;
-    max-width: 1370px; /* Maximum width */
+    max-width: 1400px; /* Maximum width */
     margin: 0 auto; /* Center the container */
 }
 

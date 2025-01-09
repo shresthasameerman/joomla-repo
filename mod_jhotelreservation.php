@@ -7,7 +7,6 @@ $data = [
     ['label' => 'Check-in Date', 'type' => 'date', 'name' => 'checkin_date', 'icon' => 'fa-calendar-alt'],
     ['label' => 'Check-out Date', 'type' => 'date', 'name' => 'checkout_date', 'icon' => 'fa-calendar-alt'],
     ['label' => 'Guests', 'type' => 'number', 'name' => 'guests', 'min' => 1, 'max' => 10, 'icon' => 'fa-user', 'value' => 1],
-    ['label' => 'Rooms', 'type' => 'number', 'name' => 'rooms', 'min' => 1, 'max' => 5, 'icon' => 'fa-bed', 'value' => 1],
 ];
 ?>
 
@@ -126,19 +125,20 @@ $data = [
     .btn-submit-container {
         flex: 0 0 auto;
         margin-left: 15px;
+        margin-top: -25px;
     }
 
     .btn-submit {
-        padding: 12px 35px;
+        padding: 42px 50px;
         border: none;
         border-radius: 8px;
-        background: linear-gradient(145deg, var(--accent-green), var(--primary-green));
+ background: linear-gradient(145deg, var(--secondary-green), var(--primary-green)); /* Changed back to previous color */
         color: var(--white);
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        height: 48px;
+        height: 64px;
         white-space: nowrap;
         box-shadow: 0 4px 12px var(--shadow-color);
         text-transform: uppercase;
@@ -175,7 +175,7 @@ $data = [
     .flatpickr-day.selected:hover {
         background: var(--primary-green) !important;
         border-color: var(--primary-green) !important;
-        color: var (--white) !important;
+        color: var(--white) !important;
     }
 
     .flatpickr-day.today {
@@ -264,8 +264,8 @@ $data = [
     </style>
     
     <!-- Heading -->
-    <h1 style="color: #fff;"><strong>Book Now</strong></h1>
-    <form class="form-container" action="<?php echo JRoute::_('index.php?option=com_jhotelreservation&task=search'); ?>" method="post">
+    <h2 style="color: #fff;"><strong>Book Now</strong></h2>
+    <form class="form-container" action="<?php echo JRoute::_('index.php?option=com_jhotelreservation&task=search'); ?>" method="post" onsubmit="return validateForm();">
     <?php foreach ($data as $field): ?>
         <div class="form-group">
             <label for="<?php echo $field['name']; ?>">
@@ -274,7 +274,7 @@ $data = [
             <?php if ($field['type'] === 'date'): ?>
                 <input
                     type="text"
-                    id="<?php echo $field['name']; ?>"
+ id="<?php echo $field['name']; ?>"
                     name="<?php echo $field['name']; ?>"
                     placeholder="Select date"
                     class="flatpickr-input"
@@ -291,31 +291,33 @@ $data = [
                     <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
                     readonly
                 />
-            <?php elseif ($field['name'] === 'rooms'): ?>
-                <div class="number-input">
-                    <input
-                        type="<?php echo $field['type']; ?>"
-                        id="<?php echo $field['name']; ?>"
-                        name="<?php echo $field['name']; ?>"
-                        value="<?php echo isset($field['value']) ? $field['value'] : 1; ?>"
-                        <?php echo isset($field['min']) ? 'min="' . $field['min'] . '"' : ''; ?>
-                        <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
-                        required
-                    />
-                    <div class="btn-container">
-                        <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', 1)">+</button>
-                        <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', -1)">-</button>
-                    </div>
-                </div>
             <?php endif; ?>
         </div>
     <?php endforeach; ?>
-
+    <!-- Rooms field -->
+    <div class="form-group">
+        <label for="rooms"><i class="fas fa-bed"></i> Rooms:</label>
+        <div class="number-input">
+            <input
+                type="number"
+                id="rooms"
+                name="rooms"
+                value="<?php echo isset($field['value']) ? $field['value'] : 1; ?>"
+                <?php echo isset($field['min']) ? 'min="' . $field['min'] . '"' : ''; ?>
+                <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
+                required readonly
+            />
+            <div class="btn-container">
+                <button type="button" onclick="changeValue('rooms', 1)">+</button>
+                <button type="button" onclick="changeValue('rooms', -1)">-</button>
+            </div>
+        </div>
+    </div>
     <!-- Adults field -->
     <div class="form-group">
         <label for="adults"><i class="fas fa-user"></i> Adults:</label>
         <div class="number-input">
-            <input type="number" id="adults" name="adults" min="1" max="10" value="1" required onchange="updateGuestCount()" />
+            <input type="number" id="adults" name="adults" min="1" max="10" value="1" required readonly />
             <div class="btn-container">
                 <button type="button" onclick="changeValue('adults', 1)">+</button>
                 <button type="button" onclick="changeValue('adults', -1)">-</button>
@@ -327,7 +329,7 @@ $data = [
     <div class="form-group">
         <label for="children"><i class="fas fa-child"></i> Children:</label>
         <div class="number-input">
-            <input type="number" id="children" name="children" min="0" max="10" value="0" required onchange="updateGuestCount()" />
+            <input type="number" id="children" name="children" min="0" max="10" value="0" required readonly />
             <div class="btn-container">
                 <button type="button" onclick="changeValue('children', 1)">+</button>
                 <button type="button" onclick="changeValue('children', -1)">-</button>
@@ -339,7 +341,7 @@ $data = [
     <div id="children-ages-container" class="children-age-group"></div>
 
     <div class="form-group">
-        <button type="submit" class="btn-submit"><i class="fas fa-search"></i> Search</button>
+        <button type="submit" class="btn-submit"><i class="fas fa-search"></i> Book Now</button>
     </div>
 </form>
 </div>
@@ -377,7 +379,7 @@ function updateChildrenFields() {
         label.innerHTML = '<i class="fas fa-baby"></i> Child ' + (i + 1) + ' Age:';
 
         const select = document.createElement('select');
-        select.id = ' child_age_' + i;
+        select.id = 'child_age_' + i;
         select.name = 'child_age_' + i;
         select.required = true;
         select.style.padding = '10px';
@@ -398,6 +400,26 @@ function updateChildrenFields() {
         ageGroup.appendChild(select);
         container.appendChild(ageGroup);
     }
+}
+
+function validateForm() {
+    const checkinDate = document.getElementById('checkin_date').value;
+    const checkoutDate = document.getElementById('checkout_date').value;
+
+    if (!checkinDate || !checkoutDate) {
+        alert("Please fill in both check-in and check-out dates.");
+        return false; // Prevent form submission
+    }
+
+    const checkin = new Date(checkinDate);
+    const checkout = new Date(checkoutDate);
+
+    if (checkout <= checkin) {
+        alert("Check-out date must be after check-in date.");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
 }
 
 document.addEventListener('DOMContentLoaded', function() {

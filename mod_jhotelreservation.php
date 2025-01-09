@@ -266,22 +266,33 @@ $data = [
     <!-- Heading -->
     <h1 style="color: #fff;"><strong>Book Now</strong></h1>
     <form class="form-container" action="<?php echo JRoute::_('index.php?option=com_jhotelreservation&task=search'); ?>" method="post">
-        <?php foreach ($data as $field): ?>
-            <div class="form-group">
-                <label for="<?php echo $field['name']; ?>">
-                    <i class="fas <?php echo $field['icon']; ?>"></i> <?php echo $field['label']; ?>:
-                </label>
-                <?php if ($field['type'] === 'date'): ?>
-                    <input
-                        type="text"
-                        id="<?php echo $field['name']; ?>"
-                        name="<?php echo $field['name']; ?>"
-                        placeholder="Select date"
-                        class="flatpickr-input"
-                        readonly="readonly"
-                        required
-                    />
-                <?php elseif ($field['name'] === 'guests'): ?>
+    <?php foreach ($data as $field): ?>
+        <div class="form-group">
+            <label for="<?php echo $field['name']; ?>">
+                <i class="fas <?php echo $field['icon']; ?>"></i> <?php echo $field['label']; ?>:
+            </label>
+            <?php if ($field['type'] === 'date'): ?>
+                <input
+                    type="text"
+                    id="<?php echo $field['name']; ?>"
+                    name="<?php echo $field['name']; ?>"
+                    placeholder="Select date"
+                    class="flatpickr-input"
+                    readonly="readonly"
+                    required
+                />
+            <?php elseif ($field['name'] === 'guests'): ?>
+                <input
+                    type="<?php echo $field['type']; ?>"
+                    id="<?php echo $field['name']; ?>"
+                    name="<?php echo $field['name']; ?>"
+                    value="<?php echo isset($field['value']) ? $field['value'] : 1; ?>"
+                    <?php echo isset($field['min']) ? 'min="' . $field['min'] . '"' : ''; ?>
+                    <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
+                    readonly
+                />
+            <?php elseif ($field['name'] === 'rooms'): ?>
+                <div class="number-input">
                     <input
                         type="<?php echo $field['type']; ?>"
                         id="<?php echo $field['name']; ?>"
@@ -289,59 +300,48 @@ $data = [
                         value="<?php echo isset($field['value']) ? $field['value'] : 1; ?>"
                         <?php echo isset($field['min']) ? 'min="' . $field['min'] . '"' : ''; ?>
                         <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
-                        readonly
+                        required
                     />
-                <?php elseif ($field['name'] === 'rooms'): ?>
-                    <div class="number-input">
-                        <input
-                            type="<?php echo $field['type']; ?>"
-                            id="<?php echo $field['name']; ?>"
-                            name="<?php echo $field['name']; ?>"
-                            value="<?php echo isset($field['value']) ? $field['value'] : 1; ?>"
-                            <?php echo isset($field['min']) ? 'min="' . $field['min'] . '"' : ''; ?>
-                            <?php echo isset($field['max']) ? 'max="' . $field['max'] . '"' : ''; ?>
-                            required
-                        />
-                        <div class="btn-container">
-                            <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', 1)">+</button>
-                            <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', -1)">-</button>
-                        </div>
+                    <div class="btn-container">
+                        <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', 1)">+</button>
+                        <button type="button" onclick="changeValue('<?php echo $field['name']; ?>', -1)">-</button>
                     </div>
-                <?php endif; ?>
-            </div>
-        <?php endforeach; ?>
-
-        <!-- Adults field -->
-        <div class="form-group">
-            <label for="adults"><i class="fas fa-user"></i> Adults:</label>
-            <div class="number-input">
-                <input type="number" id="adults" name="adults" min="1" max="10" value="1" required onchange="updateGuestCount()" />
-                <div class="btn-container">
-                    <button type="button" onclick="changeValue('adults', 1)">+</button>
-                    <button type="button" onclick="changeValue('adults', -1)">-</button>
                 </div>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+
+    <!-- Adults field -->
+    <div class="form-group">
+        <label for="adults"><i class="fas fa-user"></i> Adults:</label>
+        <div class="number-input">
+            <input type="number" id="adults" name="adults" min="1" max="10" value="1" required onchange="updateGuestCount()" />
+            <div class="btn-container">
+                <button type="button" onclick="changeValue('adults', 1)">+</button>
+                <button type="button" onclick="changeValue('adults', -1)">-</button>
             </div>
         </div>
+    </div>
 
-        <!-- Children field -->
-        <div class="form-group">
-            <label for="children"><i class="fas fa-child"></i> Children:</label>
-            <div class="number-input">
-                <input type="number" id="children" name="children" min="0" max="10" value="0" required onchange="updateGuestCount()" />
-                <div class="btn-container">
-                    <button type="button" onclick="changeValue('children', 1)">+</button>
-                    <button type="button" onclick="changeValue('children', -1)">-</button>
-                </div>
+    <!-- Children field -->
+    <div class="form-group">
+        <label for="children"><i class="fas fa-child"></i> Children:</label>
+        <div class="number-input">
+            <input type="number" id="children" name="children" min="0" max="10" value="0" required onchange="updateGuestCount()" />
+            <div class="btn-container">
+                <button type="button" onclick="changeValue('children', 1)">+</button>
+                <button type="button" onclick="changeValue('children', -1)">-</button>
             </div>
         </div>
+    </div>
 
-        <!-- Container for children's age fields -->
-        <div id="children-ages-container" class="children-age-group"></div>
+    <!-- Container for children's age fields -->
+    <div id="children-ages-container" class="children-age-group"></div>
 
-        <div class="form-group">
-            <button type="submit" class="btn-submit"><i class="fas fa-search"></i> Search</button>
-        </div>
-    </form>
+    <div class="form-group">
+        <button type="submit" class="btn-submit"><i class="fas fa-search"></i> Search</button>
+    </div>
+</form>
 </div>
 
 <script>
@@ -400,57 +400,69 @@ function updateChildrenFields() {
     }
 }
 
-// Initialize Flatpickr date pickers with mutual dependencies
 document.addEventListener('DOMContentLoaded', function() {
-    // Helper function to add days to a date
-    const addDays = (date, days) => {
-        const result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-    };
-
     // Common configuration for both date pickers
     const commonConfig = {
         enableTime: false,
         dateFormat: "Y-m-d",
         disableMobile: false,
-        allowInput: true
+        allowInput: true,
+        minDate: "today"
     };
 
-    // Initialize check-in date picker
+    // Check-in date picker configuration
     const checkinPicker = flatpickr("#checkin_date", {
         ...commonConfig,
-        minDate: "today",
-        onChange: function(selectedDates, dateStr, instance) {
+        mode: "range",
+        onChange: function(selectedDates) {
+            if (selectedDates.length === 2) {
+                // When a range is selected, update both inputs
+                const [checkinDate, checkoutDate] = selectedDates;
+                checkoutPicker.setDate(checkoutDate);
+                // Reset the check-in picker to show only the check-in date
+                setTimeout(() => {
+                    this.setDate(checkinDate);
+                }, 100);
+            }
+        },
+        onOpen: function() {
+            // When opening check-in picker, set initial range if checkout date exists
+            const checkoutDate = checkoutPicker.selectedDates[0];
+            if (checkoutDate && this.selectedDates[0]) {
+                this.setDate([this.selectedDates[0], checkoutDate]);
+            }
+        }
+    });
+
+    // Check-out date picker configuration
+    const checkoutPicker = flatpickr("#checkout_date", {
+        ...commonConfig,
+        onChange: function(selectedDates) {
             if (selectedDates.length > 0) {
-                // Set minimum date for checkout to be the day after check-in
-                const minCheckout = addDays(selectedDates[0], 1);
-                checkoutPicker.set('minDate', minCheckout);
+                const checkinDate = checkinPicker.selectedDates[0];
                 
-                // If checkout date is before new check-in date, update it
-                if (checkoutPicker.selectedDates.length > 0 && 
-                    checkoutPicker.selectedDates[0] <= selectedDates[0]) {
-                    checkoutPicker.setDate(minCheckout);
+                // If check-in date exists and new checkout date is before it
+                if (checkinDate && selectedDates[0] <= checkinDate) {
+                    // Reset to the day after check-in
+                    const nextDay = new Date(checkinDate);
+                    nextDay.setDate(checkinDate.getDate() + 1);
+                    this.setDate(nextDay);
                 }
             }
         }
     });
 
-    // Initialize check-out date picker
-    const checkoutPicker = flatpickr("#checkout_date", {
-        ...commonConfig,
-        minDate: addDays(new Date(), 1),
-        onChange: function(selectedDates, dateStr, instance) {
-            if (selectedDates.length > 0) {
-                // Set maximum date for check-in to be the day before checkout
-                const maxCheckin = addDays(selectedDates[0], -1);
-                checkinPicker.set('maxDate', maxCheckin);
-                
-                // If check-in date is after new checkout date, update it
-                if (checkinPicker.selectedDates.length > 0 && 
-                    checkinPicker.selectedDates[0] >= selectedDates[0]) {
-                    checkinPicker.setDate(maxCheckin);
-                }
+    // Update min dates when check-in changes
+    checkinPicker.config.onChange.push(function(selectedDates) {
+        if (selectedDates.length > 0) {
+            const nextDay = new Date(selectedDates[0]);
+            nextDay.setDate(nextDay.getDate() + 1);
+            checkoutPicker.set('minDate', nextDay);
+
+            // If checkout date exists and is before new check-in date
+            const currentCheckout = checkoutPicker.selectedDates[0];
+            if (currentCheckout && currentCheckout <= selectedDates[0]) {
+                checkoutPicker.setDate(nextDay);
             }
         }
     });

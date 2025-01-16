@@ -148,301 +148,294 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 $currentUrl = JUri::getInstance()->toString();
 $isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== false;
 ?>
+
 <style>
-    body {
-        font-family: 'Noto Serif', serif;
-    }
+/* Base Body Styles */
+body {
+    font-family: 'Noto Serif', serif;
+}
 
-    header {
-        position: relative;
-        <?= $isHomePage ? 'height: 900px; margin-top: -80px;' : 'margin: 0;' ?> 
-        overflow: hidden;
-    }
+/* Header Styles */
+.site-header {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    height: auto;
+    min-height: auto;
+}
 
-    .site-header {
-        position: relative;
-        margin: 0;
-        overflow: hidden;
-        margin-top: -50px;
-    }
+/* Home Page Specific Styles */
+.home-header:not(.hotel-white-leaf-page) {
+    min-height: 800px;
+    margin-top: 0;
+}
 
-    .home-header {
-        height: 900px;
-        margin-top: -50px;
-    }
+/* Animation for background image */
+@keyframes zoomInOut {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
 
-    <?php if (!$isHotelWhiteLeafPage): ?>
-    @keyframes zoomInOut {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
+/* Background Image - Only visible on home page */
+.home-header:not(.hotel-white-leaf-page) .background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    animation: zoomInOut 30s ease-in-out infinite;
+}
 
-    .background-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        animation: zoomInOut 30s ease-in-out infinite;
-    }
-    <?php endif; ?>
+/* Header Content Styles */
+.header-content {
+    width: 100%;
+    max-width: 1400px;
+    background: rgba(255, 255, 255, 0.95);
+    color: white;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 0;
+}
 
-    .header-content {
-        width: 100%;
-        max-width: 1400px;
-        background: rgba(255, 255, 255, 0.7);
-        color: white;
-        box-sizing: border-box;
-        backdrop-filter: blur(5px);
-        border-radius: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        height: 180px;
-    }
+/* Non-home pages and hotel-white-leaf-page */
+.site-header:not(.home-header),
+.hotel-white-leaf-page .site-header {
+    min-height: auto;
+    height: auto;
+    margin-bottom: 0;
+}
 
-    .home-header .header-content {
-        height: 180px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.site-header:not(.home-header) .header-content,
+.hotel-white-leaf-page .header-content {
+    margin: 0;
+    padding: 0;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: none;
+}
 
-    .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 10px;
-        margin-top: 20px;
-        transition: all 0.3s ease;
-        width: 100%;
-    }
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 5px;
+    margin-top: 0;
+    transition: all 0.3s ease;
+    width: 100%;
+    height: 90px;
+}
 
-    .sticky-navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.95);
-        margin-top: 0;
-        padding: 5px 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+.site-header:not(.home-header) .navbar {
+    margin-left: 230px; /* Adjust the value as needed */
+    justify-content: flex-start; /* Align to the left */
+}
 
-    .sticky-navbar .navbar-brand img {
-        height: 80px;
-        transition: height 0.3s ease;
-    }
+.hotel-white-leaf-page .navbar {
+    margin-left: 230px; /* Adjust the value as needed */
+    justify-content: flex-end; /* Align to the right */
+}
 
-    body.has-sticky-navbar {
-        padding-top: 100px;
+.logo-container {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+.navbar-brand img {
+    height: 120px;
+    width: auto;
+    margin-top: 10px;
+    transition: height 0.3s ease;
+}
+
+.navbar-collapse {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+    color: green !important;
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+    padding: 1px 1px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: darkgreen !important;
+}
+
+/* Breadcrumbs Styles */
+.mod-breadcrumbs {
+    background-color: white;
+    color: #198754;
+    border-radius: 5px;
+    margin-top: 0;
+    width: 100%;
+    position: relative;
+    clear: both;
+}
+
+.mod-breadcrumbs .container {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    max-width: none;
+}
+
+.mod-breadcrumbs a, 
+.mod-breadcrumbs span {
+    color: #198754;
+}
+
+.mod-breadcrumbs .breadcrumb {
+    padding: 8px 15px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .navbar-collapse ul li a {
+        font-size: 1rem;
     }
 
     .logo-container {
-        flex: 0 0 auto;
-        margin-left: -120px;
-    }
-
-    @media (max-width: 768px) {
-        .logo-container {
-            margin-left: 0;
-        }
+        margin-left: 60px;
     }
 
     .navbar-brand img {
-        height: 200px;
-        width: auto;
-        margin-top: -10px;
-        transition: height 0.3s ease;
+        height: 100px;
     }
 
-    .navbar-collapse {
-        flex-grow: 1;
-        display: flex;
-        justify-content: flex-end;
+    .navbar {
+        height: 80px;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-brand img {
+        height: 90px;
     }
 
-    .navbar-collapse ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .navbar-collapse ul li {
-        margin: 0 8px;
-    }
-
-    .navbar-collapse ul li a {
-        color: #333;
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 500;
-        transition: color 0.3s ease;
+    .navbar {
+        height: 70px;
     }
 
     .navbar-toggler {
-        padding: 0.25rem 0.75rem;
-        font-size: 1.25rem;
-        line-height: 1;
-        background-color: rgba(255, 255, 255, 0.5);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 0.25rem;
+        display: block;
+    }
+
+    .logo-container {
+        margin-left: 30px;
+    }
+
+    .navbar-collapse {
         display: none;
+        width: 100%;
+        margin-top: 1rem;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        position: absolute;
+        top: 5px;
     }
 
-    @media (max-width: 1200px) {
-        .home-header .header-content {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .navbar-collapse ul li a {
-            font-size: 1rem;
-        }
+    .navbar-collapse.show {
+        display: block;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        position: absolute;
+        top: 70px;
     }
 
-    @media (max-width: 991px) {
-        .navbar-brand img {
-            height: 150px;
-        }
-
-        .sticky-navbar .navbar-brand img {
-            height: 60px;
-        }
-
-        .navbar-toggler {
-            display: block;
-        }
-
-        .navbar-collapse {
-            display: none;
-            width: 100%;
-            margin-top: 1rem;
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-        }
-
-        .navbar-collapse.show {
-            display: block;
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-        }
-
-        .navbar {
-            flex-wrap: wrap;
-        }
-
-        .navbar-collapse ul li {
-            margin: 10px 0;
-        }
-
-        .navbar-collapse ul li a {
-            font-size: 0.95rem;
-        }
+    .navbar {
+        flex-wrap: wrap;
     }
 
-    @media (max-width: 768px) {
-        header {
-            height: auto !important;
-            margin-top: 0;
-        }
-
-        header img {
-            height: auto;
-            max-height: 400px;
-        }
-
-        header .container {
-            margin-left: 0 !important;
-            padding: 0px;
-            background: rgba(255, 255, 255, 0.001) !important;
-        }
-
-        .navbar-brand img {
-            height: 120px;
-            margin-top: -10px;
-        }
-
-        .sticky-navbar .navbar-brand img {
-            height: 50px;
-        }
-
-        .header-content {
-            padding: 10px;
-            height: auto;
-        }
-
-        .home-header {
-            height: auto;
-            min-height: 600px;
-        }
-
-        .navbar-collapse ul li a {
-            font-size: 0.9rem;
-        }
+    .navbar-collapse ul li {
+        margin: 8px 0;
     }
 
-    @media (max-width: 576px) {
-        .navbar-brand img {
-            height: 100px;
-            margin-top: -10px;
-        }
+    .navbar-collapse ul li a {
+        font-size: 0.95rem;
+    }
+}
 
-        .home-header {
-            min-height: 400px;
-        }
-
-        .navbar-collapse ul li a {
-            font-size: 0.85rem;
-        }
-
-        .navbar-collapse ul li {
-            margin: 8px 0;
-        }
+@media (max-width: 768px) {
+    .home-header:not(.hotel-white-leaf-page) {
+        min-height: 250px;
     }
 
-    @media (max-width: 380px) {
-        .navbar-collapse ul li a {
-            font-size: 0.8rem;
-        }
-
-        .navbar-collapse ul li {
-            margin: 6px 0;
-        }
+    .navbar-brand img {
+        height: 80px;
     }
 
-    .navbar-nav .nav-link {
-        color: green !important;
-        font-size: 24px;
-        margin-right: 10px;
-        font-weight: bold;
+    .navbar {
+        height: 60px;
     }
 
-    .navbar-nav .nav-link:hover {
-        color: darkgreen !important;
+    .navbar-collapse ul li a {
+        font-size: 0.9rem;
     }
 
-    .navbar-nav {
-        margin-left: 50px;
+    .mod-breadcrumbs {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand img {
+        height: 70px;
     }
 
-    .row.align-items-center {
-        margin-bottom: 10px !important;
+    .navbar {
+        height: 50px;
     }
+
+    .navbar-collapse ul li a {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .navbar-collapse ul li a {
+        font-size: 0.8rem;
+    }
+
+    .navbar {
+        height: 45px;
+    }
+
+    .navbar-brand img {
+        height: 60px;
+    }
+}
 </style>
 
-<header class="site-header <?= $isHomePage ? 'home-header' : '' ?>">
+
+<header class="site-header <?= $isHomePage ? 'home-header' : '' ?> <?= $isHotelWhiteLeafPage ? 'hotel-white-leaf-page' : '' ?>">
     <?php if ($isHomePage && !$isHotelWhiteLeafPage): ?>
         <img class="background-image" 
              src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
@@ -457,11 +450,11 @@ $isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== 
                         <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo">
                     </a>
                 </div>
-                
+            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+            
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <jdoc:include type="modules" name="menu" style="none" />
                 </div>
@@ -588,6 +581,16 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 0 auto;">
     <jdoc:include type="message"/>
     <jdoc:include type="component"/>
+    <style>
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+</style>
 </div>
 <?php
 // Get the application object

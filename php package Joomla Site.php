@@ -217,10 +217,10 @@ body {
 
 .site-header:not(.home-header) .header-content,
 .hotel-white-leaf-page .header-content {
-    margin: 0;
     padding: 0;
     background: rgba(255, 255, 255, 1);
     box-shadow: none;
+    margin: 0 auto;
 }
 
 /* Navbar Styles */
@@ -234,16 +234,6 @@ body {
     transition: all 0.3s ease;
     width: 100%;
     height: 90px;
-}
-
-.site-header:not(.home-header) .navbar {
-    margin-left: 230px; /* Adjust the value as needed */
-    justify-content: flex-start; /* Align to the left */
-}
-
-.hotel-white-leaf-page .navbar {
-    margin-left: 230px; /* Adjust the value as needed */
-    justify-content: flex-end; /* Align to the right */
 }
 
 .logo-container {
@@ -320,10 +310,6 @@ body {
         font-size: 1rem;
     }
 
-    .logo-container {
-        margin-left: 60px;
-    }
-
     .navbar-brand img {
         height: 100px;
     }
@@ -346,10 +332,6 @@ body {
         display: block;
     }
 
-    .logo-container {
-        margin-left: 30px;
-    }
-
     .navbar-collapse {
         display: none;
         width: 100%;
@@ -368,6 +350,7 @@ body {
         border-radius: 10px;
         position: absolute;
         top: 70px;
+        text-align: center;
     }
 
     .navbar {
@@ -433,7 +416,6 @@ body {
     }
 }
 </style>
-
 
 <header class="site-header <?= $isHomePage ? 'home-header' : '' ?> <?= $isHotelWhiteLeafPage ? 'hotel-white-leaf-page' : '' ?>">
     <?php if ($isHomePage && !$isHotelWhiteLeafPage): ?>

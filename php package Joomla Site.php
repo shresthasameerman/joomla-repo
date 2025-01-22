@@ -85,6 +85,7 @@ $wa->addInlineStyle('
 	<jdoc:include type="metas" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
@@ -135,6 +136,7 @@ $wa->addInlineStyle('
             }
     </style>  
       <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
 
@@ -286,7 +288,7 @@ body {
 }
 
 .mod-breadcrumbs .container {
-    padding-left: 15px;
+    padding-left: 25px;
     padding-right: 15px;
     width: 100%;
     max-width: none;
@@ -477,47 +479,46 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php if ($this->countModules('breadcrumbs')): ?>
 <style>
     .mod-breadcrumbs {
-        background-color: white; /* White background */
-        color: #198754; /* Green text color */
+        background-color: white;
+        color: #198754;
         border-radius: 5px;
-        margin-top: 20px; /* Adjust this value to control the downward spacing */
+        margin-top: 20px;
+        width: 100%;
     }
+    
+    /* Default styles for very large screens */
     .mod-breadcrumbs .container {
-        padding-left: 0;
-        margin-left: 250px; /* Default margin for large screens */
+        padding-left: 240px; /* Large padding only for very large screens */
+        margin-left: 0;
         width: 100%;
         max-width: none;
     }
+    
     .mod-breadcrumbs a, 
     .mod-breadcrumbs span {
-        color: #198754; /* Green text color for links and spans */
+        color: #198754;
     }
+    
     .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
-        color: #198754; /* Green text color for breadcrumb separators */
+        color: #198754;
     }
+    
     .mod-breadcrumbs .breadcrumb {
-        padding-left: 15px;
         padding-right: 15px;
         margin-top: 5px;
     }
     
-    /* Media query for medium screens (tablets) */
-    @media (max-width: 992px) {
-        .mod-breadcrumbs {
-            margin-top: 15px; /* Adjust for smaller screens if needed */
-        }
+    /* For screens 1366px and below (including your secondary monitor) */
+    @media (max-width: 1366px) {
         .mod-breadcrumbs .container {
-            margin-left: 0;
+            padding-left: 55px; /* Minimal padding for better alignment */
         }
     }
     
-    /* Media query for small screens (mobile) */
+    /* Small screens */
     @media (max-width: 768px) {
-        .mod-breadcrumbs {
-            margin-top: 10px; /* Adjust for smaller screens if needed */
-        }
         .mod-breadcrumbs .container {
-            margin-left: 0;
+            padding-left: 10px; /* Even smaller padding for mobile devices */
         }
     }
 </style>
@@ -573,6 +574,30 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 }
 </style>
+  <script>
+    window.addEventListener('resize', function () {
+      const logo = document.querySelector('img[alt="White Leaf Resort Logo"]');
+      const logoMobile = document.querySelectorAll('img[alt="White Leaf Resort Logo"]')[1];
+      if (window.innerWidth <= 600) {
+        logo.style.display = 'none';
+        logoMobile.style.display = 'block';
+      } else {
+        logo.style.display = 'block';
+        logoMobile.style.display = 'none';
+      }
+    });
+    window.addEventListener('load', function () {
+      const logo = document.querySelector('img[alt="White Leaf Resort Logo"]');
+      const logoMobile = document.querySelectorAll('img[alt="White Leaf Resort Logo"]')[1];
+      if (window.innerWidth <= 600) {
+        logo.style.display = 'none';
+        logoMobile.style.display = 'block';
+      } else {
+        logo.style.display = 'block';
+        logoMobile.style.display = 'none';
+      }
+    });
+  </script>
 </div>
 <?php
 // Get the application object

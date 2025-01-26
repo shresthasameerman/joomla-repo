@@ -134,7 +134,7 @@ $wa->addInlineStyle('
             background-color: rgba(255, 255, 255, 0.95); /* Background color for dropdown */
             border-radius: 5px; /* Rounded corners */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
-            z-index: 1000;
+            z-index: 30000; /* Increased z-index */
         }
 
         .navbar-nav .dropdown-item {
@@ -307,7 +307,7 @@ body {
     background-color: rgba(255, 255, 255, 0.95); /* Background color for dropdown */
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
-    z-index: 20000; /* Set z-index to a high value for dropdown */
+    z-index: 30000; /* Increased z-index */
 }
 
 .navbar-nav .dropdown-item {
@@ -499,12 +499,11 @@ document.addEventListener('DOMContentLoaded', function() {
         border-radius: 5px;
         width: 100%;
         clear: both;
-        margin-top: 10px;
-        z-index: -11; /* Ensure breadcrumbs have a lower z-index */
+        z-index: -100; /* Decreased z-index */
     }
 
     .mod-breadcrumbs .container {
-        padding: 0 125px;
+        
         max-width: 1400px;
         margin: 0 auto;
     }
@@ -519,7 +518,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .mod-breadcrumbs .breadcrumb {
-        padding: 8px 0;
         margin: 0;
     }
 

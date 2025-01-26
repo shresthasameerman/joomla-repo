@@ -269,7 +269,7 @@ body {
     color: green !important;
     font-size: 18px;
     margin-right: 10px;
-    font-weight: bold;
+    font-weight: normal; /* Changed from bold to normal */
     white-space: nowrap;
     padding: 1px 1px;
 }

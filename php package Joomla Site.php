@@ -76,7 +76,6 @@ $wa->addInlineStyle('
 ');
 ?>
 
-<?php // Everything below here is the actual "template" part of the template. Where we put our HTML code for the layout and such. ?>
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
@@ -86,14 +85,13 @@ $wa->addInlineStyle('
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <?php // Loads the site's CSS and JS files from web asset manager ?>
 	<jdoc:include type="styles" />
 	<jdoc:include type="scripts" />
     <link rel="icon" href="images/assets/WhatsApp_Image_2024-11-06_at_3.30.01_PM-removebg-preview.png" type="image/x-icon"> <!-- If in template directory -->
-        <!-- Custom CSS for the form -->
+    
     <style>
         /* Mobile responsive styling */
         .navbar {
@@ -102,6 +100,7 @@ $wa->addInlineStyle('
             width: 100%; /* Ensure the navbar takes the full width */
             margin: 0; /* Remove any margin */
             padding: 15px 20px; /* Add padding to increase the background area */
+            z-index: 10000;
         }
 
         .navbar-nav {
@@ -130,19 +129,35 @@ $wa->addInlineStyle('
             padding: 0 10px;
         }
 
+        /* Dropdown Menu Styles */
+        .navbar-nav .dropdown-menu {
+            background-color: rgba(255, 255, 255, 0.95); /* Background color for dropdown */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
+            z-index: 1000;
+        }
+
+        .navbar-nav .dropdown-item {
+            color: #198754; /* Text color for dropdown items */
+            padding: 10px 15px; /* Padding for dropdown items */
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: rgba(0, 0, 0, 0.1); /* Background color on hover */
+            color: #2e8b57; /* Text color on hover */
+        }
+
         @media (max-width: 6000px) {
             .navbar {
                 background: rgba(255, 255, 255, 0.05) !important;
             }
+        }
     </style>  
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 
-<?php // you can change data-bs-theme to dark for dark mode  // ?>
 <body class="site <?php echo $pageclass; ?>" data-bs-theme="light">
 <?php
 $menu = JFactory::getApplication()->getMenu();
@@ -247,12 +262,11 @@ body {
     height: 90px;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Navbar z-index */
 }
 
 .logo-container {
     flex: 0 0 auto;
-    margin: 0;
 }
 
 .navbar-brand img {
@@ -288,35 +302,25 @@ body {
     color: darkgreen !important;
 }
 
-/* Breadcrumbs Styles */
-.mod-breadcrumbs {
-    background-color: #f5f5f5;
-    color: #198754;
-    border-radius: 0;
-    margin-top: 20px;
-    width: 100%;
-    position: relative;
-    clear: both;
+/* Dropdown Menu Styles */
+.navbar-nav .dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.95); /* Background color for dropdown */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
+    z-index: 20000; /* Set z-index to a high value for dropdown */
 }
 
-.mod-breadcrumbs .container {
-    padding-left: 25px;
-    padding-right: 15px;
-    width: 100%;
-    max-width: none;
+.navbar-nav .dropdown-item {
+    color: #198754; /* Text color for dropdown items */
+    padding: 10px 15px; /* Padding for dropdown items */
 }
 
-.mod-breadcrumbs a, 
-.mod-breadcrumbs span {
-    color: #198754;
+.navbar-nav .dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Background color on hover */
+    color: #2e8b57; /* Text color on hover */
 }
 
-.mod-breadcrumbs .breadcrumb {
-    padding: 8px 15px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-}
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
@@ -430,7 +434,6 @@ body {
     }
 }
 </style>
-
 <header class="site-header <?= $isHomePage ? 'home-header' : '' ?> <?= $isHotelWhiteLeafPage ? 'hotel-white-leaf-page' : '' ?>">
     <?php if ($isHomePage && !$isHotelWhiteLeafPage): ?>
         <img class="background-image" 
@@ -488,51 +491,49 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-
 <?php if ($this->countModules('breadcrumbs')): ?>
 <style>
     .mod-breadcrumbs {
-  background-color: white;
-  color: #198754;
-  border-radius: 5px;
-  width: 100%;
-  clear: both;
-  margin-top: 10px;
-  position: relative;
-  z-index: 999;
-}
+        background-color: white;
+        color: #198754;
+        border-radius: 5px;
+        width: 100%;
+        clear: both;
+        margin-top: 10px;
+        z-index: -11; /* Ensure breadcrumbs have a lower z-index */
+    }
 
-.mod-breadcrumbs .container {
-  padding: 0 125px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
+    .mod-breadcrumbs .container {
+        padding: 0 125px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
 
-.mod-breadcrumbs a, 
-.mod-breadcrumbs span {
-  color: #198754;
-}
+    .mod-breadcrumbs a, 
+    .mod-breadcrumbs span {
+        color: #198754;
+    }
 
-.mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
-  color: #198754;
-}
+    .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+        color: #198754;
+    }
 
-.mod-breadcrumbs .breadcrumb {
-  padding: 8px 0;
-  margin: 0;
-}
+    .mod-breadcrumbs .breadcrumb {
+        padding: 8px 0;
+        margin: 0;
+    }
 
-@media (max-width: 991px) {
-  .mod-breadcrumbs .container {
-    padding: 0 15px;
-  }
-}
+    @media (max-width: 991px) {
+        .mod-breadcrumbs .container {
+            padding: 0 15px;
+        }
+    }
 
-@media (max-width: 768px) {
-  .mod-breadcrumbs {
-    margin-top: 0;
-  }
-}
+    @media (max-width: 768px) {
+        .mod-breadcrumbs {
+            margin-top: 0;
+        }
+    }
 </style>
 <div class="mod-breadcrumbs">
     <div class="container">
@@ -775,13 +776,12 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
             
             <!-- Copyright -->
             <div class="col-12">
-    <hr class="mt-4 mb-4" style="border-color: rgba(255, 255, 255, 0.1);">
-    <p class="text-center m-0" style="color: white; font-family: 'Noto Serif', serif;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
-</div>
+                <hr class="mt-4 mb-4" style="border-color: rgba(255, 255, 255, 0.1);">
+                <p class="text-center m-0" style="color: white; font-family: 'Noto Serif', serif;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
+            </div>
         </div>
     </div>
 </footer>
-
 
 <!-- Scroll to Top Button -->
 <button id="scrollToTopBtn" title="Go to top" style="display: none;">

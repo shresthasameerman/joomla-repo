@@ -188,6 +188,33 @@ body {
     padding: 0;
 }
 
+/* Non-Home Page Styles */
+.site-header:not(.home-header),
+.hotel-white-leaf-page .site-header {
+    background-color: transparent !important;
+    min-height: auto;
+    height: auto;
+    margin-bottom: 0;
+}
+
+.site-header:not(.home-header) .header-content,
+.hotel-white-leaf-page .header-content {
+    width: 100%;
+    max-width: 1400px;
+    background: rgba(255, 255, 255, 0.3);
+    color: inherit;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 0;
+}
+
 /* Animation for background image */
 @keyframes zoomInOut {
     0% { transform: scale(1); }
@@ -221,22 +248,6 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-}
-
-.site-header:not(.home-header),
-.hotel-white-leaf-page .site-header {
-    background-color: transparent !important;
-    min-height: auto;
-    height: auto;
-    margin-bottom: 0;
-}
-
-.site-header:not(.home-header) .header-content,
-.hotel-white-leaf-page .header-content {
-    background-color: transparent !important;
-    padding: 0;
-    box-shadow: none;
-    margin: 0 auto;
 }
 
 .logo-container {

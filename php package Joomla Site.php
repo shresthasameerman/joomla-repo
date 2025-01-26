@@ -207,29 +207,12 @@ body {
     animation: zoomInOut 30s ease-in-out infinite;
 }
 
-/* Non-Home Pages and Hotel White Leaf Page */
-.site-header:not(.home-header),
-.hotel-white-leaf-page .site-header {
-    background-color: #f5f5f5;
-    min-height: auto;
-    height: auto;
-    margin-bottom: 0;
-}
-
-.site-header:not(.home-header) .header-content,
-.hotel-white-leaf-page .header-content {
-    background-color: #f5f5f5;
-    padding: 0;
-    box-shadow: none;
-    margin: 0 auto;
-}
-
-/* Navbar Styles */
+/* Navbar Styles - Consistent Transparent Background */
 .navbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.95) !important;
     padding: 15px 5px;
     margin-top: 0;
     transition: all 0.3s ease;
@@ -238,6 +221,22 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.site-header:not(.home-header),
+.hotel-white-leaf-page .site-header {
+    background-color: transparent !important;
+    min-height: auto;
+    height: auto;
+    margin-bottom: 0;
+}
+
+.site-header:not(.home-header) .header-content,
+.hotel-white-leaf-page .header-content {
+    background-color: transparent !important;
+    padding: 0;
+    box-shadow: none;
+    margin: 0 auto;
 }
 
 .logo-container {
@@ -269,7 +268,7 @@ body {
     color: green !important;
     font-size: 18px;
     margin-right: 10px;
-    font-weight: normal; /* Changed from bold to normal */
+    font-weight: normal;
     white-space: nowrap;
     padding: 1px 1px;
 }
@@ -477,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 
 <?php if ($this->countModules('breadcrumbs')): ?>
 <style>

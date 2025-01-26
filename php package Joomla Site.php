@@ -212,7 +212,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.01) !important;
     padding: 15px 5px;
     margin-top: 0;
     transition: all 0.3s ease;

@@ -150,9 +150,8 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 $currentUrl = JUri::getInstance()->toString();
 $isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== false;
 ?>
-
 <style>
-/* Base Body Styles */
+/* Base Styles */
 body {
     font-family: 'Noto Serif', serif;
 }
@@ -170,6 +169,23 @@ body {
 .home-header:not(.hotel-white-leaf-page) {
     min-height: 800px;
     margin-top: 0;
+}
+
+.home-header:not(.hotel-white-leaf-page) .header-content {
+    width: 100%;
+    max-width: 1400px;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 0;
 }
 
 /* Animation for background image */
@@ -191,27 +207,10 @@ body {
     animation: zoomInOut 30s ease-in-out infinite;
 }
 
-/* Header Content Styles */
-.header-content {
-    width: 100%;
-    max-width: 1400px;
-    background: rgba(255, 255, 255, 0.95);
-    color: white;
-    box-sizing: border-box;
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    padding: 0;
-}
-
-/* Non-home pages and hotel-white-leaf-page */
+/* Non-Home Pages and Hotel White Leaf Page */
 .site-header:not(.home-header),
 .hotel-white-leaf-page .site-header {
+    background-color: #f5f5f5;
     min-height: auto;
     height: auto;
     margin-bottom: 0;
@@ -219,8 +218,8 @@ body {
 
 .site-header:not(.home-header) .header-content,
 .hotel-white-leaf-page .header-content {
+    background-color: #f5f5f5;
     padding: 0;
-    background: rgba(255, 255, 255, 1);
     box-shadow: none;
     margin: 0 auto;
 }
@@ -236,6 +235,9 @@ body {
     transition: all 0.3s ease;
     width: 100%;
     height: 90px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo-container {
@@ -278,10 +280,10 @@ body {
 
 /* Breadcrumbs Styles */
 .mod-breadcrumbs {
-    background-color: white;
+    background-color: #f5f5f5;
     color: #198754;
-    border-radius: 5px;
-    margin-top: 0;
+    border-radius: 0;
+    margin-top: 20px;
     width: 100%;
     position: relative;
     clear: both;
@@ -482,43 +484,43 @@ document.addEventListener('DOMContentLoaded', function() {
         background-color: white;
         color: #198754;
         border-radius: 5px;
-        margin-top: 20px;
+        margin-top: 0px;
         width: 100%;
     }
-    
+
     /* Default styles for very large screens */
     .mod-breadcrumbs .container {
-        padding-left: 240px; /* Large padding only for very large screens */
+        padding-left: 270px; /* Large padding only for very large screens */
         margin-left: 0;
         width: 100%;
-        max-width: none;
+        max-width: 1400px;
     }
-    
+
     .mod-breadcrumbs a, 
     .mod-breadcrumbs span {
         color: #198754;
     }
-    
+
     .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
         color: #198754;
     }
-    
+
     .mod-breadcrumbs .breadcrumb {
         padding-right: 15px;
         margin-top: 5px;
     }
-    
+
     /* For screens 1366px and below (including your secondary monitor) */
     @media (max-width: 1366px) {
         .mod-breadcrumbs .container {
-            padding-left: 55px; /* Minimal padding for better alignment */
+            padding-left: 60px; /* Minimal padding for better alignment */
         }
     }
-    
+
     /* Small screens */
     @media (max-width: 768px) {
         .mod-breadcrumbs .container {
-            padding-left: 10px; /* Even smaller padding for mobile devices */
+            padding-left: 0; /* Even smaller padding for mobile devices */
         }
     }
 </style>
@@ -528,8 +530,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </div>
 <?php endif; ?>
-
-
 
 <?php if ($this->countModules('hotel_module')): ?>
  <div class="hotel-module">
@@ -734,8 +734,6 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
         margin-bottom: 20px; /* Space between boxes */
     }
 }
-
-
 </style>
 <?php
 }
@@ -773,6 +771,60 @@ if ($app->getMenu()->getActive() == $app->getMenu()->getDefault()) {
         </div>
     </div>
 </footer>
+
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" title="Go to top" style="display: none;">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<style>
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    border: none;
+    outline: none;
+    background-color: #28a745; /* Green color */
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%; /* Make it round */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 20px; /* Font size for the icon */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #218838; /* Darker green shade on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    // Show or hide the button based on scroll position
+    window.onscroll = function() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    };
+
+    // Scroll to top when the button is clicked
+    scrollToTopBtn.onclick = function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Smooth scroll
+        });
+    };
+});
+</script>
+
 <?php // Include any debugging info ?>
 <jdoc:include type="modules" name="debug" style="none" />
 </body>

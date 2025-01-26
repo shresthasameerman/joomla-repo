@@ -481,48 +481,47 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php if ($this->countModules('breadcrumbs')): ?>
 <style>
     .mod-breadcrumbs {
-        background-color: white;
-        color: #198754;
-        border-radius: 5px;
-        margin-top: 0px;
-        width: 100%;
-    }
+  background-color: white;
+  color: #198754;
+  border-radius: 5px;
+  width: 100%;
+  clear: both;
+  margin-top: 10px;
+  position: relative;
+  z-index: 999;
+}
 
-    /* Default styles for very large screens */
-    .mod-breadcrumbs .container {
-        padding-left: 270px; /* Large padding only for very large screens */
-        margin-left: 0;
-        width: 100%;
-        max-width: 1400px;
-    }
+.mod-breadcrumbs .container {
+  padding: 0 125px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
-    .mod-breadcrumbs a, 
-    .mod-breadcrumbs span {
-        color: #198754;
-    }
+.mod-breadcrumbs a, 
+.mod-breadcrumbs span {
+  color: #198754;
+}
 
-    .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
-        color: #198754;
-    }
+.mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+  color: #198754;
+}
 
-    .mod-breadcrumbs .breadcrumb {
-        padding-right: 15px;
-        margin-top: 5px;
-    }
+.mod-breadcrumbs .breadcrumb {
+  padding: 8px 0;
+  margin: 0;
+}
 
-    /* For screens 1366px and below (including your secondary monitor) */
-    @media (max-width: 1366px) {
-        .mod-breadcrumbs .container {
-            padding-left: 60px; /* Minimal padding for better alignment */
-        }
-    }
+@media (max-width: 991px) {
+  .mod-breadcrumbs .container {
+    padding: 0 15px;
+  }
+}
 
-    /* Small screens */
-    @media (max-width: 768px) {
-        .mod-breadcrumbs .container {
-            padding-left: 0; /* Even smaller padding for mobile devices */
-        }
-    }
+@media (max-width: 768px) {
+  .mod-breadcrumbs {
+    margin-top: 0;
+  }
+}
 </style>
 <div class="mod-breadcrumbs">
     <div class="container">

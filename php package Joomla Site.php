@@ -165,6 +165,72 @@ $currentUrl = JUri::getInstance()->toString();
 $isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== false;
 ?>
 <style>
+/* Mobile responsive styling */
+.navbar {
+    background: rgba(255, 255, 255, 0.05) !important; /* Keep the existing background */
+    transition: background 0.3s ease;
+    width: 100%; /* Ensure the navbar takes the full width */
+    margin: 0; /* Remove any margin */
+    padding: 15px 20px; /* Add padding to increase the background area */
+}
+
+.navbar-nav {
+    display: flex; /* Use flexbox to arrange items in a single row */
+    flex-wrap: nowrap; /* Prevent wrapping to the next line */
+    justify-content: flex-end; /* Align items to the right (optional) */
+    margin-left: -50px;
+}
+
+.navbar-nav .nav-link {
+    color: green !important;
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: normal;
+    white-space: nowrap; /* Prevent text wrapping within each link */
+    padding: 1px 1px; /* Keep padding as needed */
+    text-align: right; /* Align text to the right */
+}
+
+.navbar-collapse .navbar-nav .nav-link {
+    text-align: right; /* Align text to the right for collapsed menu items */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-nav .nav-link:hover {
+    color: #555555 !important;
+}
+
+.container-fluid {
+    padding: 0 10px;
+}
+
+/* Dropdown Menu Styles */
+.navbar-nav .dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.4); /* Adjusted background color for translucency */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
+    z-index: 30000; /* Increased z-index */
+}
+
+.navbar-nav .dropdown-item {
+    color: #198754; /* Text color for dropdown items */
+    padding: 10px 15px; /* Padding for dropdown items */
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Background color on hover */
+    color: #2e8b57; /* Text color on hover */
+}
+
+@media (max-width: 6000px) {
+    .navbar {
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+}
+
 /* Base Styles */
 body {
     font-family: 'Noto Serif', serif;
@@ -177,7 +243,7 @@ body {
     overflow: hidden;
     height: auto;
     min-height: auto;
-    z-index: <?php echo $isHomePage ? '1' : '30000'; ?>; /* Set z-index based on page */
+    z-index: 1; /* Set z-index based on page */
 }
 
 /* Home Page Specific Styles */
@@ -201,7 +267,6 @@ body {
     align-items: center;
     height: auto;
     padding: 0;
-    
 }
 
 /* Non-Home Page Styles */
@@ -296,6 +361,11 @@ body {
     font-weight: normal;
     white-space: nowrap;
     padding: 1px 1px;
+    text-align: right; /* Align text to the right */
+}
+
+.navbar-collapse .navbar-nav .nav-link {
+    text-align: right; /* Align text to the right for collapsed menu items */
 }
 
 .navbar-nav .nav-link:hover {
@@ -347,7 +417,7 @@ body {
         padding: 20px 15px;
         width: 100%;
         height: 150px;
-        background: rgba(255, 255, 255, 0.05) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
         height: 120px;
     }
 

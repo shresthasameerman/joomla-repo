@@ -336,85 +336,84 @@ body {
 }
 
 @media (max-width: 991px) {
-    .navbar-brand img {
-        height: 90px;
+    .header-content {
+        padding: 0;
     }
 
     .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .logo-container {
+        order: 1;
+        margin-right: auto;
+    }
+
+    .navbar-brand {
+        padding: 0;
+        margin: 0;
+    }
+
+    .navbar-brand img {
         height: 70px;
+        margin-top: 0;
     }
 
     .navbar-toggler {
-        display: block;
+        order: 2;
+        margin-left: auto;
+        padding: 4px 8px;
+        border: none;
+        background: transparent;
     }
 
     .navbar-collapse {
-        display: none;
-        width: 100%;
-        margin-top: 1rem;
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 10px;
+        order: 3;
         position: absolute;
-        top: 5px;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 10px;
+        border-radius: 0 0 10px 10px;
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
     }
 
     .navbar-collapse.show {
         display: block;
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 10px;
-        position: absolute;
-        top: 70px;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .navbar-nav {
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    .navbar-nav .nav-item {
         text-align: center;
-    }
-
-    .navbar {
-        flex-wrap: wrap;
-    }
-
-    .navbar-collapse ul li {
-        margin: 8px 0;
-    }
-
-    .navbar-collapse ul li a {
-        font-size: 0.95rem;
+        padding: 5px 0;
     }
 }
 
-@media (max-width: 768px) {
-    .home-header:not(.hotel-white-leaf-page) {
-        min-height: 250px;
+/* Additional refinements for smaller screens */
+@media (max-width: 576px) {
+    .navbar {
+        padding: 5px 15px;
     }
 
     .navbar-brand img {
-        height: 80px;
-    }
-
-    .navbar {
         height: 60px;
     }
 
-    .navbar-collapse ul li a {
-        font-size: 0.9rem;
-    }
-
-    .mod-breadcrumbs {
-        margin-top: 0;
-    }
-}
-
-@media (max-width: 576px) {
-    .navbar-brand img {
-        height: 70px;
-    }
-
-    .navbar {
-        height: 50px;
-    }
-
-    .navbar-collapse ul li a {
-        font-size: 0.85rem;
+    .navbar-toggler {
+        padding: 2px 6px;
     }
 }
 
@@ -447,11 +446,11 @@ body {
                         <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo">
                     </a>
                 </div>
-            
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-            
+                
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <jdoc:include type="modules" name="menu" style="none" />
                 </div>

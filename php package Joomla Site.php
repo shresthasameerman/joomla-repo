@@ -344,12 +344,15 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 20px;
+        padding: 20px 15px;
         width: 100%;
+        height: 150px;
         background: rgba(255, 255, 255, 0.05) !important;
+        height: 120px;
     }
 
     .logo-container {
+        margin-top: -10px;
         order: 1;
         margin-right: auto;
     }
@@ -360,7 +363,7 @@ body {
     }
 
     .navbar-brand img {
-        height: 70px;
+        height: 90px;
         margin-top: 0;
     }
 
@@ -370,6 +373,7 @@ body {
         padding: 4px 8px;
         border: none;
         background: transparent;
+        margin-top: -15px;
     }
 
     .navbar-collapse {
@@ -378,7 +382,7 @@ body {
         top: 100%;
         left: 0;
         right: 0;
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: rgba(255, 255, 255, 0.3);
         padding: 10px;
         border-radius: 0 0 10px 10px;
         max-height: calc(100vh - 90px);
@@ -409,7 +413,7 @@ body {
     }
 
     .navbar-brand img {
-        height: 60px;
+        height: 80px;
     }
 
     .navbar-toggler {
@@ -427,7 +431,7 @@ body {
     }
 
     .navbar-brand img {
-        height: 60px;
+        height: 70px;
     }
 }
 </style>

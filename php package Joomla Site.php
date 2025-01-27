@@ -100,7 +100,6 @@ $wa->addInlineStyle('
             width: 100%; /* Ensure the navbar takes the full width */
             margin: 0; /* Remove any margin */
             padding: 15px 20px; /* Add padding to increase the background area */
-            z-index: 10000;
         }
 
         .navbar-nav {
@@ -131,11 +130,11 @@ $wa->addInlineStyle('
 
         /* Dropdown Menu Styles */
         .navbar-nav .dropdown-menu {
-            background-color: rgba(255, 255, 255, 0.95); /* Background color for dropdown */
-            border-radius: 5px; /* Rounded corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
-            z-index: 30000; /* Increased z-index */
-        }
+    background-color: rgba(255, 255, 255, 0.4); /* Adjusted background color for translucency */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
+    z-index: 30000; /* Increased z-index */
+}
 
         .navbar-nav .dropdown-item {
             color: #198754; /* Text color for dropdown items */
@@ -178,6 +177,7 @@ body {
     overflow: hidden;
     height: auto;
     min-height: auto;
+    z-index: <?php echo $isHomePage ? '1' : '30000'; ?>; /* Set z-index based on page */
 }
 
 /* Home Page Specific Styles */
@@ -201,6 +201,7 @@ body {
     align-items: center;
     height: auto;
     padding: 0;
+    
 }
 
 /* Non-Home Page Styles */
@@ -262,7 +263,6 @@ body {
     height: 90px;
     position: sticky;
     top: 0;
-    z-index: 1000; /* Navbar z-index */
 }
 
 .logo-container {
@@ -304,7 +304,7 @@ body {
 
 /* Dropdown Menu Styles */
 .navbar-nav .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.95); /* Background color for dropdown */
+    background-color: rgba(255, 255, 255, 0.4); /* Updated background color for dropdown */
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
     z-index: 30000; /* Increased z-index */
@@ -316,11 +316,9 @@ body {
 }
 
 .navbar-nav .dropdown-item:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Background color on hover */
+    background-color: rgba(255, 255, 255, 0.4); /* Updated background color on hover */
     color: #2e8b57; /* Text color on hover */
 }
-
-
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
@@ -461,9 +459,41 @@ body {
         </div>
     </div>
 </header>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const navbarItems = document.querySelectorAll('.navbar-nav .nav-item');
+
+    navbarItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+
+        // Show dropdown on hover
+        item.addEventListener('mouseenter', function() {
+            if (dropdownMenu) {
+                dropdownMenu.classList.add('show');
+            }
+        });
+
+        item.addEventListener('mouseleave', function() {
+            if (dropdownMenu) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        if (dropdownMenu) {
+            link.addEventListener('click', function(event) {
+                // Prevent the default action if the dropdown is shown
+                if (dropdownMenu.classList.contains('show')) {
+                    event.preventDefault();
+                    // Optionally, you can toggle the dropdown here if needed
+                } else {
+                    // Redirect to the page if the dropdown is not shown
+                    window.location.href = link.href;
+                }
+            });
+        }
+    });
+    
     const navbar = document.querySelector('.navbar');
     const body = document.body;
     let lastScroll = 0;
@@ -499,7 +529,8 @@ document.addEventListener('DOMContentLoaded', function() {
         border-radius: 5px;
         width: 100%;
         clear: both;
-        z-index: -100; /* Decreased z-index */
+        z-index: 1; /* Decreased z-index */
+        position: relative; /* Ensure it is positioned relative to its parent */
     }
 
     .mod-breadcrumbs .container {
@@ -556,6 +587,8 @@ document.addEventListener('DOMContentLoaded', function() {
          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
          margin: 0 auto;
          margin-top: -75px; /* Default margin for larger screens */
+         z-index: 500;
+         position: relative;
      }
 
      @media (max-width: 768px) {

@@ -79,82 +79,241 @@ $wa->addInlineStyle('
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
-
-    <?php // Loads important metadata like the page title and viewport scaling ?>
-	<jdoc:include type="metas" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    <?php // Loads the site's CSS and JS files from web asset manager ?>
-	<jdoc:include type="styles" />
-	<jdoc:include type="scripts" />
-    <link rel="icon" href="images/assets/WhatsApp_Image_2024-11-06_at_3.30.01_PM-removebg-preview.png" type="image/x-icon"> <!-- If in template directory -->
+    <jdoc:include type="metas" />
     
+    <!-- Single inclusion of external resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <jdoc:include type="styles" />
+    <jdoc:include type="scripts" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/assets/WhatsApp_Image_2024-11-06_at_3.30.01_PM-removebg-preview.png" type="image/x-icon">
+
     <style>
-        /* Mobile responsive styling */
+        /* Essential fixes only - move rest to template.css */
         .navbar {
-            background: rgba(255, 255, 255, 0.05) !important; /* Keep the existing background */
-            transition: background 0.3s ease;
-            width: 100%; /* Ensure the navbar takes the full width */
-            margin: 0; /* Remove any margin */
-            padding: 15px 20px; /* Add padding to increase the background area */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030;
+            background: rgba(255, 255, 255, 0.1) !important; /* Translucent white */
+            backdrop-filter: blur(10px); /* Blur effect for background */
+            transition: all 0.3s ease;
+            padding: 15px 20px;
+            height: 90px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Logo container styling */
+        .navbar-brand {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 10px 15px;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Logo image styling */
+        .navbar-brand img {
+            height: 120px;
+            width: auto;
+            margin-top: 10px;
+            transition: height 0.3s ease;
+        }
+
+        /* Navigation links */
         .navbar-nav {
-            display: flex; /* Use flexbox to arrange items in a single row */
-            flex-wrap: nowrap; /* Prevent wrapping to the next line */
-            justify-content: flex-end; /* Align items to the right (optional) */
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
             margin-left: -50px;
         }
 
         .navbar-nav .nav-link {
-            white-space: nowrap; /* Prevent text wrapping within each link */
-            margin-left: 0; /* Adjust left margin if necessary */
-            margin-right: 5px; /* Increase this value to create a larger gap */
-            padding: 1px 1px; /* Keep padding as needed */
+            color: green !important;
+            font-size: 18px;
+            margin-right: 10px;
+            white-space: nowrap;
+            padding: 1px 1px;
+            text-align: right;
         }
 
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #555555 !important;
-        }
-
-        .container-fluid {
-            padding: 0 10px;
-        }
-
-        /* Dropdown Menu Styles */
+        /* Dropdown styling */
         .navbar-nav .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.4); /* Adjusted background color for translucency */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
-    z-index: 30000; /* Increased z-index */
-}
-
-        .navbar-nav .dropdown-item {
-            color: #198754; /* Text color for dropdown items */
-            padding: 10px 15px; /* Padding for dropdown items */
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 30000;
         }
 
-        .navbar-nav .dropdown-item:hover {
-            background-color: rgba(0, 0, 0, 0.1); /* Background color on hover */
-            color: #2e8b57; /* Text color on hover */
+        /* Header background animation */
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        @media (max-width: 6000px) {
+        .home-header:not(.hotel-white-leaf-page) {
+            min-height: 800px; /* Reduced from 600px */
+            margin-top: 0;
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.02); /* Added translucent background */
+        }
+
+        .home-header:not(.hotel-white-leaf-page) .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            animation: zoomInOut 30s ease-in-out infinite;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 991px) {
             .navbar {
-                background: rgba(255, 255, 255, 0.05) !important;
+                height: 120px;
+                background: rgba(255, 255, 255, 0.15) !important;
+            }
+
+            .navbar-brand {
+                padding: 8px 12px;
+            }
+
+            .navbar-brand img {
+                height: 90px;
+                margin-top: 0;
+            }
+
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: rgba(255, 255, 255, 0.3);
+                padding: 10px;
+                border-radius: 0 0 10px 10px;
             }
         }
-    </style>  
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+        @media (max-width: 768px) {
+            .home-header:not(.hotel-white-leaf-page) {
+                min-height: 350px;  /* Reduced from 400px */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .home-header:not(.hotel-white-leaf-page) {
+                min-height: 250px;  /* Reduced from 300px */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                padding: 5px 10px;
+            }
+
+            .navbar-brand img {
+                height: 80px;
+            }
+
+            .navbar {
+                padding: 5px 15px;
+            }
+        }
+
+        /* Update breadcrumbs styling */
+        .mod-breadcrumbs {
+            background-color: white;
+            color: #198754;
+            border-radius: 5px;
+            width: 100%;
+            clear: both;
+            z-index: 1;
+            position: relative;
+            margin-top: 90px; /* Add top margin to shift down */
+        }
+
+        /* Update main container styling */
+        .container {
+            margin-top: 20px; /* Add spacing between breadcrumbs and content */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .mod-breadcrumbs {
+                margin-top: 120px; /* Increase margin for mobile navbar height */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mod-breadcrumbs {
+                margin-top: 90px;
+            }
+            .container {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .mod-breadcrumbs {
+                margin-top: 80px;
+            }
+            .container {
+                margin-top: 10px;
+            }
+        }
+
+        /* Navbar container layout */
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        /* Logo positioning */
+        .navbar-brand {
+            margin-right: auto; /* Push logo to left */
+        }
+
+        /* Menu items positioning */
+        .navbar-collapse {
+            margin-left: auto; /* Push menu to right */
+            flex-grow: 0; /* Prevent menu from expanding */
+        }
+
+        .navbar-nav {
+            margin-left: 0; /* Remove existing margin */
+            justify-content: flex-end; /* Align items to right */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: rgba(255, 255, 255, 0.3);
+                padding: 10px;
+                border-radius: 0 0 10px 10px;
+            }
+        }
+    </style>
 </head>
 
 <body class="site <?php echo $pageclass; ?>" data-bs-theme="light">
@@ -164,347 +323,6 @@ $isHomePage = $menu->getActive() == $menu->getDefault();
 $currentUrl = JUri::getInstance()->toString();
 $isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== false;
 ?>
-<style>
-/* Mobile responsive styling */
-.navbar {
-    background: rgba(255, 255, 255, 0.05) !important; /* Keep the existing background */
-    transition: background 0.3s ease;
-    width: 100%; /* Ensure the navbar takes the full width */
-    margin: 0; /* Remove any margin */
-    padding: 15px 20px; /* Add padding to increase the background area */
-}
-
-.navbar-nav {
-    display: flex; /* Use flexbox to arrange items in a single row */
-    flex-wrap: nowrap; /* Prevent wrapping to the next line */
-    justify-content: flex-end; /* Align items to the right (optional) */
-    margin-left: -50px;
-}
-
-.navbar-nav .nav-link {
-    color: green !important;
-    font-size: 18px;
-    margin-right: 10px;
-    font-weight: normal;
-    white-space: nowrap; /* Prevent text wrapping within each link */
-    padding: 1px 1px; /* Keep padding as needed */
-    text-align: right; /* Align text to the right */
-}
-
-.navbar-collapse .navbar-nav .nav-link {
-    text-align: right; /* Align text to the right for collapsed menu items */
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-.navbar-nav .nav-link:hover {
-    color: #555555 !important;
-}
-
-.container-fluid {
-    padding: 0 10px;
-}
-
-/* Dropdown Menu Styles */
-.navbar-nav .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.4); /* Adjusted background color for translucency */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
-    z-index: 30000; /* Increased z-index */
-}
-
-.navbar-nav .dropdown-item {
-    color: #198754; /* Text color for dropdown items */
-    padding: 10px 15px; /* Padding for dropdown items */
-}
-
-.navbar-nav .dropdown-item:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Background color on hover */
-    color: #2e8b57; /* Text color on hover */
-}
-
-@media (max-width: 6000px) {
-    .navbar {
-        background: rgba(255, 255, 255, 0.05) !important;
-    }
-}
-
-/* Base Styles */
-body {
-    font-family: 'Noto Serif', serif;
-}
-
-/* Header Styles */
-.site-header {
-    position: relative;
-    margin: 0;
-    overflow: hidden;
-    height: auto;
-    min-height: auto;
-    z-index: 1; /* Set z-index based on page */
-}
-
-/* Home Page Specific Styles */
-.home-header:not(.hotel-white-leaf-page) {
-    min-height: 800px;
-    margin-top: 0;
-}
-
-.home-header:not(.hotel-white-leaf-page) .header-content {
-    width: 100%;
-    max-width: 1400px;
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-    box-sizing: border-box;
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    padding: 0;
-}
-
-/* Non-Home Page Styles */
-.site-header:not(.home-header),
-.hotel-white-leaf-page .site-header {
-    background-color: transparent !important;
-    min-height: auto;
-    height: auto;
-    margin-bottom: 0;
-}
-
-.site-header:not(.home-header) .header-content,
-.hotel-white-leaf-page .header-content {
-    width: 100%;
-    max-width: 1400px;
-    background: rgba(255, 255, 255, 0.3);
-    color: inherit;
-    box-sizing: border-box;
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    padding: 0;
-}
-
-/* Animation for background image */
-@keyframes zoomInOut {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-/* Background Image - Only visible on home page */
-.home-header:not(.hotel-white-leaf-page) .background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    animation: zoomInOut 30s ease-in-out infinite;
-}
-
-/* Navbar Styles - Consistent Transparent Background */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.01) !important;
-    padding: 15px 5px;
-    margin-top: 0;
-    transition: all 0.3s ease;
-    width: 100%;
-    height: 90px;
-    position: sticky;
-    top: 0;
-}
-
-.logo-container {
-    flex: 0 0 auto;
-}
-
-.navbar-brand img {
-    height: 120px;
-    width: auto;
-    margin-top: 10px;
-    transition: height 0.3s ease;
-}
-
-.navbar-collapse {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.navbar-nav {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    margin-left: auto;
-}
-
-.navbar-nav .nav-link {
-    color: green !important;
-    font-size: 18px;
-    margin-right: 10px;
-    font-weight: normal;
-    white-space: nowrap;
-    padding: 1px 1px;
-    text-align: right; /* Align text to the right */
-}
-
-.navbar-collapse .navbar-nav .nav-link {
-    text-align: right; /* Align text to the right for collapsed menu items */
-}
-
-.navbar-nav .nav-link:hover {
-    color: darkgreen !important;
-}
-
-/* Dropdown Menu Styles */
-.navbar-nav .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.4); /* Updated background color for dropdown */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
-    z-index: 30000; /* Increased z-index */
-}
-
-.navbar-nav .dropdown-item {
-    color: #198754; /* Text color for dropdown items */
-    padding: 10px 15px; /* Padding for dropdown items */
-}
-
-.navbar-nav .dropdown-item:hover {
-    background-color: rgba(255, 255, 255, 0.4); /* Updated background color on hover */
-    color: #2e8b57; /* Text color on hover */
-}
-
-/* Responsive Styles */
-@media (max-width: 1200px) {
-    .navbar-collapse ul li a {
-        font-size: 1rem;
-    }
-
-    .navbar-brand img {
-        height: 100px;
-    }
-
-    .navbar {
-        height: 80px;
-    }
-}
-
-@media (max-width: 991px) {
-    .header-content {
-        padding: 0;
-    }
-
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 15px;
-        width: 100%;
-        height: 150px;
-        background: rgba(255, 255, 255, 0.2) !important;
-        height: 120px;
-    }
-
-    .logo-container {
-        margin-top: -10px;
-        order: 1;
-        margin-right: auto;
-    }
-
-    .navbar-brand {
-        padding: 0;
-        margin: 0;
-    }
-
-    .navbar-brand img {
-        height: 90px;
-        margin-top: 0;
-    }
-
-    .navbar-toggler {
-        order: 2;
-        margin-left: auto;
-        padding: 4px 8px;
-        border: none;
-        background: transparent;
-        margin-top: -15px;
-    }
-
-    .navbar-collapse {
-        order: 3;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: rgba(255, 255, 255, 0.3);
-        padding: 10px;
-        border-radius: 0 0 10px 10px;
-        max-height: calc(100vh - 90px);
-        overflow-y: auto;
-    }
-
-    .navbar-collapse.show {
-        display: block;
-        width: 100%;
-        margin-top: 0;
-    }
-
-    .navbar-nav {
-        margin: 0;
-        padding: 10px 0;
-    }
-
-    .navbar-nav .nav-item {
-        text-align: center;
-        padding: 5px 0;
-    }
-}
-
-/* Additional refinements for smaller screens */
-@media (max-width: 576px) {
-    .navbar {
-        padding: 5px 15px;
-    }
-
-    .navbar-brand img {
-        height: 80px;
-    }
-
-    .navbar-toggler {
-        padding: 2px 6px;
-    }
-}
-
-@media (max-width: 380px) {
-    .navbar-collapse ul li a {
-        font-size: 0.8rem;
-    }
-
-    .navbar {
-        height: 45px;
-    }
-
-    .navbar-brand img {
-        height: 70px;
-    }
-}
-</style>
 <header class="site-header <?= $isHomePage ? 'home-header' : '' ?> <?= $isHotelWhiteLeafPage ? 'hotel-white-leaf-page' : '' ?>">
     <?php if ($isHomePage && !$isHotelWhiteLeafPage): ?>
         <img class="background-image" 
@@ -512,84 +330,57 @@ body {
              alt="Background Image">
     <?php endif; ?>
     
-    <div class="header-content">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="logo-container">
-                    <a href="" class="navbar-brand">
-                        <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo">
-                    </a>
-                </div>
-                
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <jdoc:include type="modules" name="menu" style="none" />
-                </div>
-            </nav>
+            <a class="navbar-brand" href="/">
+                <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo" height="80">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <jdoc:include type="modules" name="menu" style="none" />
+            </div>
         </div>
-    </div>
+    </nav>
 </header>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const navbarItems = document.querySelectorAll('.navbar-nav .nav-item');
-
-    navbarItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        const dropdownMenu = item.querySelector('.dropdown-menu');
-
-        // Show dropdown on hover
-        item.addEventListener('mouseenter', function() {
-            if (dropdownMenu) {
-                dropdownMenu.classList.add('show');
-            }
-        });
-
-        item.addEventListener('mouseleave', function() {
-            if (dropdownMenu) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
-
-        if (dropdownMenu) {
-            link.addEventListener('click', function(event) {
-                // Prevent the default action if the dropdown is shown
-                if (dropdownMenu.classList.contains('show')) {
-                    event.preventDefault();
-                    // Optionally, you can toggle the dropdown here if needed
-                } else {
-                    // Redirect to the page if the dropdown is not shown
-                    window.location.href = link.href;
-                }
-            });
-        }
-    });
-    
+    // Combined navbar functionality
     const navbar = document.querySelector('.navbar');
-    const body = document.body;
-    let lastScroll = 0;
-    
-    const navbarToggler = document.querySelector('.navbar-toggler');
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    
-    navbarToggler.addEventListener('click', function() {
-        navbarCollapse.classList.toggle('show');
-    });
-    
+    let lastScroll = window.pageYOffset;
+
+    // Throttled scroll handler
+    let ticking = false;
     window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            navbar.classList.add('sticky-navbar');
-            body.classList.add('has-sticky-navbar');
-        } else {
-            navbar.classList.remove('sticky-navbar');
-            body.classList.remove('has-sticky-navbar');
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                const currentScroll = window.pageYOffset;
+                
+                // Add/remove classes based on scroll
+                if (currentScroll > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+                ticking = false;
+            });
+            ticking = true;
         }
-        
-        lastScroll = currentScroll;
+    });
+
+    // Dropdown handling
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        ['mouseenter', 'mouseleave'].forEach(event => {
+            dropdown.addEventListener(event, function() {
+                this.querySelector('.dropdown-menu').classList.toggle('show');
+            });
+        });
     });
 });
 </script>
@@ -660,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
          margin: 0 auto;
          margin-top: -75px; /* Default margin for larger screens */
-         z-index: 500;
+         z-index: 1002;
          position: relative;
      }
 

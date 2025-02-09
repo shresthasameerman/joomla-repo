@@ -155,6 +155,16 @@ $wa->addInlineStyle('
             z-index: 30000;
         }
 
+        .navbar-nav .dropdown-item {
+            color: green !important; /* Match navbar color */
+            padding: 10px 15px;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            color: darkgreen !important;
+        }
+
         /* Header background animation */
         @keyframes zoomInOut {
             0% { transform: scale(1); }
@@ -311,6 +321,36 @@ $wa->addInlineStyle('
                 background-color: rgba(255, 255, 255, 0.3);
                 padding: 10px;
                 border-radius: 0 0 10px 10px;
+            }
+        }
+
+        /* Base header height */
+        .home-header:not(.hotel-white-leaf-page) {
+            min-height: 800px;
+            margin-top: 0;
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Tablet devices */
+        @media (max-width: 991px) {
+            .home-header:not(.hotel-white-leaf-page) {
+                min-height: 600px;
+            }
+        }
+
+        /* Large mobile devices */
+        @media (max-width: 768px) {
+            .home-header:not(.hotel-white-leaf-page) {
+                min-height: 500px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 576px) {
+            .home-header:not(.hotel-white-leaf-page) {
+                min-height: 400px;
             }
         }
     </style>

@@ -353,6 +353,87 @@ $wa->addInlineStyle('
                 min-height: 400px;
             }
         }
+
+        /* Dropdown styling for clickable behavior */
+        .navbar-nav .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .navbar-nav .dropdown-toggle::after {
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
+            content: "";
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0;
+            border-left: 0.3em solid transparent;
+        }
+
+        .navbar-nav .dropdown-menu {
+            display: none;
+        }
+
+        .navbar-nav .dropdown-menu.show {
+            display: block;
+        }
+
+        /* Dropdown styling */
+        .navbar-nav .dropdown-menu {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-nav .dropdown-menu.show {
+            display: block;
+        }
+
+        .navbar-nav .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover, 
+        .dropdown-item:focus {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: darkgreen !important;
+        }
+
+        /* Dropdown hover behavior */
+        .navbar-nav .dropdown:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .navbar-nav .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        /* Keep dropdown visible while hovering */
+        .navbar-nav .dropdown-menu {
+            margin-top: 0;
+            display: none;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Parent menu items that are clickable */
+        .navbar-nav .dropdown-toggle[href] {
+            pointer-events: auto;
+        }
+
+        /* Dropdown items styling */
+        .dropdown-item {
+            color: green !important;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: darkgreen !important;
+        }
     </style>
 </head>
 
@@ -388,40 +469,63 @@ $isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== 
 </header>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Combined navbar functionality
-    const navbar = document.querySelector('.navbar');
-    let lastScroll = window.pageYOffset;
+    const navbarItems = document.querySelectorAll('.navbar-nav .nav-item');
 
-    // Throttled scroll handler
-    let ticking = false;
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            window.requestAnimationFrame(function() {
-                const currentScroll = window.pageYOffset;
-                
-                // Add/remove classes based on scroll
-                if (currentScroll > 100) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-                
-                lastScroll = currentScroll;
-                ticking = false;
-            });
-            ticking = true;
+    navbarItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+
+       // Show dropdown on hover
+item.addEventListener('mouseenter', function() {
+    if (dropdownMenu) {
+        dropdownMenu.classList.add('show');
+    }
+});
+
+item.addEventListener('mouseleave', function() {
+    if (dropdownMenu) {
+        dropdownMenu.classList.remove('show');
+    }
+});
+
+if (dropdownMenu) {
+    link.addEventListener('click', function(event) {
+        // Prevent the default action if the dropdown is shown
+        if (dropdownMenu.classList.contains('show')) {
+            event.preventDefault();
+            // Optionally, you can toggle the dropdown here if needed
+        } else {
+            // Redirect to the page if the dropdown is not shown
+            window.location.href = link.href;
         }
     });
+}
+});
 
-    // Dropdown handling
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-        ['mouseenter', 'mouseleave'].forEach(event => {
-            dropdown.addEventListener(event, function() {
-                this.querySelector('.dropdown-menu').classList.toggle('show');
-            });
-        });
-    });
+const navbar = document.querySelector('.navbar');
+const body = document.body;
+let lastScroll = 0;
+
+const navbarToggler = document.querySelector('.navbar-toggler');
+const navbarCollapse = document.querySelector('.navbar-collapse');
+
+navbarToggler.addEventListener('click', function() {
+    navbarCollapse.classList.toggle('show');
+});
+
+window.addEventListener('scroll', function() {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > 100) {
+        navbar.classList.add('sticky-navbar');
+        body.classList.add('has-sticky-navbar');
+    } else {
+        navbar.classList.remove('sticky-navbar');
+        body.classList.remove('has-sticky-navbar');
+    }
+
+    lastScroll = currentScroll;
+});
 });
 </script>
 

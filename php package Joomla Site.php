@@ -735,12 +735,10 @@ window.addEventListener('scroll', function() {
      .hotel-module {
          width: 100%;
          max-width: 1400px;
-         background: rgba(255, 255, 255, 0.2);
          color: white;
          box-sizing: border-box;
          backdrop-filter: blur(5px);
          border-radius: 20px;
-         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
          margin: 0 auto;
          margin-top: -75px; /* Default margin for larger screens */
          z-index: 1002;

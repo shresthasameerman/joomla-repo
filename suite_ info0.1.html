@@ -1,52 +1,71 @@
-<div class="suite-info" style="width: 1440px; margin: 10 auto; margin-top: 15px; display: flex;"><img style="width: 50%; height: auto; max-height: 900px; border-radius: 15px; margin-bottom: 15px;" src="images/assets/suties.jpg" alt="Standard Suite">
-<div style="width: 50%; padding: 15px;">
-<table style="width: 100%; border-collapse: collapse; border-spacing: 0;">
-<tbody>
-<tr>
-<td style="padding: 15px; vertical-align: top;">
-<h2 style="font-size: 18px; margin-bottom: 5px;">Suite</h2>
-<p style="font-size: 14px;">30 m²</p>
-<img style="width: 10%; height: auto; max-height: 40px; border-radius: 5px; margin-bottom: 10px;" src="images/assets/Icon/plans.png" alt="Suite Image"></td>
-<td style="padding: 15px; vertical-align: top;">
-<h2 style="font-size: 18px; margin-bottom: 5px;">Room Amenities</h2>
-<ul style="font-size: 14px; list-style-type: none; padding: 0; margin: 0;">
-<li style="margin-bottom: 3px;"><img style="width: 20px; height: 20px; margin-right: 5px; border-radius: 5px;" src="images/assets/Icon/shower.png" alt="Shower">Shower</li>
-<li style="margin-bottom: 3px;"><img style="width: 20px; height: 20px; margin-right: 5px; border-radius: 5px;" src="images/assets/Icon/24-7.png" alt="24/7 service">24/7 service</li>
-<li style="margin-bottom: 3px;"><img style="width: 20px; height: 20px; margin-right: 5px; border-radius: 5px;" src="images/assets/Icon/coffee-machine.png" alt="Coffee/Tea maker">Coffee/Tea maker</li>
-</ul>
-</td>
-</tr>
-<tr>
-<td style="padding: 15px; vertical-align: top;">
-<h2 style="font-size: 18px; margin-bottom: 5px;">Bed Type</h2>
-<p style="font-size: 14px;">Double Bed</p>
-<img style="width: 10%; height: auto; max-height: 50px; border-radius: 5px; margin-bottom: 10px;" src="images/assets/Icon/bed.png" alt="Double Bed"></td>
-<td style="padding: 15px; vertical-align: top;">
-<h2 style="font-size: 18px; margin-bottom: 5px;">Cancellation Rules</h2>
-<p style="font-size: 14px; margin-bottom: 3px;">Free Cancellation until 5 August</p>
-<p style="font-size: 14px; margin-bottom: 3px;">According to time of destination</p>
-<p style="font-size: 14px; margin-bottom: 3px;">Until 5 August: $30 Fee</p>
-<p style="font-size: 14px; margin-bottom: 3px;">After 5 August: $50.00 No Refund</p>
-</td>
-</tr>
-<tr>
-<td style="padding: 15px;" colspan="2">
-<h2 style="font-size: 18px; margin-bottom: 5px;">Other Info</h2>
-<p style="font-size: 14px;">Includes 1 double bed, private bathroom, and a cozy sitting area. Offers light breakfast and coffee or tea. No special view.</p>
-</td>
-</tr>
-<tr>
-<td style="padding: 15px;" colspan="2">
-<h2 style="font-size: 18px; margin-bottom: 5px;">Pricing</h2>
-<p style="font-size: 14px; margin-bottom: 3px;">Booking.com: $350.00 / 3 nights</p>
-<p style="font-size: 14px; margin-bottom: 3px;">HotelStore: $320.00 / 3 nights</p>
-<p style="font-size: 14px; margin-bottom: 10px;">Save Total: $30</p>
-</td>
-</tr>
-<tr>
-<td style="padding: 15px;" colspan="2"><button style="font-size: 16px; padding: 10px 20px; background-color: #4caf50; color: white; border: none; cursor: pointer; border-radius: 10px; margin-bottom: 15px;">Book Now</button></td>
-</tr>
-</tbody>
-</table>
-</div>
+<div class="suite-info" style="width: 100%; max-width: 1440px; margin: 8px auto; padding: 12px; box-sizing: border-box;">
+    <!-- Image Container -->
+    <div style="width: 100%; margin-bottom: 15px;">
+        <img style="width: 100%; height: auto; max-height: 900px; border-radius: 12px; object-fit: cover;" src="images/assets/suties.jpg" alt="Standard Suite">
+    </div>
+    
+    <!-- Content Grid -->
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%;">
+        <!-- Block 1: Suite Details -->
+        <div style="padding: 12px; background-color: #f9f9f9; border-radius: 8px;">
+            <h2 style="font-size: clamp(16px, 4vw, 18px); margin-bottom: 8px;">Suite Details</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <img style="width: 20px; height: 20px; margin-right: 8px;" src="images/assets/Icon/plans.png" alt="Room Area">
+                <p style="font-size: clamp(12px, 3vw, 14px); margin: 0;">30 m²</p>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <img style="width: 20px; height: 20px; margin-right: 8px;" src="images/assets/Icon/bed.png" alt="Bed Type">
+                <p style="font-size: clamp(12px, 3vw, 14px); margin: 0;">Double Bed</p>
+            </div>
+        </div>
+
+        <!-- Block 2: Room Amenities -->
+        <div style="padding: 12px; background-color: #f9f9f9; border-radius: 8px;">
+            <h2 style="font-size: clamp(16px, 4vw, 18px); margin-bottom: 8px;">Room Amenities</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                <div style="display: flex; align-items: center;">
+                    <img style="width: 20px; height: 20px; margin-right: 8px;" src="images/assets/Icon/shower.png" alt="Shower">
+                    <span style="font-size: clamp(12px, 3vw, 14px);">Shower</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <img style="width: 20px; height: 20px; margin-right: 8px;" src="images/assets/Icon/24-7.png" alt="24/7 service">
+                    <span style="font-size: clamp(12px, 3vw, 14px);">24/7 service</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <img style="width: 20px; height: 20px; margin-right: 8px;" src="images/assets/Icon/coffee-machine.png" alt="Coffee/Tea">
+                    <span style="font-size: clamp(12px, 3vw, 14px);">Coffee/Tea maker</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block 3: Cancellation Rules -->
+        <div style="padding: 12px; background-color: #f9f9f9; border-radius: 8px;">
+            <h2 style="font-size: clamp(16px, 4vw, 18px); margin-bottom: 8px;">Cancellation Rules</h2>
+            <p style="font-size: clamp(12px, 3vw, 14px); margin-bottom: 4px;">• Free Cancellation until 5 August</p>
+            <p style="font-size: clamp(12px, 3vw, 14px); margin-bottom: 4px;">• Until 5 August: $30 Fee</p>
+            <p style="font-size: clamp(12px, 3vw, 14px); margin-bottom: 4px;">• After 5 August: $50.00 No Refund</p>
+        </div>
+
+        <!-- Block 4: Pricing -->
+        <div style="padding: 12px; background-color: #f9f9f9; border-radius: 8px;">
+            <h2 style="font-size: clamp(16px, 4vw, 18px); margin-bottom: 8px;">Pricing</h2>
+            <p style="font-size: clamp(12px, 3vw, 14px); margin-bottom: 4px;">Booking.com: $350.00 / 3 nights</p>
+            <p style="font-size: clamp(12px, 3vw, 14px); margin-bottom: 4px;">HotelStore: $320.00 / 3 nights</p>
+            <p style="font-size: clamp(12px, 3vw, 14px); color: #4caf50;">Save Total: $30</p>
+        </div>
+    </div>
+
+    <!-- Other Info -->
+    <div style="padding: 12px; background-color: #f9f9f9; border-radius: 8px; margin: 15px 0;">
+        <h2 style="font-size: clamp(16px, 4vw, 18px); margin-bottom: 8px;">Other Info</h2>
+        <p style="font-size: clamp(12px, 3vw, 14px);">Includes 1 double bed, private bathroom, and a cozy sitting area. Offers light breakfast and coffee or tea. No special view.</p>
+    </div>
+
+    <!-- Book Now Button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/en/home/hotel-white-leaf-resort" 
+           style="display: inline-block; font-size: clamp(14px, 3.5vw, 16px); padding: 12px 24px; background-color: #4caf50; color: white; text-decoration: none; border-radius: 8px; width: 100%; max-width: 200px; cursor: pointer; text-align: center;">
+            Book Now
+        </a>
+    </div>
 </div>

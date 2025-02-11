@@ -110,7 +110,7 @@ $wa->addInlineStyle('
 
         /* Logo container styling */
         .navbar-brand {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.005); /* Reduced from 0.1 to 0.05 */
             border-radius: 15px;
             padding: 10px 15px;
             margin-right: auto;
@@ -118,7 +118,7 @@ $wa->addInlineStyle('
         }
 
         .navbar-brand:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.001); /* Reduced from 0.2 to 0.1 */
             transform: translateY(-2px);
         }
 
@@ -173,7 +173,7 @@ $wa->addInlineStyle('
         }
 
         .home-header:not(.hotel-white-leaf-page) {
-            min-height: 800px; /* Reduced from 600px */
+            min-height: 800px; /* increased from 600px */
             margin-top: 0;
             position: relative;
             overflow: hidden;
@@ -433,6 +433,154 @@ $wa->addInlineStyle('
         .dropdown-item:hover {
             background-color: rgba(255, 255, 255, 0.6);
             color: darkgreen !important;
+        }
+
+        /* Mobile-first adjustments */
+        @media (max-width: 720px) {
+            /* Header adjustments */
+            .navbar {
+                height: auto;
+                min-height: 70px;
+                padding: 5px 10px;
+            }
+
+            .navbar-brand img {
+                height: 60px;
+                margin-top: 0;
+            }
+
+            /* Fix the gap between header and content */
+            .home-header:not(.hotel-white-leaf-page) {
+                min-height: 300px;
+                margin-top: 0;
+            }
+
+            /* Adjust breadcrumbs positioning */
+            .mod-breadcrumbs {
+                margin-top: 70px;
+                padding: 5px 0;
+            }
+
+            /* Container spacing */
+            .container {
+                padding: 0 15px;
+                margin-top: 10px;
+            }
+
+            /* Hotel module adjustments */
+            .hotel-module {
+                margin-top: -30px;
+                border-radius: 10px;
+                padding: 15px;
+            }
+
+            /* Navbar collapse improvements */
+            .navbar-collapse {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 10px;
+                border-radius: 0 0 10px 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar-nav {
+                margin: 0;
+                padding: 10px 0;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 8px 15px;
+                text-align: left;
+            }
+
+            /* Dropdown adjustments */
+            .navbar-nav .dropdown-menu {
+                position: static;
+                float: none;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.1);
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .dropdown-item {
+                padding: 8px 25px;
+            }
+
+            /* Map container adjustments */
+            .map-class-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .left-box, .right-box {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .map-wrapper {
+                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            }
+
+            /* Footer adjustments */
+            footer .container {
+                padding: 15px;
+            }
+
+            footer .row > div {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 576px) {
+            .navbar-brand img {
+                height: 50px;
+            }
+
+            .home-header:not(.hotel-white-leaf-page) {
+                min-height: 250px;
+            }
+
+            .hotel-module {
+                margin-top: -20px;
+            }
+
+            /* Adjust content spacing */
+            .container {
+                padding: 0 10px;
+            }
+
+            /* Scroll to top button adjustment */
+            #scrollToTopBtn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+
+        /* Fix for any remaining gaps */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        .site {
+            flex: 1;
+        }
+
+        /* Prevent horizontal scrolling */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
         }
     </style>
 </head>

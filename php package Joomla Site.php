@@ -582,6 +582,30 @@ $wa->addInlineStyle('
             overflow-x: hidden;
             width: 100%;
         }
+
+        /* Add this new style block in your existing <style> section */
+        .hotel-white-leaf-page {
+            margin-top: 90px; /* Default margin for desktop */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .hotel-white-leaf-page {
+                margin-top: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hotel-white-leaf-page {
+                margin-top: 90px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hotel-white-leaf-page {
+                margin-top: 80px;
+            }
+        }
     </style>
 </head>
 

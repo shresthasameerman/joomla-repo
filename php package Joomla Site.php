@@ -17,7 +17,8 @@ use Joomla\CMS\Uri\Uri;
 /** @var Joomla\CMS\Document\HtmlDocument $this */
 $app = Factory::getApplication();
 $wa = $this->getWebAssetManager();
-// custom JS script here:
+
+// custom JS script
 $wa->addInlineScript('
     function adjustValue(fieldId, change) {
         const input = document.getElementById(fieldId);
@@ -30,6 +31,7 @@ $wa->addInlineScript('
         }
     }
 ');
+
 // Add Favicon from images folder
 // Detecting Active Variables
 $option = $app->input->getCmd('option', '');
@@ -74,6 +76,11 @@ $wa->addInlineStyle('
         display: none !important; 
     }
 ');
+
+// Check if current page is the booking page
+$isBookingPage = ($option === 'com_content' && $view === 'hotel') || 
+                 (strpos(Uri::getInstance()->toString(), 'book-now') !== false);
+
 ?>
 
 <!DOCTYPE html>
@@ -606,48 +613,208 @@ $wa->addInlineStyle('
                 margin-top: 80px;
             }
         }
+
+        /* New styles for booking page */
+        body[class*="view-hotel"] .container,
+        body[class*="layout-hotel"] .container,
+        .booking-page .container {
+            margin-top: 120px !important; /* Increased from 30px to 120px */
+            padding-top: 20px;
+        }
+
+        .hotel-white-leaf-page {
+            margin-top: 90px; /* Increased from 20px to 90px */
+            padding-top: 30px;
+        }
+
+        /* Responsive adjustments for booking page */
+        @media (max-width: 991px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 100px !important; /* Increased from 40px to 100px */
+            }
+        }
+
+        @media (max-width: 768px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 80px !important; /* Increased from 25px to 80px */
+            }
+        }
+
+        @media (max-width: 576px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 60px !important; /* Increased from 20px to 60px */
+            }
+        }
+
+        /* Content spacing fixes */
+        .site {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1470px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Booking page specific styles */
+        body[class*="view-hotel"] .container,
+        body[class*="layout-hotel"] .container,
+        .booking-page .container {
+            margin-top: 50px !important; /* Increased from 40px to 50px */
+            padding-top: 20px;
+        }
+
+        /* Adjust navbar for booking page */
+        .booking-page .navbar {
+            margin-top: -20px; /* Adjusted from -30px to -20px */
+            height: 70px; /* Reduced height */
+        }
+
+        /* Responsive adjustments for booking page */
+        @media (max-width: 991px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 45px !important; /* Increased from 35px to 45px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -15px; /* Adjusted from -25px */
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 40px !important; /* Increased from 30px to 40px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -10px; /* Adjusted from -20px */
+                height: 55px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 35px !important; /* Increased from 25px to 35px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -5px; /* Adjusted from -15px */
+                height: 50px;
+            }
+        }
+
+        /* Booking page specific navbar styles */
+        .booking-page .navbar {
+            margin-top: -40px; /* Increased negative margin to move up */
+            height: 120px;
+            background: rgba(255, 255, 255, 0.25) !important;
+            backdrop-filter: blur(20px);
+        }
+
+        .booking-page .navbar-brand img {
+            margin-top: -10px; /* Added negative margin to move logo up */
+            height: 100px; /* Adjusted height for better proportion */
+        }
+
+        /* Responsive adjustments for booking page navbar */
+        @media (max-width: 991px) {
+            .booking-page .navbar {
+                margin-top: -35px;
+                height: 100px;
+            }
+            
+            .booking-page .navbar-brand img {
+                margin-top: -8px;
+                height: 90px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .booking-page .navbar {
+                margin-top: -30px;
+                height: 90px;
+            }
+            
+            .booking-page .navbar-brand img {
+                margin-top: -5px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .booking-page .navbar {
+                margin-top: -25px;
+                height: 80px;
+            }
+            
+            .booking-page .navbar-brand img {
+                margin-top: -3px;
+                height: 70px;
+            }
+        }
     </style>
 </head>
 
-<body class="site <?php echo $pageclass; ?>" data-bs-theme="light">
-<?php
-$menu = JFactory::getApplication()->getMenu();
-$isHomePage = $menu->getActive() == $menu->getDefault();
-$currentUrl = JUri::getInstance()->toString();
-$isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== false;
-?>
-<header class="site-header <?= $isHomePage ? 'home-header' : '' ?> <?= $isHotelWhiteLeafPage ? 'hotel-white-leaf-page' : '' ?>">
-    <?php if ($isHomePage && !$isHotelWhiteLeafPage): ?>
-        <img class="background-image" 
-             src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
-             alt="Background Image">
-    <?php endif; ?>
+<body class="site <?php echo $pageclass; ?> <?php echo $isBookingPage ? 'booking-page' : ''; ?>" data-bs-theme="light">
+    <?php
+    $menu = JFactory::getApplication()->getMenu();
+    $isHomePage = $menu->getActive() == $menu->getDefault();
+    $currentUrl = JUri::getInstance()->toString();
+    $isHotelWhiteLeafPage = strpos($currentUrl, 'home/hotel-white-leaf-resort') !== false;
+    ?>
     
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo" height="80">
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <jdoc:include type="modules" name="menu" style="none" />
+    <header class="site-header <?= $isHomePage ? 'home-header' : '' ?> <?= $isHotelWhiteLeafPage ? 'hotel-white-leaf-page' : '' ?>">
+        <?php if ($isHomePage && !$isHotelWhiteLeafPage): ?>
+            <img class="background-image" 
+                 src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
+                 alt="Background Image">
+        <?php endif; ?>
+        
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo" height="80">
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <jdoc:include type="modules" name="menu" style="none" />
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const navbarItems = document.querySelectorAll('.navbar-nav .nav-item');
+        </nav>
+    </header>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbarItems = document.querySelectorAll('.navbar-nav .nav-item');
 
-    navbarItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        const dropdownMenu = item.querySelector('.dropdown-menu');
+        navbarItems.forEach(item => {
+            const link = item.querySelector('.nav-link');
+            const dropdownMenu = item.querySelector('.dropdown-menu');
 
-       // Show dropdown on hover
+           // Show dropdown on hover
 item.addEventListener('mouseenter', function() {
     if (dropdownMenu) {
         dropdownMenu.classList.add('show');

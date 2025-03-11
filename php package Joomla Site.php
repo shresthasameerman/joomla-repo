@@ -618,8 +618,8 @@ $isBookingPage = ($option === 'com_content' && $view === 'hotel') ||
         body[class*="view-hotel"] .container,
         body[class*="layout-hotel"] .container,
         .booking-page .container {
-            margin-top: 120px !important; /* Increased from 30px to 120px */
-            padding-top: 20px;
+            margin-top: 30px !important; /* Reduced from 50px to 30px */
+            padding-top: 15px; /* Reduced from 20px to 15px */
         }
 
         .hotel-white-leaf-page {
@@ -632,7 +632,12 @@ $isBookingPage = ($option === 'com_content' && $view === 'hotel') ||
             body[class*="view-hotel"] .container,
             body[class*="layout-hotel"] .container,
             .booking-page .container {
-                margin-top: 100px !important; /* Increased from 40px to 100px */
+                margin-top: 25px !important; /* Reduced from 45px to 25px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -12px; /* Reduced from -15px to -12px */
+                height: 55px; /* Reduced from 60px to 55px */
             }
         }
 
@@ -640,7 +645,12 @@ $isBookingPage = ($option === 'com_content' && $view === 'hotel') ||
             body[class*="view-hotel"] .container,
             body[class*="layout-hotel"] .container,
             .booking-page .container {
-                margin-top: 80px !important; /* Increased from 25px to 80px */
+                margin-top: 20px !important; /* Reduced from 40px to 20px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -10px; /* Kept at -10px */
+                height: 50px; /* Reduced from 55px to 50px */
             }
         }
 
@@ -648,7 +658,12 @@ $isBookingPage = ($option === 'com_content' && $view === 'hotel') ||
             body[class*="view-hotel"] .container,
             body[class*="layout-hotel"] .container,
             .booking-page .container {
-                margin-top: 60px !important; /* Increased from 20px to 60px */
+                margin-top: 15px !important; /* Reduced from 35px to 15px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -5px; /* Kept at -5px */
+                height: 45px; /* Reduced from 50px to 45px */
             }
         }
 
@@ -672,8 +687,54 @@ $isBookingPage = ($option === 'com_content' && $view === 'hotel') ||
         body[class*="view-hotel"] .container,
         body[class*="layout-hotel"] .container,
         .booking-page .container {
-            margin-top: 50px !important; /* Increased from 40px to 50px */
-            padding-top: 20px;
+            margin-top: 30px !important; /* Reduced from 50px to 30px */
+            padding-top: 15px; /* Reduced from 20px to 15px */
+        }
+
+        /* Adjust navbar for booking page */
+        .booking-page .navbar {
+            margin-top: -15px; /* Reduced from -20px to -15px */
+            height: 65px; /* Reduced from 70px to 65px */
+        }
+
+        /* Responsive adjustments for booking page */
+        @media (max-width: 991px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 25px !important; /* Reduced from 45px to 25px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -12px; /* Reduced from -15px to -12px */
+                height: 55px; /* Reduced from 60px to 55px */
+            }
+        }
+
+        @media (max-width: 768px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 20px !important; /* Reduced from 40px to 20px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -10px; /* Kept at -10px */
+                height: 50px; /* Reduced from 55px to 50px */
+            }
+        }
+
+        @media (max-width: 576px) {
+            body[class*="view-hotel"] .container,
+            body[class*="layout-hotel"] .container,
+            .booking-page .container {
+                margin-top: 15px !important; /* Reduced from 35px to 15px */
+            }
+            
+            .booking-page .navbar {
+                margin-top: -5px; /* Kept at -5px */
+                height: 45px; /* Reduced from 50px to 45px */
+            }
         }
 
         /* Adjust navbar for booking page */
@@ -769,6 +830,30 @@ $isBookingPage = ($option === 'com_content' && $view === 'hotel') ||
             .booking-page .navbar-brand img {
                 margin-top: -3px;
                 height: 70px;
+            }
+        }
+
+        /* Update breadcrumbs styling for booking page */
+        .booking-page .mod-breadcrumbs {
+            margin-top: 40px; /* Reduced from 90px to 40px */
+        }
+
+        /* Responsive adjustments for booking page breadcrumbs */
+        @media (max-width: 991px) {
+            .booking-page .mod-breadcrumbs {
+                margin-top: 70px; /* Reduced from 120px to 70px */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .booking-page .mod-breadcrumbs {
+                margin-top: 40px; /* Reduced from 90px to 40px */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .booking-page .mod-breadcrumbs {
+                margin-top: 30px; /* Reduced from 80px to 30px */
             }
         }
     </style>

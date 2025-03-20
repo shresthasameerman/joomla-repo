@@ -89,8 +89,24 @@ Options -Indexes
     # Set RewriteBase for the Joomla installation
     RewriteBase /joomla/
 
-    # Handle direct access to the article
+    # Remove .html extension - ONLY for specific requests that end with .html
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L]
+
+    # Internally add .html extension but AVOID redirect loops
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.+)$ $1.html [L]
+
+    # Special rule for the hotel article - shortest URL version
     RewriteRule ^east-coast-holiday-hotel$ index.php?option=com_content&view=article&id=10 [L]
+
+    # Handle full component path
+    RewriteRule ^component/content/article/east-coast-holiday-hotel$ index.php?option=com_content&view=article&id=10 [L]
+
+    # Handle .html version for backward compatibility
+    RewriteRule ^component/content/article/east-coast-holiday-hotel\.html$ index.php?option=com_content&view=article&id=10 [L]
 
     #
     ## End - Custom redirects

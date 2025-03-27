@@ -1089,16 +1089,204 @@ window.addEventListener('scroll', function() {
     <jdoc:include type="message"/>
     <jdoc:include type="component"/>
     <style>
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+        @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+        }
+        .white-leaf-facilities {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        max-width: 1450px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    @media (max-width: 1200px) {
+        .white-leaf-facilities {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 900px) {
+        .white-leaf-facilities {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .white-leaf-facilities {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .facility-card {
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        cursor: pointer;
+        height: 350px; /* Fixed height to maintain grid consistency */
+    }
+
+    .facility-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .facility-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .facility-card:hover .facility-popup {
+        display: flex;
+        opacity: 1;
+    }
+
+    .facility-popup-content {
+        background-color: white;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 800px;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+    }
+
+    .facility-popup:hover .facility-popup-content {
+        transform: scale(1);
+    }
+
+    .facility-popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #2e8b57;
+    }
+
+    @media (max-width: 768px) {
+        .facility-popup-content {
+            flex-direction: column;
+            text-align: center;
+        }
+        .facility-popup-content img {
+            width: 100% !important;
+            margin-bottom: 20px;
+        }
+    }
+    </style>
+    <style>
+    div[style*="background-color: #ffffff"]:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 </style>
+<style>
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+</style>
+    <!-- Add the hover effect CSS with fixed button visibility -->
+<style>
+    .service-card {
+        position: relative;
+        margin-bottom: 80px; /* Even more space for description and button */
+        cursor: pointer;
+    }
+    
+    .service-card:hover .service-description,
+    .service-card:hover .read-more {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .service-card:hover img {
+        transform: scale(1.05);
+    }
+    
+    .service-description {
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background-color: rgba(255, 255, 255, 0.98);
+        color: #333;
+        padding: 12px;
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: left;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 8px 8px;
+        border-top: 2px solid #4caf50;
+    }
+    
+    .read-more {
+        position: absolute;
+        bottom: -70px; /* Adjusted position */
+        right: 10px;
+        z-index: 11;
+        font-size: 14px;
+        font-weight: bold;
+        color: white !important;
+        text-decoration: none;
+        background-color: #4caf50;
+        padding: 6px 12px;
+        border-radius: 4px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        display: inline-block; /* Ensure it's displayed as a block */
+    }
+    
+    .read-more:hover {
+        background-color: #3d8b3d;
+    }
+    
+    /* Debug styling to help see the button */
+    .read-more::after {
+        content: " →"; /* Add an arrow to make it more visible */
+    }
+</style>
+
   <script>
+        document.querySelectorAll('.facility-popup-close').forEach(closeBtn => {
+        closeBtn.addEventListener('click', (e) => {
+            e.closest('.facility-popup').style.display = 'none';
+        });
+    });
     window.addEventListener('resize', function () {
       const logo = document.querySelector('img[alt="White Leaf Resort Logo"]');
       const logoMobile = document.querySelectorAll('img[alt="White Leaf Resort Logo"]')[1];
@@ -1121,107 +1309,344 @@ window.addEventListener('scroll', function() {
         logoMobile.style.display = 'none';
       }
     });
-  </script>
-</div>
-<?php
-// Get the application object and check for specific conditions
-$app = JFactory::getApplication();
-$currentUrl = JUri::getInstance()->toString();
+    document.querySelectorAll('a').forEach(function(card) {
+        card.addEventListener('mouseenter', function() {
+            this.querySelector('.hotel-description').style.display = 'block';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.querySelector('.hotel-description').style.display = 'none';
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+  // For Our Hotels section
+  const hotelBoxes = document.querySelectorAll('.hotel-description').forEach(function(desc) {
+    const parentDiv = desc.parentElement;
+    parentDiv.addEventListener('mouseover', function() {
+      desc.style.display = 'block';
+    });
+    parentDiv.addEventListener('mouseout', function() {
+      desc.style.display = 'none';
+    });
+  });
+});
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle hover effects for service cards
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                const title = card.querySelector('.service-title');
+                const description = card.querySelector('.service-description');
+                const readMore = card.querySelector('.read-more');
+                const img = card.querySelector('img');
+                
+                card.addEventListener('mouseenter', function() {
+                    title.style.bottom = '50px';
+                    description.style.bottom = '0';
+                    readMore.style.opacity = '1';
+                    img.style.transform = 'scale(1.05)';
+                    card.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    title.style.bottom = '0';
+                    description.style.bottom = '-100%';
+                    readMore.style.opacity = '0';
+                    img.style.transform = 'scale(1)';
+                    card.style.transform = 'translateY(0)';
+                });
+            });
 
-// Check if it's homepage and not the excluded URL
-if ($isHomePage && empty($_GET) && strpos($currentUrl, 'east-coast-holiday-hotel') === false) {
-    // HTML content for the location section
-?>
-<div class="map-class-container">
-    <!-- Your existing location section content stays the same -->
+            // Handle hover effects for hotel cards
+            const hotelCards = document.querySelectorAll('.hotel-card');
+            hotelCards.forEach(card => {
+                const description = card.querySelector('.hotel-description');
+                
+                card.addEventListener('mouseenter', function() {
+                    description.style.bottom = '10px';
+                    card.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    description.style.bottom = '-100%';
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Handle hover effects for messages
+            const messages = document.querySelectorAll('.alert');
+            messages.forEach(message => {
+                message.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+                
+                message.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Handle hover effects for components
+            const components = document.querySelectorAll('.component-content');
+            components.forEach(component => {
+                component.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                component.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
 </div>
-<?php
+<div class="green-location-container">
+    <div class="location-content">
+        <div class="location-text">
+            <h2>Ready to Visit Our Location?</h2>
+            <p>Discover the perfect escape at White Leaf Resort. Nestled in the heart of nature, we offer an unforgettable experience.</p>
+            <div class="location-details">
+                <div class="detail-item">
+                    <strong>Address:</strong>
+                    White Leaf Resort Sukute<br>
+                    Araniko Highway, Kadambas 45314<br>
+                    PQ99+5R Kadambas
+                </div>
+                <div class="detail-item">
+                    <strong>Contact:</strong>
+                    +977 9851342321<br>
+                    reservation@whiteleafresort.com
+                </div>
+            </div>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=White+Leaf+Resort+Sukute,+Araniko+Highway,+Kadambas+45314" 
+               target="_blank" 
+               class="get-directions-btn">Get Directions</a>
+        </div>
+        <div class="location-map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.980251196604!2d85.767031911828!3d27.717896024925228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ebb15f15a00c05%3A0x768bca07f7b5b646!2sWhite%20Leaf%20Resort!5e0!3m2!1sen!2snp!4v1731065837861!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<style>
+.green-location-container {
+    background-color: #2ecc71;
+    padding: 60px 0;
+    color: white;
+    font-family: 'Arial', sans-serif;
 }
-?>
 
-<footer class="py-5" style="background-color: black !important;">
+.location-content {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+    gap: 40px;
+}
+
+.location-text {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.location-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.location-text p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.location-details {
+    margin-bottom: 30px;
+}
+
+.detail-item {
+    margin-bottom: 15px;
+}
+
+.detail-item strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.get-directions-btn {
+    display: inline-block;
+    background-color: white;
+    color: #2ecc71;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.get-directions-btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-3px);
+}
+
+.location-map {
+    flex: 1;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+    .location-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .location-text {
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .location-map {
+        width: 100%;
+        height: 300px;
+    }
+}
+</style>
+
+<footer class="py-5" style="background-color: #166f3e !important; color: white;">
     <div class="container" style="max-width: 1400px; margin: 0 auto;">
-        <div class="row gy-4"> <!-- Added gy-4 for vertical spacing between rows when they stack -->
-            <!-- Footer1 Section -->
-            <div class="col-12 col-sm-6 col-md-4">
+        <div class="row gy-4">
+            <!-- Footer1 Section: GreenStay -->
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="px-3">
                     <jdoc:include type="modules" name="footer1" style="raw" />
                 </div>
             </div>
             
-            <!-- Footer2 Section -->
-            <div class="col-12 col-sm-6 col-md-4">
+            <!-- Footer2 Section: Our Hotels -->
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="px-3">
                     <jdoc:include type="modules" name="footer2" style="raw" />
                 </div>
             </div>
             
-            <!-- Footer3 Section -->
-            <div class="col-12 col-sm-6 col-md-4">
+            <!-- Footer3 Section: Information -->
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="px-3">
                     <jdoc:include type="modules" name="footer3" style="raw" />
                 </div>
             </div>
             
-            <!-- Copyright -->
+            <!-- Footer4 Section: Contact -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="px-3">
+                    <jdoc:include type="modules" name="footer4" style="raw;" />
+                </div>
+            </div>
+            
+            <!-- Copyright and Legal Links -->
             <div class="col-12">
-                <hr class="mt-4 mb-4" style="border-color: rgba(255, 255, 255, 0.1);">
-                <p class="text-center m-0" style="color: white; font-family: 'Noto Serif', serif;">&copy; <?php echo date("Y"); ?> All Rights Reserved to Green Leaf Resort</p>
+                <hr class="mt-4 mb-3" style="border-color: rgba(255, 255, 255, 0.1);">
+                <div class="text-center">
+                    <p class="m-0 mb-2" style="color: rgba(255,255,255,0.7);">
+                        &copy; <?php echo date("Y"); ?> White Leaf Resort. All Rights Reserved.
+                    </p>
+                    <div class="footer-links">
+                        <a href="#" class="me-3" style="color: rgba(255,255,255,0.7); text-decoration: none;">Privacy Policy</a>
+                        <a href="#" class="me-3" style="color: rgba(255,255,255,0.7); text-decoration: none;">Terms of Service</a>
+                        <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Cookie Policy</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- Scroll to Top Button -->
-<button id="scrollToTopBtn" title="Go to top" style="display: none;">
-    <i class="fas fa-chevron-up"></i>
-</button>
-
 <style>
-#scrollToTopBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 1000;
-    border: none;
-    outline: none;
-    background-color: #28a745; /* Green color */
-    color: white;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 50%; /* Make it round */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 20px; /* Font size for the icon */
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#scrollToTopBtn:hover {
-    background-color: #218838; /* Darker green shade on hover */
-    transform: scale(1.1); /* Slightly enlarge on hover */
-}
+    footer {
+        font-family: Arial, sans-serif;
+    }
+    
+    footer h5 {
+        color: white;
+        font-size: 18px;
+    }
+    
+    footer ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    footer ul li {
+        margin-bottom: 10px;
+    }
+    
+    footer ul li a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    footer ul li a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+    
+    .footer-social a {
+        font-size: 20px;
+        transition: color 0.3s ease;
+    }
+    
+    .footer-social a:hover {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .footer-links a:hover {
+        color: white !important;
+        text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+        footer .text-center {
+            text-align: center !important;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-links a {
+            margin: 5px 0 !important;
+        }
+    }
+    a:hover {
+        background-color: rgba(204, 204, 204, 0.1);
+    }
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-
-    // Show or hide the button based on scroll position
-    window.onscroll = function() {
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            scrollToTopBtn.style.display = "block";
-        } else {
-            scrollToTopBtn.style.display = "none";
+    document.addEventListener('DOMContentLoaded', function() {
+        // Optional: Add dynamic year update
+        const yearElement = document.querySelector('footer .m-0');
+        if (yearElement) {
+            yearElement.innerHTML = `&copy; ${new Date().getFullYear()} GreenStay. All Rights Reserved.`;
         }
-    };
-
-    // Scroll to top when the button is clicked
-    scrollToTopBtn.onclick = function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Smooth scroll
-        });
-    };
-});
+    });
 </script>
 
 <?php // Include any debugging info ?>

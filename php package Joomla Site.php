@@ -140,10 +140,10 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
 
         /* Logo image styling */
         .navbar-brand img {
-            height: 120px;
+            height: 40px; /* Reduced from 50px */
             width: auto;
-            margin-top: 10px;
             transition: height 0.3s ease;
+            margin-top: 0;
         }
 
         /* Navigation links */
@@ -219,7 +219,7 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
             }
 
             .navbar-brand img {
-                height: 90px;
+                height: 35px; /* Reduced from 45px */
                 margin-top: 0;
             }
 
@@ -238,21 +238,25 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
             .home-header:not(.hotel-white-leaf-page) {
                 min-height: 350px;  /* Reduced from 400px */
             }
+
+            .navbar-brand img {
+                height: 30px; /* Reduced from 40px */
+                margin-top: 0;
+            }
         }
 
         @media (max-width: 576px) {
             .home-header:not(.hotel-white-leaf-page) {
                 min-height: 250px;  /* Reduced from 300px */
             }
-        }
 
-        @media (max-width: 576px) {
             .navbar-brand {
                 padding: 5px 10px;
             }
 
             .navbar-brand img {
-                height: 80px;
+                height: 25px; /* Reduced from 35px */
+                margin-top: 0;
             }
 
             .navbar {
@@ -801,8 +805,29 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
         }
 
         .booking-page .navbar-brand img {
-            margin-top: -10px; /* Added negative margin to move logo up */
-            height: 100px; /* Adjusted height for better proportion */
+            height: 40px; /* Reduced from 50px */
+            margin-top: 0;
+        }
+
+        @media (max-width: 991px) {
+            .booking-page .navbar-brand img {
+                height: 35px; /* Reduced from 45px */
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .booking-page .navbar-brand img {
+                height: 30px; /* Reduced from 40px */
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .booking-page .navbar-brand img {
+                height: 25px; /* Reduced from 35px */
+                margin-top: 0;
+            }
         }
 
         /* Responsive adjustments for booking page navbar */
@@ -908,6 +933,167 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
                 min-height: 400px;
             }
         }
+
+        /* Navbar styling */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030;
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            padding: 15px 20px;
+            height: 90px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Logo container styling */
+        .navbar-brand {
+            background: rgba(255, 255, 255, 0.005);
+            border-radius: 15px;
+            padding: 10px 15px;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            background: rgba(255, 255, 255, 0.001);
+            transform: translateY(-2px);
+        }
+
+        /* Logo image styling - MODIFIED */
+        .navbar-brand img {
+            height: 40px; /* Reduced from 50px */
+            width: auto;
+            transition: height 0.3s ease;
+            margin-top: 0;
+        }
+
+        /* Navigation links */
+        .navbar-nav {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+            margin-left: -50px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #32cd32 !important;
+            font-size: 18px;
+            margin-right: 10px;
+            white-space: nowrap;
+            padding: 1px 1px;
+            text-align: right;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #228b22 !important;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 991px) {
+            .navbar {
+                height: 80px;
+                background: rgba(0, 0, 0, 0.55) !important;
+            }
+
+            .navbar-brand {
+                padding: 8px 12px;
+            }
+
+            .navbar-brand img {
+                height: 35px; /* Reduced from 45px */
+                margin-top: 0;
+            }
+
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 10px;
+                border-radius: 0 0 10px 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand img {
+                height: 30px; /* Reduced from 40px */
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                padding: 5px 10px;
+            }
+
+            .navbar-brand img {
+                height: 25px; /* Reduced from 35px */
+                margin-top: 0;
+            }
+
+            .navbar {
+                padding: 5px 15px;
+            }
+        }
+
+        /* Update the brand container and text styles */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 0; /* Reduced from 10px to 0 */
+            margin-left: -45px; /* Added negative margin to shift content left */
+        }
+
+        .brand-text {
+            color: #198754;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+            margin-left: -105px; /* Added negative margin to move text closer to logo */
+            margin-top: 50px; /* Adjusted margin to align with logo */
+        }
+
+        /* Update responsive styles */
+        @media (max-width: 768px) {
+            .brand-text {
+                font-size: 20px;
+                margin-left: -10px; /* Slightly less negative margin for smaller screens */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .brand-text {
+                font-size: 18px;
+                margin-left: -5px; /* Even less negative margin for mobile */
+            }
+        }
+
+        /* Update brand text styles */
+        .navbar .brand-container .brand-text {
+            color: #198754;
+            font-size: 10px !important; /* Fixed at 10px */
+            font-weight: bold;
+            white-space: nowrap;
+            margin-left: -102px;
+        }
+
+        /* Remove font-size changes from media queries */
+        @media (max-width: 768px) {
+            .navbar .brand-container .brand-text {
+                margin-left: -10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar .brand-container .brand-text {
+                margin-left: -5px;
+            }
+        }
     </style>
 </head>
 
@@ -921,15 +1107,26 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
     
     <header class="site-header <?= $isHomePage && strpos($currentUrl, 'east-coast-holiday-hotel') === false ? 'home-header' : '' ?> <?= $isHotelWhiteLeafPage ? 'hotel-white-leaf-page' : '' ?>">
         <?php if ($isHomePage && strpos($currentUrl, 'east-coast-holiday-hotel') === false): ?>
-            <img class="background-image" 
-                 src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
-                 alt="Background Image">
+            <div class="background-slider">
+                <img class="background-image active" 
+                     src="images/assets/suEDZJf2Rc7UnAmD2uLtXL1T6KwL0NmBhEKZKaTQ.jpg" 
+                     alt="Background Image 1">
+                <img class="background-image" 
+                     src="images/assets/rafting%20.jpg" 
+                     alt="Background Image 2">
+                <img class="background-image" 
+                     src="images/assets/swimming%20pool.jpeg" 
+                     alt="Background Image 3">
+            </div>
         <?php endif; ?>
         
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="images/assets/Untitled_design-removebg-preview.png" alt="Site Logo" height="80">
+                <a class="navbar-brand" href="#">
+                    <div class="brand-container">
+                        <img src="images/assets/White%20Leaf%20Resort_Leafonly1.png" alt="Site Logo" style="height: 100px; width: auto; transform: scale(0.5); margin-left: -25px;">
+                        <span class="brand-text">White Leaf Resort</span>
+                    </div>
                 </a>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -942,68 +1139,160 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
             </div>
         </nav>
     </header>
-    
+
+    <style>
+    .background-slider {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+        z-index: 0;
+    }
+
+    .background-image.active {
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1030;
+        background: rgba(0, 0, 0, 0.5) !important; /* Semi-transparent black background */
+        backdrop-filter: blur(10px); /* Blur effect for background */
+        transition: all 0.3s ease;
+        padding: 15px 20px;
+        height: 90px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav .nav-link {
+        color: #32cd32 !important; /* Darker green text color */
+        font-size: 18px;
+        margin-right: 10px;
+        white-space: nowrap;
+        padding: 1px 1px;
+        text-align: right;
+        transition: color 0.3s ease; /* Smooth transition for hover effect */
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #228b22 !important; /* Brighter/lighter green on hover */
+    }
+
+    .navbar-brand img {
+        height: 85px;
+        width: auto;
+    }
+
+    .brand-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .brand-text {
+        color: #198754;
+        font-size: 18px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+        .brand-text {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .brand-text {
+            font-size: 18px;
+        }
+    }
+    </style>
+
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('.background-slider .background-image');
+        let currentIndex = 0;
+
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }, 5000); // Change image every 5 seconds
+
         const navbarItems = document.querySelectorAll('.navbar-nav .nav-item');
 
         navbarItems.forEach(item => {
             const link = item.querySelector('.nav-link');
             const dropdownMenu = item.querySelector('.dropdown-menu');
 
-           // Show dropdown on hover
-item.addEventListener('mouseenter', function() {
-    if (dropdownMenu) {
-        dropdownMenu.classList.add('show');
-    }
-});
+            // Show dropdown on hover
+            item.addEventListener('mouseenter', function() {
+                if (dropdownMenu) {
+                    dropdownMenu.classList.add('show');
+                }
+            });
 
-item.addEventListener('mouseleave', function() {
-    if (dropdownMenu) {
-        dropdownMenu.classList.remove('show');
-    }
-});
+            item.addEventListener('mouseleave', function() {
+                if (dropdownMenu) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
 
-if (dropdownMenu) {
-    link.addEventListener('click', function(event) {
-        // Prevent the default action if the dropdown is shown
-        if (dropdownMenu.classList.contains('show')) {
-            event.preventDefault();
-            // Optionally, you can toggle the dropdown here if needed
-        } else {
-            // Redirect to the page if the dropdown is not shown
-            window.location.href = link.href;
-        }
+            if (dropdownMenu) {
+                link.addEventListener('click', function(event) {
+                    // Prevent the default action if the dropdown is shown
+                    if (dropdownMenu.classList.contains('show')) {
+                        event.preventDefault();
+                        // Optionally, you can toggle the dropdown here if needed
+                    } else {
+                        // Redirect to the page if the dropdown is not shown
+                        window.location.href = link.href;
+                    }
+                });
+            }
+        });
+
+        const navbar = document.querySelector('.navbar');
+        const body = document.body;
+        let lastScroll = 0;
+
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        navbarToggler.addEventListener('click', function() {
+            navbarCollapse.classList.toggle('show');
+        });
+
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('sticky-navbar');
+                body.classList.add('has-sticky-navbar');
+            } else {
+                navbar.classList.remove('sticky-navbar');
+                body.classList.remove('has-sticky-navbar');
+            }
+
+            lastScroll = currentScroll;
+        });
     });
-}
-});
-
-const navbar = document.querySelector('.navbar');
-const body = document.body;
-let lastScroll = 0;
-
-const navbarToggler = document.querySelector('.navbar-toggler');
-const navbarCollapse = document.querySelector('.navbar-collapse');
-
-navbarToggler.addEventListener('click', function() {
-    navbarCollapse.classList.toggle('show');
-});
-
-window.addEventListener('scroll', function() {
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > 100) {
-        navbar.classList.add('sticky-navbar');
-        body.classList.add('has-sticky-navbar');
-    } else {
-        navbar.classList.remove('sticky-navbar');
-        body.classList.remove('has-sticky-navbar');
-    }
-
-    lastScroll = currentScroll;
-});
-});
-</script>
+    </script>
 
 <?php if ($this->countModules('breadcrumbs')): ?>
 <style>
@@ -1056,28 +1345,29 @@ window.addEventListener('scroll', function() {
 <?php endif; ?>
 
 <?php if ($this->countModules('hotel_module') && strpos($currentUrl, 'east-coast-holiday-hotel') === false): ?>
- <div class="hotel-module">
-     <jdoc:include type="modules" name="hotel_module" style="none"/>
- </div>
- <style>
-     .hotel-module {
-         width: 100%;
-         max-width: 1400px;
-         color: white;
-         box-sizing: border-box;
-         backdrop-filter: blur(5px);
-         border-radius: 20px;
-         margin: 0 auto;
-         margin-top: -75px; /* Default margin for larger screens */
-         z-index: 1002;
-         position: relative;
-     }
+<div class="hotel-module">
+    <jdoc:include type="modules" name="hotel_module" style="none"/>
+</div>
+<style>
+    .hotel-module {
+        width: 100%;
+        max-width: 1400px;
+        color: white;
+        box-sizing: border-box;
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+        margin: 0 auto;
+        margin-top: -200px; /* Increased negative margin to move further upward */
+        z-index: 1002;
+        position: relative;
+    }
 
-     @media (max-width: 768px) {
-         .hotel-module {
-             margin-top: -40px; /* Adjust margin-top for small screens */
-         }
-     }
+    @media (max-width: 768px) {
+        .hotel-module {
+           margin-top: -100px; /* Adjusted margin-top for small screens */
+        }
+    }
+</style>
  </style>
 <?php endif; ?>
 
@@ -1216,6 +1506,9 @@ window.addEventListener('scroll', function() {
 </style>
     <!-- Add the hover effect CSS with fixed button visibility -->
 <style>
+    .hotel-classs{
+        background-color: var(--bg-green-50);
+    }
     .service-card {
         position: relative;
         margin-bottom: 80px; /* Even more space for description and button */
@@ -1278,6 +1571,10 @@ window.addEventListener('scroll', function() {
     /* Debug styling to help see the button */
     .read-more::after {
         content: " →"; /* Add an arrow to make it more visible */
+    }
+
+    .hotel-class {
+        background-color: var(--bg-green-50);
     }
 </style>
 
@@ -1349,30 +1646,6 @@ window.addEventListener('scroll', function() {
                 card.addEventListener('mouseleave', function() {
                     title.style.bottom = '0';
                     description.style.bottom = '-100%';
-                    readMore.style.opacity = '0';
-                    img.style.transform = 'scale(1)';
-                    card.style.transform = 'translateY(0)';
-                });
-            });
-
-            // Handle hover effects for hotel cards
-            const hotelCards = document.querySelectorAll('.hotel-card');
-            hotelCards.forEach(card => {
-                const description = card.querySelector('.hotel-description');
-                
-                card.addEventListener('mouseenter', function() {
-                    description.style.bottom = '10px';
-                    card.style.transform = 'translateY(-5px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    description.style.bottom = '-100%';
-                    card.style.transform = 'translateY(0)';
-                });
-            });
-
-            // Handle hover effects for messages
-            const messages = document.querySelectorAll('.alert');
             messages.forEach(message => {
                 message.addEventListener('mouseenter', function() {
                     this.style.transform = 'scale(1.02)';
@@ -1400,6 +1673,7 @@ window.addEventListener('scroll', function() {
         });
     </script>
 </div>
+<?php if ($isHomePage): ?>
 <div class="green-location-container">
     <div class="location-content">
         <div class="location-text">
@@ -1409,7 +1683,7 @@ window.addEventListener('scroll', function() {
                 <div class="detail-item">
                     <strong>Address:</strong>
                     White Leaf Resort Sukute<br>
-                    Araniko Highway, Kadambas 45314<br>
+                    Araniko Highway, Sindhupalchowk<br>
                     PQ99+5R Kadambas
                 </div>
                 <div class="detail-item">
@@ -1446,6 +1720,7 @@ window.addEventListener('scroll', function() {
 
 .location-content {
     display: flex;
+    flex-wrap: wrap;
     max-width: 1400px;
     margin: 0 auto;
     align-items: center;
@@ -1454,7 +1729,7 @@ window.addEventListener('scroll', function() {
 
 .location-text {
     flex: 1;
-    padding-right: 40px;
+    padding-right: 20px;
 }
 
 .location-text h2 {
@@ -1525,9 +1800,9 @@ window.addEventListener('scroll', function() {
     }
 }
 </style>
-
-<footer class="py-5" style="background-color: #166f3e !important; color: white;">
-    <div class="container" style="max-width: 1400px; margin: 0 auto;">
+<?php endif; ?>
+<footer class="py-5" style="background-color: #14532d !important; color: #bbf7d0;">
+    <div class="container" style="max-width: 1450px; margin: 0 auto;">
         <div class="row gy-4">
             <!-- Footer1 Section: GreenStay -->
             <div class="col-12 col-sm-6 col-md-3">
@@ -1578,6 +1853,7 @@ window.addEventListener('scroll', function() {
 <style>
     footer {
         font-family: Arial, sans-serif;
+        color: #bbf7d0;
     }
     
     footer h5 {
@@ -1595,7 +1871,7 @@ window.addEventListener('scroll', function() {
     }
     
     footer ul li a {
-        color: rgba(255, 255, 255, 0.7);
+        color: #bbf7d0;
         text-decoration: none;
         transition: color 0.3s ease;
     }
@@ -1611,7 +1887,7 @@ window.addEventListener('scroll', function() {
     }
     
     .footer-social a:hover {
-        color: rgba(255, 255, 255, 0.7);
+        color: #bbf7d0;
     }
     
     .footer-links a:hover {
@@ -1644,7 +1920,7 @@ window.addEventListener('scroll', function() {
         // Optional: Add dynamic year update
         const yearElement = document.querySelector('footer .m-0');
         if (yearElement) {
-            yearElement.innerHTML = `&copy; ${new Date().getFullYear()} GreenStay. All Rights Reserved.`;
+            yearElement.innerHTML = `&copy; ${new Date().getFullYear()} White Leaf Resort. All Rights Reserved.`;
         }
     });
 </script>

@@ -1076,10 +1076,10 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
         /* Update brand text styles */
         .navbar .brand-container .brand-text {
             color: #198754;
-            font-size: 10px !important; /* Fixed at 10px */
+            font-size: 15px !important; /* Fixed at 10px */
             font-weight: bold;
             white-space: nowrap;
-            margin-left: -102px;
+            margin-left: -115px;
         }
 
         /* Remove font-size changes from media queries */
@@ -1094,6 +1094,105 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
                 margin-left: -5px;
             }
         }
+       /* Mobile-first adjustments */
+@media (max-width: 768px) {
+    /* Header height reduction */
+    .home-header:not(.hotel-white-leaf-page) {
+        min-height: 60vh !important;
+        max-height: 500px;
+    }
+    
+    /* Navbar container */
+    .navbar {
+        height: 70px;
+        padding: 5px 15px;
+        background: rgba(50, 50, 50, 0.95) !important;
+    }
+    
+    /* Brand container */
+    .brand-container {
+        flex-direction: row;
+        align-items: center;
+        margin-left: 0;
+        gap: 8px;
+    }
+    
+    /* Logo sizing */
+    .navbar-brand img {
+        height: 50px;
+        width: auto;
+        margin-left: 0;
+    }
+    
+    /* Brand text */
+    .brand-text {
+        font-size: 16px;
+        margin-left: 0;
+        margin-top: 0;
+        color: white !important;
+    }
+    
+    /* Menu items */
+    .navbar-nav .nav-link {
+        padding: 12px 15px !important;
+        font-size: 16px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Dropdown menus */
+    .dropdown-menu {
+        position: static !important;
+        float: none;
+        width: 100%;
+        background: rgba(70,70,70,0.9) !important;
+        border: none;
+        box-shadow: none;
+    }
+    
+    .dropdown-item {
+        padding-left: 25px !important;
+    }
+    
+    /* Toggler button */
+    .navbar-toggler {
+        padding: 8px 10px;
+        border-color: rgba(255,255,255,0.5);
+    }
+    
+    /* Collapsed menu */
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(50,50,50,0.95);
+        padding: 0 15px;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}
+
+/* Extra small devices (phones) */
+@media (max-width: 576px) {
+    .home-header:not(.hotel-white-leaf-page) {
+        min-height: 50vh !important;
+        max-height: 400px;
+    }
+    
+    .navbar-brand img {
+        height: 40px;
+    }
+    
+    .brand-text {
+        font-size: 14px;
+    }
+    
+    .navbar-nav .nav-link {
+        font-size: 15px;
+        padding: 10px 15px !important;
+    }
+}
     </style>
 </head>
 
@@ -1162,6 +1261,7 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
 
     .background-image.active {
         opacity: 1;
+
         z-index: 1;
     }
 
@@ -1177,21 +1277,18 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
         height: 90px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-
-    .navbar-nav .nav-link {
-        color: #32cd32 !important; /* Darker green text color */
-        font-size: 18px;
-        margin-right: 10px;
-        white-space: nowrap;
-        padding: 1px 1px;
-        text-align: right;
-        transition: color 0.3s ease; /* Smooth transition for hover effect */
-    }
-
-    .navbar-nav .nav-link:hover {
-        color: #228b22 !important; /* Brighter/lighter green on hover */
-    }
-
+.navbar-nav .nav-link {
+    color: #ffffff !important; /* White text color */
+    font-size: 18px;
+    margin-right: 10px;
+    white-space: nowrap;
+    padding: 1px 1px;
+    text-align: right;
+    transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover {
+    color: #e0e0e0 !important; /* Light gray on hover for subtle effect */
+}
     .navbar-brand img {
         height: 85px;
         width: auto;
@@ -1292,6 +1389,36 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
             lastScroll = currentScroll;
         });
     });
+
+    // Add this to your existing script
+document.addEventListener('DOMContentLoaded', function() {
+    // Better dropdown handling for mobile
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const menu = this.nextElementSibling;
+                menu.classList.toggle('show');
+                
+                // Close other open dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
+                    if (otherMenu !== menu && otherMenu.classList.contains('show')) {
+                        otherMenu.classList.remove('show');
+                    }
+                });
+            }
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && !e.target.closest('.navbar-collapse') && !e.target.closest('.navbar-toggler')) {
+            document.querySelector('.navbar-collapse').classList.remove('show');
+        }
+    });
+});
     </script>
 
 <?php if ($this->countModules('breadcrumbs')): ?>

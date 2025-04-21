@@ -165,20 +165,69 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
 
         /* Dropdown styling */
         .navbar-nav .dropdown-menu {
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            z-index: 30000;
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 0;
+            margin-top: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .navbar-nav .dropdown-item {
-            color: green !important; /* Match navbar color */
-            padding: 10px 15px;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            font-size: 16px;
         }
 
-        .navbar-nav .dropdown-item:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-            color: darkgreen !important;
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0 !important;
+        }
+
+        /* Mobile dropdown styles */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: rgba(0, 0, 0, 0.5) !important;
+                backdrop-filter: blur(10px);
+            }
+            
+            .navbar-nav .dropdown-menu {
+                background-color: rgba(0, 0, 0, 0.3) !important;
+                border: none;
+                padding: 0;
+                margin: 0;
+                box-shadow: none;
+            }
+
+            .navbar-nav .dropdown-item {
+                padding: 12px 25px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .navbar-nav .dropdown-item:last-child {
+                border-bottom: none;
+            }
+            
+            /* Ensure dropdown menu is visible on mobile */
+            .navbar-nav .dropdown-menu.show {
+                display: block;
+            }
+        }
+
+        /* Dropdown toggle arrow color */
+        .navbar-nav .dropdown-toggle::after {
+            color: #ffffff;
+            border-top-color: #ffffff;
+        }
+
+        /* Active dropdown item */
+        .navbar-nav .dropdown-item.active,
+        .navbar-nav .dropdown-item:active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff !important;
         }
 
         /* Header background animation */
@@ -407,21 +456,6 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
         }
 
         .navbar-nav .dropdown-menu.show {
-            display: block;
-        }
-
-        .navbar-nav .dropdown-toggle {
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover, 
-        .dropdown-item:focus {
-            background-color: rgba(255, 255, 255, 0.6);
-            color: darkgreen !important;
-        }
-
-        /* Dropdown hover behavior */
-        .navbar-nav .dropdown:hover > .dropdown-menu {
             display: block;
         }
 
@@ -1050,12 +1084,12 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
         }
 
         .brand-text {
-            color: #198754;
+            color: #ffffff;
             font-size: 10px;
             font-weight: bold;
             white-space: nowrap;
-            margin-left: -105px; /* Added negative margin to move text closer to logo */
-            margin-top: 50px; /* Adjusted margin to align with logo */
+            margin-left: -50px; /* Added negative margin to move text closer to logo */
+            margin-top: 20px; /* Adjusted margin to align with logo */
         }
 
         /* Update responsive styles */
@@ -1075,11 +1109,11 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
 
         /* Update brand text styles */
         .navbar .brand-container .brand-text {
-            color: #198754;
+            color: #ffffff !important; /* White text color */
             font-size: 15px !important; /* Fixed at 10px */
             font-weight: bold;
             white-space: nowrap;
-            margin-left: -115px;
+            margin-left: -100px;
         }
 
         /* Remove font-size changes from media queries */
@@ -1094,105 +1128,94 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
                 margin-left: -5px;
             }
         }
-       /* Mobile-first adjustments */
-@media (max-width: 768px) {
-    /* Header height reduction */
-    .home-header:not(.hotel-white-leaf-page) {
-        min-height: 60vh !important;
-        max-height: 500px;
-    }
-    
-    /* Navbar container */
-    .navbar {
-        height: 70px;
-        padding: 5px 15px;
-        background: rgba(50, 50, 50, 0.95) !important;
-    }
-    
-    /* Brand container */
-    .brand-container {
-        flex-direction: row;
-        align-items: center;
-        margin-left: 0;
-        gap: 8px;
-    }
-    
-    /* Logo sizing */
-    .navbar-brand img {
-        height: 50px;
-        width: auto;
-        margin-left: 0;
-    }
-    
-    /* Brand text */
-    .brand-text {
-        font-size: 16px;
-        margin-left: 0;
-        margin-top: 0;
-        color: white !important;
-    }
-    
-    /* Menu items */
-    .navbar-nav .nav-link {
-        padding: 12px 15px !important;
-        font-size: 16px;
-        text-align: left;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    /* Dropdown menus */
-    .dropdown-menu {
-        position: static !important;
-        float: none;
-        width: 100%;
-        background: rgba(70,70,70,0.9) !important;
-        border: none;
-        box-shadow: none;
-    }
-    
-    .dropdown-item {
-        padding-left: 25px !important;
-    }
-    
-    /* Toggler button */
-    .navbar-toggler {
-        padding: 8px 10px;
-        border-color: rgba(255,255,255,0.5);
-    }
-    
-    /* Collapsed menu */
-    .navbar-collapse {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(50,50,50,0.95);
-        padding: 0 15px;
-        max-height: 70vh;
-        overflow-y: auto;
-    }
-}
 
-/* Extra small devices (phones) */
-@media (max-width: 576px) {
-    .home-header:not(.hotel-white-leaf-page) {
-        min-height: 50vh !important;
-        max-height: 400px;
-    }
-    
-    .navbar-brand img {
-        height: 40px;
-    }
-    
-    .brand-text {
-        font-size: 14px;
-    }
-    
-    .navbar-nav .nav-link {
-        font-size: 15px;
-        padding: 10px 15px !important;
-    }
-}
+        /* Mobile navigation styles */
+        @media (max-width: 768px) {
+            /* Navbar container */
+            .navbar {
+                height: 60px !important; /* Reduced height */
+                padding: 0 15px !important;
+                background: rgba(0, 0, 0, 0.8) !important;
+            }
+
+            /* Container layout */
+            .navbar > .container {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                height: 100% !important;
+                padding: 0 10px !important;
+            }
+
+            /* Logo and text container */
+            .brand-container {
+                display: flex !important;
+                align-items: center !important;
+                gap: 5px !important; /* Reduced gap */
+                margin-left: -15px !important; /* Move text more to the left */
+            }
+
+            /* Logo sizing */
+            .navbar-brand {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .navbar-brand img {
+                height: 35px !important;
+                width: auto !important;
+                margin: 0 !important;
+            }
+
+            /* Brand text adjustments */
+            .brand-text {
+                font-size: 14px !important;
+                margin: 0 !important;
+                padding-left: 0 !important;
+                white-space: nowrap !important;
+                color: white !important;
+            }
+
+            /* Hamburger menu button */
+            .navbar-toggler {
+                padding: 4px 8px !important;
+                margin: 0 !important;
+                border-color: rgba(255, 255, 255, 0.5) !important;
+                position: relative !important;
+                top: -2px !important; /* Move hamburger slightly up */
+            }
+
+            /* Collapsed menu positioning */
+            .navbar-collapse {
+                position: absolute !important;
+                top: 60px !important; /* Match navbar height */
+                left: 0 !important;
+                right: 0 !important;
+                background: rgba(0, 0, 0, 0.9) !important;
+                padding: 10px 0 !important;
+                border-radius: 0 0 10px 10px !important;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 576px) {
+            .navbar {
+                height: 55px !important; /* Even smaller height */
+            }
+            
+            .navbar-brand img {
+                height: 30px !important;
+            }
+
+            .brand-text {
+                font-size: 13px !important;
+            }
+            
+            .navbar-toggler {
+                transform: scale(0.9) !important;
+                top: -3px !important;
+            }
+        }
     </style>
 </head>
 
@@ -1240,6 +1263,7 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
     </header>
 
     <style>
+    
     .background-slider {
         position: relative;
         width: 100%;
@@ -1301,7 +1325,7 @@ $isHomePage = ($menu->getActive() == $menu->getDefault()) &&
     }
 
     .brand-text {
-        color: #198754;
+        color: #ffffff;
         font-size: 18px;
         font-weight: bold;
         white-space: nowrap;
@@ -1419,55 +1443,141 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-    </script>
 
+// Add this to your existing script section
+
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.navbar-nav .dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const toggleBtn = dropdown.querySelector('.dropdown-toggle');
+        const menu = dropdown.querySelector('.dropdown-menu');
+        
+        toggleBtn.addEventListener('click', function(e) {
+            if (window.innerWidth <= 991) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.querySelector('.dropdown-menu')?.classList.remove('show');
+                    }
+                });
+                
+                // Toggle current dropdown
+                menu.classList.toggle('show');
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.navbar-nav')) {
+            document.querySelectorAll('.navbar-nav .dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
+});
+    </script>
 <?php if ($this->countModules('breadcrumbs')): ?>
 <style>
-    .mod-breadcrumbs {
-        background-color: white;
-        color: #198754;
-        border-radius: 5px;
-        width: 100%;
-        clear: both;
-        z-index: 1; /* Decreased z-index */
-        position: relative; /* Ensure it is positioned relative to its parent */
-    }
-
-    .mod-breadcrumbs .container {
-        
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .mod-breadcrumbs a, 
-    .mod-breadcrumbs span {
-        color: #198754;
-    }
-
-    .mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
-        color: #198754;
-    }
-
-    .mod-breadcrumbs .breadcrumb {
-        margin: 0;
-    }
-
-    @media (max-width: 991px) {
-        .mod-breadcrumbs .container {
-            padding: 0 15px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .mod-breadcrumbs {
-            margin-top: 0;
-        }
-    }
+.mod-breadcrumbs {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  clear: both;
+  z-index: 1;
+  position: relative;
+  margin: 100px 0 10px 0;
+}
+.mod-breadcrumbs .container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.mod-breadcrumbs .breadcrumb {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.mod-breadcrumbs .breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.mod-breadcrumbs a {
+  color: #198754;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+.mod-breadcrumbs a:hover {
+  color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.08);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+.mod-breadcrumbs span {
+  color: #6c757d;
+}
+.mod-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+  content: "›";
+  color: #adb5bd;
+  padding: 0 6px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+}
+/* For current/active item */
+.mod-breadcrumbs .breadcrumb-item.active {
+  color: #6c757d;
+  font-weight: 600;
+  padding: 5px 8px;
+  background-color: rgba(108, 117, 125, 0.08);
+  border-radius: 4px;
+}
+/* Add subtle animation for hover state */
+.mod-breadcrumbs a {
+  position: relative;
+}
+.mod-breadcrumbs a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background-color: #0d6efd;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+.mod-breadcrumbs a:hover::after {
+  transform: scaleX(1);
+}
+@media (max-width: 991px) {
+  .mod-breadcrumbs .container {
+    padding: 0 15px;
+  }
+}
+@media (max-width: 768px) {
+  .mod-breadcrumbs {
+    margin-top: 60px;
+    margin-bottom: 10px;
+    padding: 8px 0;
+  }
+}
 </style>
 <div class="mod-breadcrumbs">
-    <div class="container">
-        <jdoc:include type="modules" name="breadcrumbs" style="none"/>
-    </div>
+  <div class="container">
+    <jdoc:include type="modules" name="breadcrumbs" style="none"/>
+  </div>
 </div>
 <?php endif; ?>
 
@@ -1505,6 +1615,53 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 0 auto;">
     <jdoc:include type="message"/>
     <jdoc:include type="component"/>
+    <!-- CSS -->
+<style>
+  .menu-tab {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .menu-tab.active {
+    color: #0a6e52;
+    border-bottom: 2px solid #0a6e52;
+  }
+
+  .menu-content {
+    display: none;
+  }
+
+  .menu-content.active {
+    display: block;
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  // Select all tabs and menu content containers
+  const tabs = document.querySelectorAll('.menu-tab');
+  const menus = document.querySelectorAll('.menu-content');
+
+  // Add click event listeners to each tab
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove 'active' class from all tabs and menus
+      tabs.forEach(t => t.classList.remove('active'));
+      menus.forEach(menu => menu.classList.remove('active'));
+
+      // Add 'active' class to the clicked tab and corresponding menu
+      tab.classList.add('active');
+      const targetMenu = document.getElementById(tab.dataset.menu);
+      targetMenu.classList.add('active');
+    });
+  });
+</script>
     <style>
         @keyframes scroll {
         0% {
@@ -1706,6 +1863,96 @@ document.addEventListener('DOMContentLoaded', function() {
 </style>
 
   <script>
+    
+    // Function to limit text based on character count
+  function limitText(event, element, maxLength) {
+    // Get the current text content
+    const text = element.textContent;
+    
+    // Allow special keys like backspace, delete, arrows, etc.
+    const allowedKeys = [
+      'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 
+      'ArrowUp', 'ArrowDown', 'Tab', 'End', 'Home'
+    ];
+    
+    // Allow keyboard shortcuts (Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+Z)
+    if (event.ctrlKey && ['a', 'c', 'x', 'z'].includes(event.key.toLowerCase())) {
+      return true;
+    }
+    
+    // Allow selection to replace text
+    if (window.getSelection().toString().length > 0 && !allowedKeys.includes(event.key) && event.key.length === 1) {
+      // Calculate new length after replacement
+      const selectionLength = window.getSelection().toString().length;
+      const newLength = text.length - selectionLength + 1;
+      return newLength <= maxLength;
+    }
+    
+    // If it's an allowed key, let it through
+    if (allowedKeys.includes(event.key)) {
+      return true;
+    }
+    
+    // Otherwise, check if adding this character would exceed the max length
+    if (text.length >= maxLength && event.key.length === 1) {
+      // Visual feedback that max length is reached
+      element.style.animation = 'shake 0.5s';
+      setTimeout(() => {
+        element.style.animation = '';
+      }, 500);
+      return false;
+    }
+    
+    return true;
+  }
+  
+  // Add this CSS for the shake animation
+  document.head.insertAdjacentHTML('beforeend', `
+    <style>
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+      }
+      [contenteditable="true"] {
+        outline: 1px dashed #2e8b57;
+        padding: 2px 4px;
+        transition: outline 0.3s;
+      }
+      [contenteditable="true"]:focus {
+        outline: 2px solid #2e8b57;
+      }
+      [contenteditable="true"]::after {
+        content: attr(data-max-length);
+        display: none;
+        position: absolute;
+        background: rgba(46, 139, 87, 0.8);
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        pointer-events: none;
+      }
+      [contenteditable="true"]:focus::after {
+        display: block;
+      }
+    </style>
+  `);
+  
+  // Initialize all contenteditable elements with their max lengths
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[contenteditable="true"]').forEach(element => {
+      const maxLength = element.getAttribute('onkeydown').match(/limitText\(event, this, (\d+)\)/)[1];
+      element.setAttribute('data-max-length', `${element.textContent.length}/${maxLength}`);
+      
+      // Update the data-max-length attribute when content changes
+      element.addEventListener('input', function() {
+        const maxLen = this.getAttribute('onkeydown').match(/limitText\(event, this, (\d+)\)/)[1];
+        this.setAttribute('data-max-length', `${this.textContent.length}/${maxLen}`);
+      });
+    });
+  });
         document.querySelectorAll('.facility-popup-close').forEach(closeBtn => {
         closeBtn.addEventListener('click', (e) => {
             e.closest('.facility-popup').style.display = 'none';
@@ -1798,6 +2045,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
+        const tabs = document.querySelectorAll('.menu-tab');
+  const menus = document.querySelectorAll('.menu-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      menus.forEach(menu => menu.classList.remove('active'));
+
+      tab.classList.add('active');
+      const targetMenu = document.getElementById(tab.dataset.menu);
+      targetMenu.classList.add('active');
+    });
+  });
     </script>
 </div>
 <?php if ($isHomePage): ?>
@@ -1879,7 +2139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     margin-bottom: 15px;
 }
 
-.detail-item strong {
+detail-item strong {
     display: block;
     margin-bottom: 5px;
     font-size: 1rem;
